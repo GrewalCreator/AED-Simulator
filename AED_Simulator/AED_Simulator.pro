@@ -16,17 +16,23 @@ SOURCES += \
     mediaplayer.cpp \
     testwindow.cpp
 
+
 HEADERS += \
+    SignalType.h \
     aed.h \
     aedwindow.h \
     controller.h \
     defs.h \
     mediaplayer.h \
-    testwindow.h
+    testwindow.h \
+    logs/YYY-MM-DD:AED_LOG.log
 
 FORMS += \
     aedwindow.ui \
-    testwindow.ui
+    testwindow.ui \
+
+
+
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
