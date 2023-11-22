@@ -4,5 +4,7 @@
 #include <string>
 #include <QDebug>
 
+using std::string;
+
 
 #endif // DEFS_H

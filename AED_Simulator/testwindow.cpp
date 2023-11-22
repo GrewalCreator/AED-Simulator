@@ -11,7 +11,7 @@ void TestWindow::initializeConnection(){
     connect(ui->audioTest_button, SIGNAL(released()), testController, SLOT(testAudio()));
 }
 
-void TestWindow::setControllingController(QObject* controller){
+void TestWindow::setController(AEDController* controller){
     testController->setController(controller);
 }
 

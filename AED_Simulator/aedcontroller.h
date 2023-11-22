@@ -12,6 +12,7 @@ class AEDController: public QObject{
 public:
     AEDController(QObject* parent = nullptr);
     void setController(TestController* controller);
+    AED* getAED();
     virtual ~AEDController();
 
 private:

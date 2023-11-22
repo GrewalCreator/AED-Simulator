@@ -13,6 +13,10 @@ void AEDController::setController(TestController* controller){
     //this->testControlSystem->setController(this);
 }
 
+AED* AEDController::getAED(){
+    return automatedED;
+}
+
 /*
 void sendStaticSignal(SignalType signalType){
 
