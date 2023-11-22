@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     aed.cpp \
     aedcontroller.cpp \
+    logger.cpp \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     aedcontroller.h \
     aedwindow.h \
     defs.h \
+    logger.h \
     mediaplayer.h \
     testcontroller.h \
     testwindow.h \
