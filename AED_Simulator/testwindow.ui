@@ -41,6 +41,19 @@
      <string>Play Audio Test</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="logTest_button">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>20</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Log Test</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

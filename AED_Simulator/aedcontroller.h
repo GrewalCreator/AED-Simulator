@@ -13,11 +13,13 @@ public:
     AEDController(QObject* parent = nullptr);
     void setController(TestController* controller);
     AED* getAED();
+    Logger* getLogger();
     virtual ~AEDController();
 
 private:
     AED* automatedED;
     TestController* testControlSystem;
+    Logger* logger;
 };
 
 #endif // AEDCONTROLLER_H

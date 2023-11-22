@@ -11,6 +11,7 @@ class TestController: public QObject{
 
 public slots:
     void testAudio();
+    void logTest();
 
 
 public:

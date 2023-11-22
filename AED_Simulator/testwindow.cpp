@@ -9,6 +9,7 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
 
 void TestWindow::initializeConnection(){
     connect(ui->audioTest_button, SIGNAL(released()), testController, SLOT(testAudio()));
+    connect(ui->logTest_button, SIGNAL(released()), testController, SLOT(logTest()));
 }
 
 void TestWindow::setController(AEDController* controller){
