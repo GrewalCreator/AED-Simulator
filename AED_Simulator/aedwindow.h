@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "aedcontroller.h"
+#include "testcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
@@ -15,10 +16,12 @@ class AEDWindow : public QMainWindow
 public:
     AEDWindow(QWidget *parent = nullptr);
     virtual ~AEDWindow();
+    AEDController* getController();
+    //void setTestController(TestController* controller);
 
 private:
     Ui::AEDWindow *ui;
-    AEDController* controlSystem;
+    AEDController* controller;
 
     void initializeConnects();
 };

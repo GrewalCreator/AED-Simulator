@@ -4,7 +4,7 @@
 
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
-    controlSystem = new AEDController(this);
+    controller = new AEDController(this);
 
 
     initializeConnects();
@@ -14,6 +14,14 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
 void AEDWindow::initializeConnects(){
 
 }
+
+
+AEDController* AEDWindow::getController(){
+    return controller;
+}
+//void AEDWindow::setTestController(TestController *controller){
+   // this->controlSystem->setController(controller);
+//}
 
 AEDWindow::~AEDWindow(){
     delete ui;

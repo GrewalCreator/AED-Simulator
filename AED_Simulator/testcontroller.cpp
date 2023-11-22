@@ -2,7 +2,8 @@
 #include "aedcontroller.h"
 
 TestController::TestController(QObject* parent): QObject(parent){
-    this->controlSystem->setController(this);
+    //this->setController(windowController);
+    //this->controlSystem->setController(this);
 }
 
 void TestController::testAudio(){
@@ -10,7 +11,7 @@ void TestController::testAudio(){
 }
 
 
-void TestController::setController(AEDController* controller){
+void TestController::setController(QObject* controller){
     this->controlSystem = controller;
 }
 

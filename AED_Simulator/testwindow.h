@@ -5,9 +5,9 @@
 
 #include "testcontroller.h"
 
-namespace Ui {
-class TestWindow;
-}
+QT_BEGIN_NAMESPACE
+namespace Ui { class TestWindow; }
+QT_END_NAMESPACE
 
 class TestWindow : public QMainWindow
 {
@@ -17,6 +17,7 @@ class TestWindow : public QMainWindow
 public:
     explicit TestWindow(QWidget *parent = nullptr);
     virtual ~TestWindow();
+    void setControllingController(QObject*);
 
 private:
     Ui::TestWindow *ui;
