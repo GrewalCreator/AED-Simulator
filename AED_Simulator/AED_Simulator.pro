@@ -14,6 +14,7 @@ SOURCES += \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
+    testcontroller.cpp \
     testwindow.cpp
 
 
@@ -24,6 +25,7 @@ HEADERS += \
     controller.h \
     defs.h \
     mediaplayer.h \
+    testcontroller.h \
     testwindow.h \
     logs/YYY-MM-DD:AED_LOG.log
 

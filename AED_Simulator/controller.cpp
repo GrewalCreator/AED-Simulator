@@ -1,7 +1,9 @@
 #include "controller.h"
+#include "testcontroller.h"
 #include "aed.h"
 
 Controller::Controller(QObject* parent): QObject(parent){
+
     automatedED = new AED(*this);
 }
 
