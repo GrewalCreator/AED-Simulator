@@ -16,13 +16,13 @@ public slots:
 public:
     TestController(QObject* parent = nullptr);
 
-    void setController(QObject* controller);
+    void setController(AEDController* controller);
 
     virtual ~TestController();
 
 
 private:
-    QObject* controlSystem;
+    AEDController* controlSystem;
 };
 
 #endif // TESTCONTROLLER_H

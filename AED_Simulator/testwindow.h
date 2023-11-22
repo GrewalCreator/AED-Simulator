@@ -17,7 +17,7 @@ class TestWindow : public QMainWindow
 public:
     explicit TestWindow(QWidget *parent = nullptr);
     virtual ~TestWindow();
-    void setControllingController(QObject*);
+    void setController(AEDController*);
 
 private:
     Ui::TestWindow *ui;

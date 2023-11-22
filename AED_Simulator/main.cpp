@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     AEDWindow w;
     TestWindow tw;
-    tw.setControllingController((QObject*)w.getController());
+    tw.setController(w.getController());
 
     tw.show();
     w.show();
