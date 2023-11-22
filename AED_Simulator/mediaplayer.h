@@ -6,6 +6,7 @@ class MediaPlayer
 {
 public:
     MediaPlayer();
+    virtual ~MediaPlayer();
 
 private:
 

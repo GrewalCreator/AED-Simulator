@@ -2,3 +2,7 @@
 MediaPlayer::MediaPlayer(){
 
 }
+
+MediaPlayer::~MediaPlayer(){
+
+}

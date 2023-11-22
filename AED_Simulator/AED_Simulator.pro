@@ -10,20 +10,22 @@ CONFIG += c++11
 
 SOURCES += \
     aed.cpp \
-    controller.cpp \
+    aedcontroller.cpp \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
+    testcontroller.cpp \
     testwindow.cpp
 
 
 HEADERS += \
     SignalType.h \
     aed.h \
+    aedcontroller.h \
     aedwindow.h \
-    controller.h \
     defs.h \
     mediaplayer.h \
+    testcontroller.h \
     testwindow.h \
     logs/YYY-MM-DD:AED_LOG.log
 

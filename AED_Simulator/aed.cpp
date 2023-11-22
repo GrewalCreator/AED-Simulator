@@ -1,7 +1,7 @@
 #include "aed.h"
-#include "controller.h"
+#include "aedcontroller.h"
 #include "mediaplayer.h"
-AED::AED(Controller& controller): controller(&controller){
+AED::AED(AEDController& controller): controller(&controller){
 
 }
 
