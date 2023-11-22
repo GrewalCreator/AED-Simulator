@@ -5,11 +5,12 @@
 AEDController::AEDController(QObject* parent): QObject(parent){
 
     automatedED = new AED(*this);
-    this->testControlSystem->setController(this);
+
 }
 
 void AEDController::setController(TestController* controller){
     this->testControlSystem = controller;
+    //this->testControlSystem->setController(this);
 }
 
 /*
