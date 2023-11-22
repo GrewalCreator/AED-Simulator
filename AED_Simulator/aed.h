@@ -1,15 +1,15 @@
 #ifndef AED_H
 #define AED_H
 
-class Controller;
+class AEDController;
 
 class AED
 {
 public:
-    AED(Controller& controller);
+    AED(AEDController& controller);
 
 private:
-    Controller* controller;
+    AEDController* controller;
 };
 
 #endif // AED_H

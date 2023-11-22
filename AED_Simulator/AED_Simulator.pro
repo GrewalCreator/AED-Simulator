@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     aed.cpp \
-    controller.cpp \
+    aedcontroller.cpp \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
@@ -21,8 +21,8 @@ SOURCES += \
 HEADERS += \
     SignalType.h \
     aed.h \
+    aedcontroller.h \
     aedwindow.h \
-    controller.h \
     defs.h \
     mediaplayer.h \
     testcontroller.h \

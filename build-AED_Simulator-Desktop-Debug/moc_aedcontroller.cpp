@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'testwindow.h'
+** Meta object code from reading C++ file 'aedcontroller.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.3)
 **
@@ -7,11 +7,11 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../AED_Simulator/testwindow.h"
+#include "../AED_Simulator/aedcontroller.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'testwindow.h' doesn't include <QObject>."
+#error "The header file 'aedcontroller.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.15.3. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,25 +21,25 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_TestWindow_t {
+struct qt_meta_stringdata_AEDController_t {
     QByteArrayData data[1];
-    char stringdata0[11];
+    char stringdata0[14];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_TestWindow_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_AEDController_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_TestWindow_t qt_meta_stringdata_TestWindow = {
+static const qt_meta_stringdata_AEDController_t qt_meta_stringdata_AEDController = {
     {
-QT_MOC_LITERAL(0, 0, 10) // "TestWindow"
+QT_MOC_LITERAL(0, 0, 13) // "AEDController"
 
     },
-    "TestWindow"
+    "AEDController"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_TestWindow[] = {
+static const uint qt_meta_data_AEDController[] = {
 
  // content:
        8,       // revision
@@ -55,7 +55,7 @@ static const uint qt_meta_data_TestWindow[] = {
        0        // eod
 };
 
-void TestWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void AEDController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     (void)_o;
     (void)_id;
@@ -63,32 +63,32 @@ void TestWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     (void)_a;
 }
 
-QT_INIT_METAOBJECT const QMetaObject TestWindow::staticMetaObject = { {
-    QMetaObject::SuperData::link<QMainWindow::staticMetaObject>(),
-    qt_meta_stringdata_TestWindow.data,
-    qt_meta_data_TestWindow,
+QT_INIT_METAOBJECT const QMetaObject AEDController::staticMetaObject = { {
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
+    qt_meta_stringdata_AEDController.data,
+    qt_meta_data_AEDController,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *TestWindow::metaObject() const
+const QMetaObject *AEDController::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *TestWindow::qt_metacast(const char *_clname)
+void *AEDController::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_TestWindow.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_AEDController.stringdata0))
         return static_cast<void*>(this);
-    return QMainWindow::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
-int TestWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int AEDController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QMainWindow::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
     return _id;
 }
 QT_WARNING_POP

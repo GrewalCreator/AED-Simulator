@@ -8,7 +8,7 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
 }
 
 void TestWindow::initializeConnection(){
-    connect(ui->audioTest_button, SIGNAL(released()), testController, SLOT());
+    connect(ui->audioTest_button, SIGNAL(released()), testController, SLOT(testAudio()));
 }
 
 

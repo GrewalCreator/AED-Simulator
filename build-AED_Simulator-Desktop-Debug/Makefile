@@ -53,21 +53,25 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../AED_Simulator/aed.cpp \
-		../AED_Simulator/controller.cpp \
+		../AED_Simulator/aedcontroller.cpp \
 		../AED_Simulator/main.cpp \
 		../AED_Simulator/aedwindow.cpp \
 		../AED_Simulator/mediaplayer.cpp \
-		../AED_Simulator/testwindow.cpp moc_aedwindow.cpp \
-		moc_controller.cpp \
+		../AED_Simulator/testcontroller.cpp \
+		../AED_Simulator/testwindow.cpp moc_aedcontroller.cpp \
+		moc_aedwindow.cpp \
+		moc_testcontroller.cpp \
 		moc_testwindow.cpp
 OBJECTS       = aed.o \
-		controller.o \
+		aedcontroller.o \
 		main.o \
 		aedwindow.o \
 		mediaplayer.o \
+		testcontroller.o \
 		testwindow.o \
+		moc_aedcontroller.o \
 		moc_aedwindow.o \
-		moc_controller.o \
+		moc_testcontroller.o \
 		moc_testwindow.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -149,16 +153,18 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../AED_Simulator/AED_Simulator.pro ../AED_Simulator/SignalType.h \
 		../AED_Simulator/aed.h \
+		../AED_Simulator/aedcontroller.h \
 		../AED_Simulator/aedwindow.h \
-		../AED_Simulator/controller.h \
 		../AED_Simulator/defs.h \
 		../AED_Simulator/mediaplayer.h \
+		../AED_Simulator/testcontroller.h \
 		../AED_Simulator/testwindow.h \
 		../AED_Simulator/logs/YYY-MM-DD:AED_LOG.log ../AED_Simulator/aed.cpp \
-		../AED_Simulator/controller.cpp \
+		../AED_Simulator/aedcontroller.cpp \
 		../AED_Simulator/main.cpp \
 		../AED_Simulator/aedwindow.cpp \
 		../AED_Simulator/mediaplayer.cpp \
+		../AED_Simulator/testcontroller.cpp \
 		../AED_Simulator/testwindow.cpp
 QMAKE_TARGET  = AED_Simulator
 DESTDIR       = 
@@ -345,8 +351,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../AED_Simulator/SignalType.h ../AED_Simulator/aed.h ../AED_Simulator/aedwindow.h ../AED_Simulator/controller.h ../AED_Simulator/defs.h ../AED_Simulator/mediaplayer.h ../AED_Simulator/testwindow.h ../AED_Simulator/logs/YYY-MM-DD:AED_LOG.log $(DISTDIR)/
-	$(COPY_FILE) --parents ../AED_Simulator/aed.cpp ../AED_Simulator/controller.cpp ../AED_Simulator/main.cpp ../AED_Simulator/aedwindow.cpp ../AED_Simulator/mediaplayer.cpp ../AED_Simulator/testwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../AED_Simulator/SignalType.h ../AED_Simulator/aed.h ../AED_Simulator/aedcontroller.h ../AED_Simulator/aedwindow.h ../AED_Simulator/defs.h ../AED_Simulator/mediaplayer.h ../AED_Simulator/testcontroller.h ../AED_Simulator/testwindow.h ../AED_Simulator/logs/YYY-MM-DD:AED_LOG.log $(DISTDIR)/
+	$(COPY_FILE) --parents ../AED_Simulator/aed.cpp ../AED_Simulator/aedcontroller.cpp ../AED_Simulator/main.cpp ../AED_Simulator/aedwindow.cpp ../AED_Simulator/mediaplayer.cpp ../AED_Simulator/testcontroller.cpp ../AED_Simulator/testwindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../AED_Simulator/aedwindow.ui ../AED_Simulator/testwindow.ui $(DISTDIR)/
 
 
@@ -379,22 +385,41 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_aedwindow.cpp moc_controller.cpp moc_testwindow.cpp
+compiler_moc_header_make_all: moc_aedcontroller.cpp moc_aedwindow.cpp moc_testcontroller.cpp moc_testwindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_aedwindow.cpp moc_controller.cpp moc_testwindow.cpp
+	-$(DEL_FILE) moc_aedcontroller.cpp moc_aedwindow.cpp moc_testcontroller.cpp moc_testwindow.cpp
+moc_aedcontroller.cpp: ../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h \
+		../AED_Simulator/aedcontroller.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/Desktop/AED_Simulator/build-AED_Simulator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/AED_Simulator/AED_Simulator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../AED_Simulator/aedcontroller.h -o moc_aedcontroller.cpp
+
 moc_aedwindow.cpp: ../AED_Simulator/aedwindow.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/Desktop/AED_Simulator/build-AED_Simulator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/AED_Simulator/AED_Simulator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../AED_Simulator/aedwindow.h -o moc_aedwindow.cpp
 
-moc_controller.cpp: ../AED_Simulator/controller.h \
+moc_testcontroller.cpp: ../AED_Simulator/testcontroller.h \
+		../AED_Simulator/aedcontroller.h \
 		../AED_Simulator/defs.h \
 		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/Desktop/AED_Simulator/build-AED_Simulator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/AED_Simulator/AED_Simulator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../AED_Simulator/controller.h -o moc_controller.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/Desktop/AED_Simulator/build-AED_Simulator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/AED_Simulator/AED_Simulator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../AED_Simulator/testcontroller.h -o moc_testcontroller.cpp
 
 moc_testwindow.cpp: ../AED_Simulator/testwindow.h \
+		../AED_Simulator/testcontroller.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/student/Desktop/AED_Simulator/build-AED_Simulator-Desktop-Debug/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/AED_Simulator/AED_Simulator -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../AED_Simulator/testwindow.h -o moc_testwindow.cpp
@@ -425,35 +450,58 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 aed.o: ../AED_Simulator/aed.cpp ../AED_Simulator/aed.h \
-		../AED_Simulator/controller.h \
+		../AED_Simulator/aedcontroller.h \
 		../AED_Simulator/defs.h \
+		../AED_Simulator/testcontroller.h \
 		../AED_Simulator/mediaplayer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aed.o ../AED_Simulator/aed.cpp
 
-controller.o: ../AED_Simulator/controller.cpp ../AED_Simulator/controller.h \
+aedcontroller.o: ../AED_Simulator/aedcontroller.cpp ../AED_Simulator/aedcontroller.h \
 		../AED_Simulator/defs.h \
-		../AED_Simulator/aed.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o controller.o ../AED_Simulator/controller.cpp
+		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aedcontroller.o ../AED_Simulator/aedcontroller.cpp
 
-main.o: ../AED_Simulator/main.cpp ../AED_Simulator/aedwindow.h
+main.o: ../AED_Simulator/main.cpp ../AED_Simulator/aedwindow.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../AED_Simulator/main.cpp
 
 aedwindow.o: ../AED_Simulator/aedwindow.cpp ../AED_Simulator/aedwindow.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
+		../AED_Simulator/testcontroller.h \
 		ui_aedwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o aedwindow.o ../AED_Simulator/aedwindow.cpp
 
 mediaplayer.o: ../AED_Simulator/mediaplayer.cpp ../AED_Simulator/mediaplayer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mediaplayer.o ../AED_Simulator/mediaplayer.cpp
 
+testcontroller.o: ../AED_Simulator/testcontroller.cpp ../AED_Simulator/testcontroller.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testcontroller.o ../AED_Simulator/testcontroller.cpp
+
 testwindow.o: ../AED_Simulator/testwindow.cpp ../AED_Simulator/testwindow.h \
+		../AED_Simulator/testcontroller.h \
+		../AED_Simulator/aedcontroller.h \
+		../AED_Simulator/defs.h \
+		../AED_Simulator/aed.h \
 		ui_testwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o testwindow.o ../AED_Simulator/testwindow.cpp
+
+moc_aedcontroller.o: moc_aedcontroller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_aedcontroller.o moc_aedcontroller.cpp
 
 moc_aedwindow.o: moc_aedwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_aedwindow.o moc_aedwindow.cpp
 
-moc_controller.o: moc_controller.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_controller.o moc_controller.cpp
+moc_testcontroller.o: moc_testcontroller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testcontroller.o moc_testcontroller.cpp
 
 moc_testwindow.o: moc_testwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_testwindow.o moc_testwindow.cpp

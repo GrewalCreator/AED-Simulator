@@ -1,10 +1,15 @@
-#include "controller.h"
+#include "aedcontroller.h"
 #include "testcontroller.h"
 #include "aed.h"
 
-Controller::Controller(QObject* parent): QObject(parent){
+AEDController::AEDController(QObject* parent): QObject(parent){
 
     automatedED = new AED(*this);
+    this->testControlSystem->setController(this);
+}
+
+void AEDController::setController(TestController* controller){
+    this->testControlSystem = controller;
 }
 
 /*
@@ -36,6 +41,6 @@ void sendDynamicSignal(SignalType signalType, string data){
 
 
 
-Controller::~Controller(){
+AEDController::~AEDController(){
     delete automatedED;
 }

@@ -2,7 +2,7 @@
 #define AEDWINDOW_H
 
 #include <QMainWindow>
-#include "controller.h"
+#include "aedcontroller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::AEDWindow *ui;
-    Controller* controlSystem;
+    AEDController* controlSystem;
 
     void initializeConnects();
 };

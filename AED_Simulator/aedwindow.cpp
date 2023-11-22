@@ -4,18 +4,18 @@
 
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
-    controlSystem = new Controller(this);
+    controlSystem = new AEDController(this);
+
 
     initializeConnects();
 }
 
 
 void AEDWindow::initializeConnects(){
-    connect(ui->power_button, SIGNAL(released()), controlSystem, SLOT());
+
 }
 
-AEDWindow::~AEDWindow()
-{
+AEDWindow::~AEDWindow(){
     delete ui;
 }
 
