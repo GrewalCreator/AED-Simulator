@@ -8,8 +8,7 @@
 
 class AEDController;
 
-class AED
-{
+class AED{
 public:
     AED(AEDController& controller);
     void playAudio(string audio);
@@ -20,6 +19,8 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
+
+    bool checkShockSafety();
 };
 
 #endif // AED_H

@@ -11,17 +11,22 @@ void AED::playAudio(string audio){
 
 bool AED::shock(const int ampage){
     //Check Safety
-
-    if(battery->getBatteryLevels() >= 5){
-        //Send Shock with specified ampage
-
-        //Deplete Battery
-        battery->depleteBatteryLevel();
-    }else{
-        // Not enough battery
-    }
+    if(!checkShockSafety()){return false;}
+    if(battery->getBatteryLevels() < 5){return false;}
 
 
+    //Send Shock with specified ampage
+
+    //Deplete Battery
+    battery->depleteBatteryLevel();
+    return true;
+
+
+}
+
+bool checkShockSafety(){
+    // return true if safe
+    //return false if not safe
 }
 
 /*
