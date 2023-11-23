@@ -59,7 +59,8 @@ void AEDWindow::loadImgs(){//TODO: introduce variable pixmap size to display com
         filename.resize(filename.length()-4);
         qDebug()<<filename<<" Added to map";
         QPixmap* p = new QPixmap(IMAGE_PATH+filename);
-        *p = p->scaled(ui->ok_image->size());//scales pixmap to the size of labels. MUST KEEP ALL LABELS UNIFORM
+        if(!filename.contains("shock"))
+            *p = p->scaled(ui->ok_image->size());//scales pixmap to the size of labels. MUST KEEP ALL LABELS UNIFORM
         imageMap[filename] = p;
     }
 }
