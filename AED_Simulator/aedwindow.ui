@@ -29,7 +29,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QLabel" name="step1_image">
+    <widget class="QLabel" name="ok_image">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -48,7 +48,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="step2_image">
+    <widget class="QLabel" name="help_image">
      <property name="geometry">
       <rect>
        <x>180</x>
@@ -67,7 +67,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="step3_image">
+    <widget class="QLabel" name="pads_image">
      <property name="geometry">
       <rect>
        <x>340</x>
@@ -86,7 +86,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="step4_image">
+    <widget class="QLabel" name="standclear_image">
      <property name="geometry">
       <rect>
        <x>490</x>
@@ -105,7 +105,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="step5_image">
+    <widget class="QLabel" name="compressions_image">
      <property name="geometry">
       <rect>
        <x>650</x>
@@ -302,20 +302,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="statusLight_image">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>320</y>
-       <width>101</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Status Light</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="status_label">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -326,6 +313,22 @@
      </property>
      <property name="text">
       <string>Status</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="statusLight_image">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>320</y>
+       <width>121</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Status_image</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
