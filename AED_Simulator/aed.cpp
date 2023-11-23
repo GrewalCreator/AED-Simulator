@@ -3,15 +3,19 @@
 #include "mediaplayer.h"
 AED::AED(AEDController& controller): controller(&controller){
     audioPlayer = new MediaPlayer();
+    battery = new Battery();
 }
 
 void AED::playAudio(string audio){
     audioPlayer->play(audio);
 }
 
-bool AED::shock(const int ampage){
+
+
+bool AED::shock(int ampage){
     //Check Safety
-    if(!checkShockSafety()){return false;}
+    //if(!checkSafety()){return false;}
+
     if(battery->getBatteryLevels() < 5){return false;}
 
 
@@ -24,12 +28,21 @@ bool AED::shock(const int ampage){
 
 }
 
-bool checkShockSafety(){
-    // return true if safe
-    //return false if not safe
-}
+
+
 
 /*
  controller.sendStaticSignal(SIGNAL_TYPE);
  controller.sendDynamicSignal(SIGNAL_TYPE, string data);
 */
+
+
+
+
+
+
+AED::~AED(){
+    delete battery;
+    delete audioPlayer;
+    delete controller;
+}

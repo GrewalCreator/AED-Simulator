@@ -13,14 +13,15 @@ public:
     AED(AEDController& controller);
     void playAudio(string audio);
 
-    bool shock(const int ampage);
+    bool shock(int ampage);
+
+
+    virtual ~AED();
 
 private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
-
-    bool checkShockSafety();
 };
 
 #endif // AED_H
