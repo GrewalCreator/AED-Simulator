@@ -3,6 +3,7 @@
 
 #include "mediaplayer.h"
 #include "SignalType.h"
+#include "battery.h"
 
 
 class AEDController;
@@ -16,6 +17,7 @@ public:
 private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
+    Battery* battery;
 };
 
 #endif // AED_H
