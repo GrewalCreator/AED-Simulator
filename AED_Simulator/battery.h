@@ -7,6 +7,7 @@ public:
     Battery();
     void depleteBatteryLevel();
     void chargeBattery();
+    int getBatteryLevels();
     virtual ~Battery();
 
 private:

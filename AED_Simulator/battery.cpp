@@ -15,7 +15,9 @@ void Battery::chargeBattery(){
     batteryLevels += 5;
 }
 
-
+int Battery::getBatteryLevels(){
+    return batteryLevels;
+}
 Battery::~Battery(){
 
 }
