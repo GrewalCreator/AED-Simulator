@@ -22,6 +22,10 @@ private:
     AED* automatedED;
     TestController* testControlSystem;
     Logger* logger;
+
+signals:
+    void dynamicSignal(SignalType sig, string& data);
+    void staticSignal(SignalType sig);
 };
 
 #endif // AEDCONTROLLER_H

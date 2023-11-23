@@ -23,7 +23,17 @@ void AEDWindow::signalToString(){
 }
 
 void AEDWindow::initializeConnects(){
+    qDebug()<<"connection verify: "<< connect(controller, SIGNAL(staticSignal(SignalType sig)), this,SLOT(receiveStaticSignal(SignalType sig)));
+    qDebug()<<"connection verify: "<< connect(controller, SIGNAL(dynamicSignal(SignalType sig, string& data)), this,SLOT(receiveDynamicSignal(SignalType, string& data)));
 
+}
+
+void AEDWindow::receiveStaticSignal(SignalType sig){
+    qDebug()<<uiMap[sig]<< " has been targeted.";
+}
+
+void AEDWindow::receiveDynamicSignal(SignalType sig, string& data){
+    qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
