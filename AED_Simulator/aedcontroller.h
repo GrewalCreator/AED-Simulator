@@ -6,6 +6,7 @@
 #include "testcontroller.h"
 #include "logger.h"
 
+
 class TestController;
 
 class AEDController: public QObject{
