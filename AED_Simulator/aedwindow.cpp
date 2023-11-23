@@ -29,9 +29,6 @@ void AEDWindow::loadImgs(){
 AEDController* AEDWindow::getController(){
     return controller;
 }
-//void AEDWindow::setTestController(TestController *controller){
-   // this->controlSystem->setController(controller);
-//}
 
 AEDWindow::~AEDWindow(){
     delete ui;

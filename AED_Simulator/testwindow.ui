@@ -54,6 +54,19 @@
      <string>Log Test</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="illuminateStepTest_button">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Illuminate Step Test</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
