@@ -6,7 +6,7 @@ class Logger
 {
 public:
     Logger();
-
+    virtual ~Logger();
 };
 
 #endif // LOGGER_H

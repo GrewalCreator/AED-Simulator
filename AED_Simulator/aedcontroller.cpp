@@ -21,33 +21,17 @@ AED* AEDController::getAED(){
     return automatedED;
 }
 
-/*
-void sendStaticSignal(SignalType signalType){
 
-    switch(signalType){
-        case SET_STATUS_SUCCESS:
-            emit statusLightSuccess();
-            break;
-        case SET_STATUS_FAIL:
-            emit statusLightFail();
-            break;
-    }
+void AEDController::sendStaticSignal(SignalType& signalType){
+
+    emit staticSignal(signalType);
 }
-*/
 
-/*
-void sendDynamicSignal(SignalType signalType, string data){
 
-    switch(signalType){
-        case PRINT:
-            emit qprint(data);
-            break;
-    }
+void AEDController::sendDynamicSignal(SignalType& signalType, string& data){
+
+    emit dynamicSignal(signalType, data);
 }
-*/
-
-
-
 
 
 AEDController::~AEDController(){

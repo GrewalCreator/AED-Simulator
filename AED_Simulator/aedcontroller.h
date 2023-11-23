@@ -5,6 +5,7 @@
 #include "aed.h"
 #include "testcontroller.h"
 #include "logger.h"
+#include "SignalType.h"
 
 
 class TestController;
@@ -18,6 +19,8 @@ public:
     Logger* getLogger();
     virtual ~AEDController();
     void testSignals();
+    void sendStaticSignal(SignalType& signalType);
+    void sendDynamicSignal(SignalType& signalType, string& data);
 
 private:
     AED* automatedED;
