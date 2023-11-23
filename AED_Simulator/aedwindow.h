@@ -6,7 +6,7 @@
 #include "testcontroller.h"
 #include <QMap>
 #include <QPixmap>
-
+#include <QLabel>
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
 QT_END_NAMESPACE
@@ -23,11 +23,18 @@ public:
 
 private:
     Ui::AEDWindow *ui;
-    QMap<string, QPixmap*> images;
-    QMap<SignalType,QString> uiMap;
+    QMap<QString, QPixmap*> imageMap;
+    QMap<SignalType,QLabel*> uiMap;
     AEDController* controller;
+    //TODO: make 2 signal handlers: static and dynamic
     void loadImgs();
+    void initImgs();
+    QList<QLabel*> allimages();
+    void signalToString();
     void initializeConnects();
+private slots:
+    void receiveStaticSignal(SignalType& sig);
+    void receiveDynamicSignal(SignalType& sig, string& data);
 
 };
 #endif // AEDWINDOW_H

@@ -17,11 +17,17 @@ public:
     AED* getAED();
     Logger* getLogger();
     virtual ~AEDController();
+    void testSignals();
 
 private:
     AED* automatedED;
     TestController* testControlSystem;
     Logger* logger;
+
+
+signals:
+    void dynamicSignal(SignalType& sig, string& data);
+    void staticSignal(SignalType& sig);
 };
 
 #endif // AEDCONTROLLER_H
