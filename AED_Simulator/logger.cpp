@@ -3,3 +3,8 @@
 Logger::Logger(){
 
 }
+
+
+Logger::~Logger(){
+
+}

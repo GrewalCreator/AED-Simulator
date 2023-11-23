@@ -14,7 +14,7 @@ public:
     void playAudio(string audio);
 
     bool shock(int ampage);
-
+    bool checkShockSafety();
 
     virtual ~AED();
 
