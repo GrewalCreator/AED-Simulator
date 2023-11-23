@@ -33,8 +33,8 @@ private:
     void signalToString();
     void initializeConnects();
 private slots:
-    void receiveStaticSignal(SignalType sig);
-    void receiveDynamicSignal(SignalType sig, string& data);
+    void receiveStaticSignal(SignalType& sig);
+    void receiveDynamicSignal(SignalType& sig, string& data);
 
 };
 #endif // AEDWINDOW_H
