@@ -11,7 +11,6 @@ AEDController::AEDController(QObject* parent): QObject(parent){
 
 void AEDController::setController(TestController* controller){
     this->testControlSystem = controller;
-    //this->testControlSystem->setController(this);
 }
 
 Logger* AEDController::getLogger(){
