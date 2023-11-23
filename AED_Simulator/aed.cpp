@@ -3,6 +3,7 @@
 #include "mediaplayer.h"
 AED::AED(AEDController& controller): controller(&controller){
     audioPlayer = new MediaPlayer();
+    battery = new Battery();
 }
 
 void AED::playAudio(string audio){
@@ -10,7 +11,38 @@ void AED::playAudio(string audio){
 }
 
 
+
+bool AED::shock(int ampage){
+    //Check Safety
+    //if(!checkSafety()){return false;}
+
+    if(battery->getBatteryLevels() < 5){return false;}
+
+
+    //Send Shock with specified ampage
+
+    //Deplete Battery
+    battery->depleteBatteryLevel();
+    return true;
+
+
+}
+
+
+
+
 /*
  controller.sendStaticSignal(SIGNAL_TYPE);
  controller.sendDynamicSignal(SIGNAL_TYPE, string data);
 */
+
+
+
+
+
+
+AED::~AED(){
+    delete battery;
+    delete audioPlayer;
+    delete controller;
+}
