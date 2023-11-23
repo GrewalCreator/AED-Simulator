@@ -14,6 +14,8 @@ public:
     AED(AEDController& controller);
     void playAudio(string audio);
 
+    bool shock(const int ampage);
+
 private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
