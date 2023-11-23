@@ -2,8 +2,7 @@
 #include "aedcontroller.h"
 
 TestController::TestController(QObject* parent): QObject(parent){
-    //this->setController(windowController);
-    //this->controlSystem->setController(this);
+
 }
 
 void TestController::testAudio(){
@@ -15,10 +14,15 @@ void TestController::setController(AEDController* controller){
     this->controlSystem = controller;
 }
 
+// Remove Later
 void TestController::logTest(){
-    this->controlSystem->getLogger()->log("this string");
+
 }
 
+// Remove Later
+void TestController::illuminateTest(){
+    //controlSystem->sendDynamicSignal(LIGHTUP_STEP, "integer");
+}
 
 
 TestController::~TestController(){

@@ -5,7 +5,8 @@ enum SignalType{
     PRINT,
     INDICATOR_LIGHT,
     SET_STATUS,
-    POWER_INDICATOR
+    POWER_INDICATOR,
+    LIGHTUP_STEP
 
 };
 
