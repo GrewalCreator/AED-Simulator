@@ -16,7 +16,7 @@ void TestController::setController(AEDController* controller){
 }
 
 void TestController::logTest(){
-    this->controlSystem->getLogger()->log("this string");
+    //this->controlSystem->getLogger()->log("this string"); uncomment this
 }
 
 

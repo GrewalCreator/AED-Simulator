@@ -2,7 +2,7 @@
 #define AED_H
 
 #include "mediaplayer.h"
-
+#include "SignalType.h"
 class AEDController;
 
 class AED

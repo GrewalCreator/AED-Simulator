@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "aedcontroller.h"
 #include "testcontroller.h"
+#include <QMap>
+#include <QPixmap>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
@@ -21,8 +23,11 @@ public:
 
 private:
     Ui::AEDWindow *ui;
+    QMap<string, QPixmap*> images;
+    QMap<SignalType,QString> uiMap;
     AEDController* controller;
-
+    void loadImgs();
     void initializeConnects();
+
 };
 #endif // AEDWINDOW_H
