@@ -3,19 +3,25 @@
 
 #include "mediaplayer.h"
 #include "SignalType.h"
+#include "battery.h"
 
 
 class AEDController;
 
-class AED
-{
+class AED{
 public:
     AED(AEDController& controller);
     void playAudio(string audio);
 
+    bool shock(int ampage);
+
+
+    virtual ~AED();
+
 private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
+    Battery* battery;
 };
 
 #endif // AED_H
