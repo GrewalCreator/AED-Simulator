@@ -14,7 +14,7 @@ bool AED::checkShockSafety(){
     return true;
 }
 
-bool AED::shock(int ampage){
+bool AED::shock(int amperage){
     //Check Safety
     if(!checkShockSafety()){return false;}
 

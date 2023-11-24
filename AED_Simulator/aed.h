@@ -12,9 +12,8 @@ class AED{
 public:
     AED(AEDController& controller);
     void playAudio(string audio);
-
-    bool shock(int ampage);
     bool checkShockSafety();
+    bool shock(int amperage);
 
     virtual ~AED();
 

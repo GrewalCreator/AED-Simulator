@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>969</width>
-    <height>528</height>
+    <width>1301</width>
+    <height>581</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>180</x>
+      <y>30</y>
       <width>951</width>
       <height>471</height>
      </rect>
@@ -34,8 +34,8 @@
       <rect>
        <x>20</x>
        <y>10</y>
-       <width>121</width>
-       <height>71</height>
+       <width>150</width>
+       <height>124</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -51,10 +51,10 @@
     <widget class="QLabel" name="help_image">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>190</x>
        <y>10</y>
-       <width>121</width>
-       <height>71</height>
+       <width>150</width>
+       <height>124</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -70,10 +70,10 @@
     <widget class="QLabel" name="pads_image">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>360</x>
        <y>10</y>
-       <width>121</width>
-       <height>71</height>
+       <width>150</width>
+       <height>124</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -89,10 +89,10 @@
     <widget class="QLabel" name="standclear_image">
      <property name="geometry">
       <rect>
-       <x>490</x>
+       <x>530</x>
        <y>10</y>
-       <width>121</width>
-       <height>71</height>
+       <width>150</width>
+       <height>124</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -108,10 +108,10 @@
     <widget class="QLabel" name="compressions_image">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>10</y>
-       <width>121</width>
-       <height>71</height>
+       <x>700</x>
+       <y>20</y>
+       <width>231</width>
+       <height>191</height>
       </rect>
      </property>
      <property name="autoFillBackground">
@@ -127,8 +127,8 @@
     <widget class="QLabel" name="step6_image">
      <property name="geometry">
       <rect>
-       <x>810</x>
-       <y>10</y>
+       <x>750</x>
+       <y>240</y>
        <width>121</width>
        <height>71</height>
       </rect>
@@ -147,7 +147,7 @@
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>140</y>
+       <y>200</y>
        <width>51</width>
        <height>41</height>
       </rect>
@@ -192,102 +192,24 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>40</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>360</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_4">
-     <property name="geometry">
-      <rect>
-       <x>510</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_5">
-     <property name="geometry">
-      <rect>
-       <x>670</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_6">
-     <property name="geometry">
-      <rect>
-       <x>830</x>
-       <y>90</y>
-       <width>83</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>PushButton</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="shock_button">
      <property name="geometry">
       <rect>
-       <x>280</x>
-       <y>350</y>
-       <width>341</width>
-       <height>91</height>
+       <x>330</x>
+       <y>260</y>
+       <width>137</width>
+       <height>134</height>
       </rect>
      </property>
      <property name="text">
-      <string>Shock da bitch</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="padsPlacement_image">
      <property name="geometry">
       <rect>
-       <x>720</x>
-       <y>290</y>
+       <x>700</x>
+       <y>340</y>
        <width>201</width>
        <height>101</height>
       </rect>
@@ -335,13 +257,31 @@
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="frame_2">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>0</y>
+      <width>1131</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame_2</zorder>
+   <zorder>frame</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>969</width>
+     <width>1301</width>
      <height>22</height>
     </rect>
    </property>
