@@ -12,7 +12,7 @@ void AED::playAudio(string audio){
 
 
 
-bool AED::shock(int ampage){
+bool AED::shock(int amperage){
     //Check Safety
     //if(!checkSafety()){return false;}
 

@@ -29,9 +29,12 @@ private:
     //TODO: make 2 signal handlers: static and dynamic
     void loadImgs();
     void initImgs();
-    QList<QLabel*> allimages();
     void signalToString();
     void initializeConnects();
+    void setOneLight(SignalType sig, bool lit);
+    void setAllLights(bool);
+    void styling();
+    void setShockLight(bool);
 private slots:
     void receiveStaticSignal(SignalType& sig);
     void receiveDynamicSignal(SignalType& sig, string& data);
