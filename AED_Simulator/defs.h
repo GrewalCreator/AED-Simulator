@@ -6,6 +6,7 @@
 
 
 #define IMAGE_PATH "../AED_Simulator/images/"
+#define LOG_PATH "../AED_Simulator/logs/"
 
 #define CHILD_AMPS 50
 #define ADULT_AMPS 100
