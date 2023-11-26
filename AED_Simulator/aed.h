@@ -11,7 +11,7 @@ class AEDController;
 class AED{
 public:
     AED(AEDController& controller);
-    void playAudio(string audio);
+    void playAudio(const AudioTypes& audio);
     bool checkShockSafety();
     bool shock(int amperage);
 

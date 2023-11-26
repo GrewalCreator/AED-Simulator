@@ -22,13 +22,13 @@ AED* AEDController::getAED(){
 }
 
 
-void AEDController::sendStaticSignal(SignalType& signalType){
+void AEDController::sendStaticSignal(const SignalType& signalType){
 
     emit staticSignal(signalType);
 }
 
 
-void AEDController::sendDynamicSignal(SignalType& signalType, string& data){
+void AEDController::sendDynamicSignal(const SignalType& signalType, const string& data){
 
     emit dynamicSignal(signalType, data);
 }

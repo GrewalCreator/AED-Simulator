@@ -31,13 +31,13 @@ private:
     void initImgs();
     void signalToString();
     void initializeConnects();
-    void setOneLight(SignalType sig, bool lit);
+    void setOneLight(const SignalType sig, bool lit);
     void setAllLights(bool);
     void styling();
     void setShockLight(bool);
 private slots:
-    void receiveStaticSignal(SignalType& sig);
-    void receiveDynamicSignal(SignalType& sig, string& data);
+    void receiveStaticSignal(const SignalType& sig);
+    void receiveDynamicSignal(const SignalType& sig, const string& data);
 
 };
 #endif // AEDWINDOW_H
