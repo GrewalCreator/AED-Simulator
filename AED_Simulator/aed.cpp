@@ -6,7 +6,7 @@ AED::AED(AEDController& controller): controller(&controller){
     battery = new Battery();
 }
 
-void AED::playAudio(string audio){
+void AED::playAudio(const AudioTypes& audio){
     audioPlayer->play(audio);
 }
 

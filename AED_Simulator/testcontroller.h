@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "aedcontroller.h"
+
 class AEDController;
 
 class TestController: public QObject{

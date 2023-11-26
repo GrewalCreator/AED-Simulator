@@ -6,6 +6,7 @@
 #include "testcontroller.h"
 #include "logger.h"
 #include "SignalType.h"
+#include "AudioTypes.h"
 
 
 class TestController;
@@ -19,8 +20,8 @@ public:
     Logger* getLogger();
     virtual ~AEDController();
     void testSignals();
-    void sendStaticSignal(SignalType& signalType);
-    void sendDynamicSignal(SignalType& signalType, string& data);
+    void sendStaticSignal(const SignalType& signalType);
+    void sendDynamicSignal(const SignalType& signalType, const string& data);
 
 private:
     AED* automatedED;
@@ -29,8 +30,8 @@ private:
 
 
 signals:
-    void dynamicSignal(SignalType& sig, string& data);
-    void staticSignal(SignalType& sig);
+    void dynamicSignal(const SignalType& sig, const string& data);
+    void staticSignal(const SignalType& sig);
 };
 
 #endif // AEDCONTROLLER_H

@@ -49,16 +49,16 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
-    connect(controller, SIGNAL(staticSignal(SignalType&)), this,SLOT(receiveStaticSignal(SignalType& )));
-    connect(controller, SIGNAL(dynamicSignal(SignalType&, string&)), this,SLOT(receiveDynamicSignal(SignalType&, string&)));
+    connect(controller, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
 }
 
-void AEDWindow::receiveStaticSignal(SignalType& sig){
+void AEDWindow::receiveStaticSignal(const SignalType& sig){
     qDebug()<<uiMap[sig]<< " has been targeted.";
 }
 
-void AEDWindow::receiveDynamicSignal(SignalType& sig, string& data){
+void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
     qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 
@@ -113,7 +113,7 @@ void AEDWindow::setAllLights(bool lit){
     }
 }
 
-void AEDWindow::setOneLight(SignalType sig,bool lit){
+void AEDWindow::setOneLight(const SignalType sig,bool lit){
     setAllLights(false);
     QLabel* label = uiMap[sig];
 

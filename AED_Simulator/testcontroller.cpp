@@ -6,7 +6,7 @@ TestController::TestController(QObject* parent): QObject(parent){
 }
 
 void TestController::testAudio(){
-    controlSystem->getAED()->playAudio("Testing Testing 1, 2,  3");
+    controlSystem->getAED()->playAudio(STAND_CLEAR);
 }
 
 

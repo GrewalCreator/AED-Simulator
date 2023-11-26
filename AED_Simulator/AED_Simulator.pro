@@ -22,6 +22,7 @@ SOURCES += \
 
 
 HEADERS += \
+    AudioTypes.h \
     SignalType.h \
     aed.h \
     aedcontroller.h \
