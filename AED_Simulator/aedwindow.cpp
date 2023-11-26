@@ -16,7 +16,7 @@ void AEDWindow::signalToString(){
 
     uiMap[LIGHTUP_OK] = ui->ok_image;
     uiMap[LIGHTUP_COMPRESSIONS] = ui->compressions_image;
-    uiMap[SET_STATUS] = ui->statusLight_image;
+    //uiMap[SET_STATUS] = ui->statusLight_image;
     uiMap[LIGHTUP_911] = ui->help_image;
     uiMap[LIGHTUP_PADS] = ui->pads_image;
     uiMap[LIGHTUP_STANDCLEAR] = ui->standclear_image;
