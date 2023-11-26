@@ -2,24 +2,51 @@
 
 Logger::Logger(){
     dateHandler = new QDateTime();
-    activeFile = new QFile();
+    setup();
 }
 
 //TO-DO: Make setup test button and log test button
 void Logger::setup(){
     QString currentDate = dateHandler->currentDateTime().toString("yyyy:MM:dd") + "-AED";
-    if(QDir(currentDate).exists()){
-        QString activeFileName = dateHandler->currentDateTime().toString("yyyy:MM:dd hh:mm:ss") + "-AED_LOG.log";
-        activeFile->setFileName(activeFileName);
-        activeFile->open(QIODevice::WriteOnly | QIODevice::Text);
+    QString dirPath = QString(LOG_PATH) + "/" + currentDate;
+
+        if (!QDir(dirPath).exists()) {
+            QDir().mkpath(dirPath);
+        }
+
+        QString activeFileName = dirPath + "/" + dateHandler->currentDateTime().toString("yyyy:MM:dd hh:mm:ss") + "-AED_LOG.log";
+        activeFile = new QFile(activeFileName);
+        outStream.setDevice(activeFile);
+        if (activeFile->open(QIODevice::WriteOnly | QIODevice::Text)) {
+            log("File Opened Successfully\n");
+        } else {
+            qInfo() << "Could Not Open Log File" << Qt::endl;
+        }
+
+        // Set this file as this runtime's file to write to [activeFile]
+}
+
+void Logger::log(string message){
+    if(!activeFile || !activeFile->isOpen()){
+        qInfo() << "Could Not Load Log File" << Qt::endl;
+        return;
     }
-    // check if Folder YYYY:MM::DDD-AED Exists
-        // If True, Open
-        // If False, Create
-    // & add YYY:MM:DD-AED_LOG.log
-    // Set this file as this runtimes file to write to [activeFile]
+    QString prefix = dateHandler->currentDateTime().toString("yyyy:MM:dd hh:dd:ss") + " ===> ";
+    QString qMessage = prefix + QString::fromStdString(message);
+
+    outStream << qMessage << Qt::endl;
+
+}
+
+void Logger::cleanup(){
+    if (activeFile != nullptr && activeFile->isOpen()) {
+        activeFile->close();
+        delete activeFile;
+        activeFile = nullptr; // Set to nullptr to avoid accessing a deleted pointer
+    }
 }
 
 Logger::~Logger(){
+    cleanup();
     delete dateHandler;
 }

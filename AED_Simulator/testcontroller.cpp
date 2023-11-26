@@ -16,8 +16,10 @@ void TestController::setController(AEDController* controller){
 
 // Remove Later
 void TestController::logTest(){
-
+    controlSystem->getLogger()->log("Test");
 }
+
+
 
 // Remove Later
 void TestController::illuminateTest(){
