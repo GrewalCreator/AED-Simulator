@@ -16,6 +16,9 @@ void TestWindow::initializeConnection(){
     // Remove Later
     connect(ui->illuminateStepTest_button, SIGNAL(released()), testController, SLOT(illuminateTest()));
 
+    //Remove Later
+    connect(ui->logTest_button, SIGNAL(released()), testController, SLOT(logTest()));
+
 }
 
 void TestWindow::setController(AEDController* controller){
