@@ -8,15 +8,25 @@ MediaPlayer::MediaPlayer(){
 void MediaPlayer::play(const AudioTypes& audio){
 
     QString soundFilePath;
+    QString fileName;
 
     switch(audio){
         case STAND_CLEAR:
-            soundFilePath = QString(AUDIO_PATH) + "stand_clear.wav";
+            fileName = "stand_clear.wav";
+            break;
+        case POWER_ON_AUDIO:
+            fileName = "Power_On.wav";
+            break;
+        case POWER_OFF_AUDIO:
+            fileName = "Power_Off.wav";
             break;
         default:
-            soundFilePath = QString(AUDIO_PATH) + "error.wav";
+            fileName = "error.wav";
             qInfo()  << "Audio File Not Found" << Qt::endl;
+            break;
     }
+
+    soundFilePath = QString(AUDIO_PATH) + fileName;
 
 
     qInfo() << soundFilePath << Qt::endl;

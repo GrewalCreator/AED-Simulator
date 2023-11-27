@@ -1,0 +1,15 @@
+#ifndef PROCESSSTEPS_H
+#define PROCESSSTEPS_H
+
+enum ProcessSteps{
+    POWER_ON,
+    ELECTRODE_PAD_PLACEMENT,
+    ANALYZE_ECG,
+    SHOCK,
+    CPR,
+    AFTER_CARE,
+    POWER_OFF
+};
+
+
+#endif // PROCESSSTEPS_H

@@ -1,10 +1,13 @@
 #include "aedwindow.h"
 #include "ui_aedwindow.h"
-#include "QDir"
-#include "QRegularExpression"
+
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
     controller = new AEDController(this);
+
+    ui->mainFrame->setEnabled(false);
+    controller->setProcessTracker(POWER_OFF);
+
     signalToString();
     initializeConnects();
     loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
@@ -49,9 +52,36 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
+    // Static Signal Connections
     connect(controller, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+
+    // Dynamic Signal Connections
     connect(controller, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
+    // Power Button
+    connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
+}
+
+void AEDWindow::togglePower(){
+    if(ui->mainFrame->isEnabled()){
+        controller->getAED()->playAudio(POWER_OFF_AUDIO);
+        ui->mainFrame->setEnabled(false);
+    }else{
+        controller->getAED()->playAudio(POWER_ON_AUDIO);
+        ui->mainFrame->setEnabled(true);
+        bool successfulPowerOn = controller->powerAEDOn();
+        if(!successfulPowerOn){
+            // AED NOT SAFE TO RUN, Shutting Down
+            consoleOut("AED Did Not Pass Tests. Powering Off . . .");
+
+            togglePower();
+        }
+    }
+
+}
+
+void AEDWindow::consoleOut(const QString& message){
+    ui->instruction_console->append(message);
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig){
@@ -125,9 +155,9 @@ void AEDWindow::setOneLight(const SignalType sig,bool lit){
     }
 }
 
-void AEDWindow::setShockLight(bool lit){
+void AEDWindow::setShockLight(bool isLightOn){
     QIcon shockimg;
-    if(lit){
+    if(isLightOn){
         shockimg = QIcon(*imageMap["shock_button_on"]);
     }
     else

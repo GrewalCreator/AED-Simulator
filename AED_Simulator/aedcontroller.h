@@ -7,7 +7,7 @@
 #include "logger.h"
 #include "SignalType.h"
 #include "AudioTypes.h"
-
+#include "processtracker.h"
 
 class TestController;
 
@@ -19,14 +19,16 @@ public:
     AED* getAED();
     Logger* getLogger();
     virtual ~AEDController();
-    void testSignals();
     void sendStaticSignal(const SignalType& signalType);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
+    bool powerAEDOn();
+    void setProcessTracker(const ProcessSteps& step);
 
 private:
     AED* automatedED;
     TestController* testControlSystem;
     Logger* logger;
+    ProcessTracker* processTracker;
 
 
 signals:
