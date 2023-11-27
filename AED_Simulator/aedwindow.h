@@ -7,6 +7,9 @@
 #include <QMap>
 #include <QPixmap>
 #include <QLabel>
+#include "QDir"
+#include "QRegularExpression"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
 QT_END_NAMESPACE
@@ -19,7 +22,7 @@ public:
     AEDWindow(QWidget *parent = nullptr);
     virtual ~AEDWindow();
     AEDController* getController();
-    //void setTestController(TestController* controller);
+
 
 private:
     Ui::AEDWindow *ui;
@@ -35,9 +38,12 @@ private:
     void setAllLights(bool);
     void styling();
     void setShockLight(bool);
+
 private slots:
     void receiveStaticSignal(const SignalType& sig);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
+    void togglePower();
+    void consoleOut(const QString& message);
 
 };
 #endif // AEDWINDOW_H

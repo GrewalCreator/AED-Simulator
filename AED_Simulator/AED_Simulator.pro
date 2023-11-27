@@ -17,12 +17,14 @@ SOURCES += \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
+    processtracker.cpp \
     testcontroller.cpp \
     testwindow.cpp
 
 
 HEADERS += \
     AudioTypes.h \
+    ProcessSteps.h \
     SignalType.h \
     aed.h \
     aedcontroller.h \
@@ -31,6 +33,7 @@ HEADERS += \
     defs.h \
     logger.h \
     mediaplayer.h \
+    processtracker.h \
     testcontroller.h \
     testwindow.h \
     logs/

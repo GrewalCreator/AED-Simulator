@@ -10,6 +10,21 @@ void AED::playAudio(const AudioTypes& audio){
     audioPlayer->play(audio);
 }
 
+bool AED::powerOn(){
+    // Run General Safety Checks
+    if(!safetyChecks()){return false;}
+
+    audioPlayer->play(INTRO_AUDIO);
+    return true;
+
+
+}
+
+bool AED::safetyChecks(){
+    // Implement Safety Checks
+    return true;
+}
+
 bool AED::checkShockSafety(){
     return true;
 }

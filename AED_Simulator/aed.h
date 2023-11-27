@@ -14,6 +14,7 @@ public:
     void playAudio(const AudioTypes& audio);
     bool checkShockSafety();
     bool shock(int amperage);
+    bool powerOn();
 
     virtual ~AED();
 
@@ -21,6 +22,8 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
+
+    bool safetyChecks();
 };
 
 #endif // AED_H
