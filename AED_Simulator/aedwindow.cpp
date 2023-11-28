@@ -4,10 +4,9 @@
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
     controller = new AEDController(this);
-
     ui->mainFrame->setEnabled(false);
     controller->setProcessTracker(POWER_OFF);
-
+    controlPool.start(controller);
     signalToString();
     initializeConnects();
     loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
@@ -52,11 +51,14 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
+
     // Static Signal Connections
-    connect(controller, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
 
     // Dynamic Signal Connections
-    connect(controller, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
+    connect(controller->transmit,SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
@@ -66,6 +68,7 @@ void AEDWindow::togglePower(){
     if(ui->mainFrame->isEnabled()){
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
         ui->mainFrame->setEnabled(false);
+        controller->powerAEDOff();
     }else{
         controller->getAED()->playAudio(POWER_ON_AUDIO);
         ui->mainFrame->setEnabled(true);
@@ -173,5 +176,6 @@ AEDController* AEDWindow::getController(){
 
 AEDWindow::~AEDWindow(){
     delete ui;
+    delete controller;
 }
 
