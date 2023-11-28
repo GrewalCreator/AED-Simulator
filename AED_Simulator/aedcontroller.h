@@ -9,6 +9,7 @@
 #include "AudioTypes.h"
 #include "QRunnable"
 #include "processtracker.h"
+#include "QSemaphore"
 
 class TestController;
 
@@ -26,7 +27,7 @@ signals:
 
 class AEDController: public QRunnable{
 public:
-    AEDController(QObject* parent = nullptr);
+    AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
     AED* getAED();
     Logger* getLogger();
@@ -43,6 +44,7 @@ public:
 
 private:
     void checkAll();
+    QSemaphore* semaphore;
     void cleanup();
     bool breakflag;
     AED* automatedED;

@@ -3,8 +3,8 @@
 
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
-    controller = new AEDController(this);
-
+    semaphore = new QSemaphore(0);
+    controller = new AEDController(semaphore, this);
 
     controller->setProcessTracker(POWER_OFF);
     controlPool = new QThreadPool();
@@ -177,7 +177,9 @@ void AEDWindow::setShockLight(bool isLightOn){
 
 void AEDWindow::closeEvent(QCloseEvent* event){
     emit aboutToClose();
-
+    controller->powerAEDOff();
+    semaphore->acquire();
+    qDebug()<<"sem acquired as thread id:"<<QThread::currentThreadId();
     QWidget::closeEvent(event);
 }
 
@@ -186,8 +188,10 @@ AEDController* AEDWindow::getController(){
 }
 
 AEDWindow::~AEDWindow(){
+    qDebug()<<"in aedwindow decons";
+    delete ui;
+    controlPool->waitForDone();
     delete controlPool;
     delete controller;
-    delete ui;
 }
 

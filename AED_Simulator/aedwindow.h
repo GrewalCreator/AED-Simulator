@@ -30,6 +30,7 @@ private:
     QMap<QString, QPixmap*> imageMap;
     QMap<SignalType,QLabel*> uiMap;
     AEDController* controller;
+    QSemaphore* semaphore;
     QThreadPool* controlPool;
     //TODO: make 2 signal handlers: static and dynamic
     void loadImgs();

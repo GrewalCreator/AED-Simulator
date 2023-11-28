@@ -2,13 +2,13 @@
 #include "testcontroller.h"
 #include "aed.h"
 #include "QThread"
-AEDController::AEDController(QObject* parent){
+AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
     automatedED = new AED(*this);
     logger = new Logger();
     processTracker = new ProcessTracker();
     breakflag=false;
-
+    semaphore = sem;
 }
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
@@ -40,6 +40,7 @@ bool AEDController::powerAEDOn(){
 }
 
 bool AEDController::powerAEDOff(){
+    qDebug()<<"in aedcontroller poweroff, calling cleanup now";
     this->cleanup();
     return true;//just true for now
 }
@@ -66,18 +67,21 @@ void AEDController::run(){
 
     while(!breakflag){
         QThread::msleep(1000);
-        qDebug()<<"Looping.";
+        qDebug()<<"Looping as thread id:"<<QThread::currentThreadId();
 
     }
+    semaphore->release();
+    qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
 }
 
 void AEDController::cleanup(){
-    qDebug()<<"doing cleanup...";
+    qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();
     breakflag = true;
 }
 
 AEDController::~AEDController(){
-    delete automatedED;
-    delete transmit;
+    qDebug()<<"Within AEDController deconstructor as thread id:"<<QThread::currentThreadId();
+    //delete automatedED;
+    //delete transmit;
 
 }
