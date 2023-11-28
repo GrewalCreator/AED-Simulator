@@ -8,7 +8,6 @@ AEDController::AEDController(QObject* parent){
     logger = new Logger();
     processTracker = new ProcessTracker();
     breakflag=false;
-
 }
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){

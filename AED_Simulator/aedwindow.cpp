@@ -172,7 +172,7 @@ void AEDWindow::setShockLight(bool isLightOn){
 
 void AEDWindow::closeEvent(QCloseEvent* event){
     emit aboutToClose();
-
+    controller->powerAEDOff();
     QWidget::closeEvent(event);
 }
 
@@ -181,6 +181,7 @@ AEDController* AEDWindow::getController(){
 }
 
 AEDWindow::~AEDWindow(){
+    qDebug()<<"smokin on that symbiote pack";
     delete ui;
     delete controller;
 }
