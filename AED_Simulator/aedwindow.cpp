@@ -7,7 +7,8 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     controller = new AEDController(semaphore, this);
 
     controller->setProcessTracker(POWER_OFF);
-    controlPool.start(controller);
+    controlPool = new QThreadPool();
+    controlPool->start(controller);
     signalToString();
     initializeConnects();
     loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
@@ -189,7 +190,8 @@ AEDController* AEDWindow::getController(){
 AEDWindow::~AEDWindow(){
     qDebug()<<"in aedwindow decons";
     delete ui;
-    controlPool.waitForDone();
-    //delete controller;
+    controlPool->waitForDone();
+    delete controlPool;
+    delete controller;
 }
 
