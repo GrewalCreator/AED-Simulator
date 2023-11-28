@@ -26,6 +26,10 @@ void AEDController::setProcessTracker(const ProcessSteps& step){
     this->processTracker->setCurrentStep(step);
 }
 
+const ProcessSteps& AEDController::getProcessTracker(){
+    return this->processTracker->getCurrentStep();
+}
+
 void AEDController::setController(TestController* controller){
     this->testControlSystem = controller;
 }

@@ -4,7 +4,8 @@
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
     controller = new AEDController(this);
-    ui->mainFrame->setEnabled(false);
+
+
     controller->setProcessTracker(POWER_OFF);
     controlPool.start(controller);
     signalToString();
@@ -32,12 +33,12 @@ void AEDWindow::styling(){
                     QPushButton:hover {\n\
                         background-color: #FF0000;\n\
                         color: #FFFFFF;}\n\
-                    QFrame#frame{\n\
-                        background-color: #FFFF00;\n\
+                    QFrame#mainFrame{\n\
+                        background-color: #12a32a;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
                     QFrame#frame_2{\n\
-                        background-color: #000000;\n\
+                        background-color: #5ff578;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
                     QLabel {\n\
@@ -65,13 +66,14 @@ void AEDWindow::initializeConnects(){
 }
 
 void AEDWindow::togglePower(){
-    if(ui->mainFrame->isEnabled()){
+    if(controller->getProcessTracker() != POWER_OFF){   // Power is On, Turn it Off
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
-        ui->mainFrame->setEnabled(false);
         controller->powerAEDOff();
-    }else{
+        controller->setProcessTracker(POWER_OFF);
+    }else{                                              // Power is Off, Turn It On
         controller->getAED()->playAudio(POWER_ON_AUDIO);
-        ui->mainFrame->setEnabled(true);
+        controller->setProcessTracker(POWER_ON);
+
         bool successfulPowerOn = controller->powerAEDOn();
         if(!successfulPowerOn){
             // AED NOT SAFE TO RUN, Shutting Down
@@ -79,6 +81,8 @@ void AEDWindow::togglePower(){
 
             togglePower();
         }
+
+
     }
 
 }
