@@ -59,5 +59,4 @@ bool AED::shock(int amperage){
 AED::~AED(){
     delete battery;
     delete audioPlayer;
-    //delete controller;
 }

@@ -21,6 +21,6 @@ void TestWindow::closeEvent(QCloseEvent* event){
     QWidget::closeEvent(event);
 }
 
-TestWindow::~TestWindow(){
+TestWindow::~TestWindow(){  
     delete ui;
 }
