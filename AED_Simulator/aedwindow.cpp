@@ -167,6 +167,12 @@ void AEDWindow::setShockLight(bool isLightOn){
     ui->shock_button->setIconSize((*imageMap["shock_button_off"]).size());
 }
 
+void AEDWindow::closeEvent(QCloseEvent* event){
+    emit aboutToClose();
+
+    QWidget::closeEvent(event);
+}
+
 AEDController* AEDWindow::getController(){
     return controller;
 }
