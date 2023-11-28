@@ -3,6 +3,10 @@
 
 enum AudioTypes{
     STAND_CLEAR,
+    INTRO_AUDIO,
+    POWER_ON_AUDIO,
+    POWER_OFF_AUDIO
+
 
 };
 
