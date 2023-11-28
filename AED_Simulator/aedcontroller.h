@@ -39,6 +39,7 @@ public:
     bool powerAEDOn();
     bool powerAEDOff();
     void setProcessTracker(const ProcessSteps& step);
+    const ProcessSteps& getProcessTracker();
 
 private:
     void checkAll();

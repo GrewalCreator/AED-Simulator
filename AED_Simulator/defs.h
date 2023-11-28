@@ -5,9 +5,9 @@
 #include <QDebug>
 
 
-#define IMAGE_PATH "../AED_Simulator/images/"
-#define LOG_PATH "../AED_Simulator/logs/"
-#define AUDIO_PATH "../AED_Simulator/audio/"
+#define IMAGE_PATH "../AED_Simulator/Resources/images/"
+#define LOG_PATH "../AED_Simulator/Resources/logs/"
+#define AUDIO_PATH "../AED_Simulator/Resources/audio/"
 
 #define CHILD_AMPS 50
 #define ADULT_AMPS 100
