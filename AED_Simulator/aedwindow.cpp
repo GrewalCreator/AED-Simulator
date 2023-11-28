@@ -32,12 +32,12 @@ void AEDWindow::styling(){
                     QPushButton:hover {\n\
                         background-color: #FF0000;\n\
                         color: #FFFFFF;}\n\
-                    QFrame#frame{\n\
-                        background-color: #FFFF00;\n\
+                    QFrame#mainFrame{\n\
+                        background-color: #12a32a;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
                     QFrame#frame_2{\n\
-                        background-color: #000000;\n\
+                        background-color: #5ff578;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
                     QLabel {\n\
