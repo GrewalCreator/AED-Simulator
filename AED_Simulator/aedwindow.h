@@ -41,6 +41,12 @@ private:
     void styling();
     void setShockLight(bool);
 
+signals:
+    void aboutToClose();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private slots:
     void receiveStaticSignal(const SignalType& sig);
     void receiveDynamicSignal(const SignalType& sig, const string& data);

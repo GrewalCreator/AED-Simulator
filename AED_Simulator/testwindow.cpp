@@ -15,7 +15,11 @@ void TestWindow::setController(AEDController* controller){
     testController->setController(controller);
 }
 
+void TestWindow::closeEvent(QCloseEvent* event){
+    emit aboutToClose();
 
+    QWidget::closeEvent(event);
+}
 
 TestWindow::~TestWindow(){
     delete ui;

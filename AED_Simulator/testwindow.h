@@ -20,6 +20,12 @@ public:
     virtual ~TestWindow();
     void setController(AEDController*);
 
+signals:
+    void aboutToClose();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;
