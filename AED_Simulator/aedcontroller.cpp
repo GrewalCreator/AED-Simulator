@@ -7,10 +7,10 @@ AEDController::AEDController(QObject* parent){
     automatedED = new AED(*this);
     logger = new Logger();
     processTracker = new ProcessTracker();
+    breakflag=false;
 
 }
 
-<<<<<<< HEAD
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 
 };
@@ -21,10 +21,10 @@ void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
 
 void AEDTransmitter::sendStatic(const SignalType& sig){
     emit staticSignal(sig);
-=======
+}
+
 void AEDController::setProcessTracker(const ProcessSteps& step){
     this->processTracker->setCurrentStep(step);
->>>>>>> 07b49c0c1422d012447c7871e91f55acc379132b
 }
 
 void AEDController::setController(TestController* controller){
@@ -33,6 +33,11 @@ void AEDController::setController(TestController* controller){
 
 bool AEDController::powerAEDOn(){
     return automatedED->powerOn();
+}
+
+bool AEDController::powerAEDOff(){
+    this->cleanup();
+    return true;//just true for now
 }
 
 Logger* AEDController::getLogger(){
@@ -55,7 +60,7 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 
 void AEDController::run(){
 
-    while(true){
+    while(!breakflag){
         QThread::msleep(1000);
         qDebug()<<"Looping.";
 
@@ -64,7 +69,9 @@ void AEDController::run(){
 
 void AEDController::cleanup(){
     qDebug()<<"doing cleanup...";
+    breakflag = true;
 }
+
 AEDController::~AEDController(){
     delete automatedED;
     delete transmit;

@@ -7,13 +7,10 @@
 #include <QMap>
 #include <QPixmap>
 #include <QLabel>
-<<<<<<< HEAD
 #include "QThreadPool"
-=======
 #include "QDir"
 #include "QRegularExpression"
 
->>>>>>> 07b49c0c1422d012447c7871e91f55acc379132b
 QT_BEGIN_NAMESPACE
 namespace Ui { class AEDWindow; }
 QT_END_NAMESPACE
