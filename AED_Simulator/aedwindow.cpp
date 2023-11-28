@@ -5,6 +5,7 @@
 AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow){
     ui->setupUi(this);
     controller = new AEDController(this);
+    controlPool.start(controller);
     signalToString();
     initializeConnects();
     loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
@@ -49,8 +50,8 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
-    connect(controller, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
-    connect(controller, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
 }
 
@@ -143,5 +144,7 @@ AEDController* AEDWindow::getController(){
 
 AEDWindow::~AEDWindow(){
     delete ui;
+    controller->cleanup();
+    delete controller;
 }
 
