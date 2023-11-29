@@ -2,6 +2,7 @@
 #include "testcontroller.h"
 #include "aed.h"
 #include "QThread"
+#include "QCoreApplication"
 AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
     automatedED = new AED(*this);
@@ -64,15 +65,18 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 }
 
 void AEDController::run(){
+    breakflag = false; //allows for controller to start looping after being killed
 
     while(!breakflag){
         QThread::msleep(1000);
         qDebug()<<"Looping as thread id:"<<QThread::currentThreadId();
-
+        QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
     }
     semaphore->release();
     qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
+    this->moveToThread(QCoreApplication::instance()->thread());
 }
+
 
 void AEDController::cleanup(){
     qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();

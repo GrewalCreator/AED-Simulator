@@ -25,13 +25,13 @@ signals:
 };
 
 
-class AEDController: public QRunnable{
+class AEDController: public QObject{
+    Q_OBJECT
 public:
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
     AED* getAED();
     Logger* getLogger();
-    void run() override;
     AEDTransmitter* transmit;
     virtual ~AEDController();
     void testSignals();
@@ -45,13 +45,17 @@ public:
 private:
     void checkAll();
     QSemaphore* semaphore;
-    void cleanup();
     bool breakflag;
     AED* automatedED;
     TestController* testControlSystem;
     Logger* logger;
     ProcessTracker* processTracker;
+    void cleanup();
+private slots:
+    void run();
+
 };
+
 
 
 
