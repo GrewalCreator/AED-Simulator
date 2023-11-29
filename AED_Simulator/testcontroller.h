@@ -11,7 +11,9 @@ class TestController: public QObject{
 
 
 public slots:
-
+    void updateHeartRate(int);
+signals:
+    void updateHeartRateImage(vector<double>&, vector<double>&);
 
 public:
     TestController(QObject* parent = nullptr);
