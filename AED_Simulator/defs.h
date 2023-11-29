@@ -13,6 +13,6 @@
 #define ADULT_AMPS 100
 
 using std::string;
-
+using std::vector;
 
 #endif // DEFS_H

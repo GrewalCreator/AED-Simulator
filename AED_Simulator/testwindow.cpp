@@ -8,7 +8,8 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
 }
 
 void TestWindow::initializeConnection(){
-
+    connect(ui->heartRate_slider, SIGNAL(valueChanged(int)), testController, SLOT(updateHeartRate(int)));
+    connect(testController, SIGNAL(updateHeartRateImage(vector<double>&, vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&, vector<double>&)));
 }
 
 void TestWindow::setController(AEDController* controller){
@@ -20,6 +21,13 @@ void TestWindow::closeEvent(QCloseEvent* event){
 
     QWidget::closeEvent(event);
 }
+
+void TestWindow::generateHeartRateImage(vector<double>& xValues, vector<double>& yValues) {
+    // Has not been working
+}
+
+
+
 
 TestWindow::~TestWindow(){  
     delete ui;

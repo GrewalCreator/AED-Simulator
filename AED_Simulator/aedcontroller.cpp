@@ -7,6 +7,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     automatedED = new AED(*this);
     logger = new Logger();
     processTracker = new ProcessTracker();
+    heartRateGenerator = new HeartRateGenerator();
     breakflag=false;
     semaphore = sem;
 }
@@ -29,6 +30,10 @@ void AEDController::setProcessTracker(const ProcessSteps& step){
 
 const ProcessSteps& AEDController::getProcessTracker(){
     return this->processTracker->getCurrentStep();
+}
+
+HeartRateGenerator* AEDController::getHeartRateGenerator(){
+    return heartRateGenerator;
 }
 
 void AEDController::setController(TestController* controller){

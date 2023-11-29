@@ -13,10 +13,12 @@ SOURCES += \
     aed.cpp \
     aedcontroller.cpp \
     battery.cpp \
+    heartrategenerator.cpp \
     logger.cpp \
     main.cpp \
     aedwindow.cpp \
     mediaplayer.cpp \
+    patient.cpp \
     processtracker.cpp \
     testcontroller.cpp \
     testwindow.cpp
@@ -24,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     AudioTypes.h \
+    PatientType.h \
     ProcessSteps.h \
     SignalType.h \
     aed.h \
@@ -31,12 +34,13 @@ HEADERS += \
     aedwindow.h \
     battery.h \
     defs.h \
+    heartrategenerator.h \
     logger.h \
     mediaplayer.h \
+    patient.h \
     processtracker.h \
     testcontroller.h \
     testwindow.h \
-    logs/
 
 FORMS += \
     aedwindow.ui \
