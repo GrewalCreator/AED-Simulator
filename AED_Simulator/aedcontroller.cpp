@@ -75,7 +75,7 @@ void AEDController::run(){
     while(!breakflag){
         QThread::msleep(100);
         qDebug()<<"Looping as thread id:"<<QThread::currentThreadId();
-        //QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
+        QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
     }
     semaphore->release();
     qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
