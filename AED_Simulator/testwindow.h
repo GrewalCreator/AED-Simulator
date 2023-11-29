@@ -4,6 +4,8 @@
 #include <QMainWindow>
 
 #include "testcontroller.h"
+#include "QPainter"
+#include "QImage"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestWindow; }
@@ -26,10 +28,14 @@ signals:
 protected:
     void closeEvent(QCloseEvent *event) override;
 
+public slots:
+    void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;
     void initializeConnection();
+
 };
 
 #endif // TESTWINDOW_H

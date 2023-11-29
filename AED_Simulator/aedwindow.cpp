@@ -5,15 +5,14 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     ui->setupUi(this);
     semaphore = new QSemaphore(0);
     controller = new AEDController(semaphore, this);
-
     controller->setProcessTracker(POWER_OFF);
-    controlPool = new QThreadPool();
-    controlPool->start(controller);
     signalToString();
     initializeConnects();
     loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
     initImgs();
     styling();
+    controlThread = new QThread();
+
 
 }
 void AEDWindow::signalToString(){
@@ -66,20 +65,34 @@ void AEDWindow::initializeConnects(){
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
 }
 
+void AEDWindow::onCleanup(){
+    qDebug()<<"i fucking hate threads";
+}
+
 void AEDWindow::togglePower(){
     if(controller->getProcessTracker() != POWER_OFF){   // Power is On, Turn it Off
-        controller->getAED()->playAudio(POWER_OFF_AUDIO);
         controller->powerAEDOff();
+        if (controlThread->isRunning()) {
+            controlThread->quit();
+            controlThread->wait();
+        }
+        disconnect(controlThread, SIGNAL(started()), controller, SLOT(run()));
+
+        controller->getAED()->playAudio(POWER_OFF_AUDIO);
+        //controller->powerAEDOff(); previous position of poweroff.
         controller->setProcessTracker(POWER_OFF);
+
+
     }else{                                              // Power is Off, Turn It On
+        connect(controlThread, SIGNAL(started()), controller, SLOT(run()));
+        controller->moveToThread(controlThread);
+        controlThread->start();
         controller->getAED()->playAudio(POWER_ON_AUDIO);
         controller->setProcessTracker(POWER_ON);
-
         bool successfulPowerOn = controller->powerAEDOn();
         if(!successfulPowerOn){
             // AED NOT SAFE TO RUN, Shutting Down
             consoleOut("AED Did Not Pass Tests. Powering Off . . .");
-
             togglePower();
         }
 
@@ -190,8 +203,6 @@ AEDController* AEDWindow::getController(){
 AEDWindow::~AEDWindow(){
     qDebug()<<"in aedwindow decons";
     delete ui;
-    controlPool->waitForDone();
-    delete controlPool;
     delete controller;
 }
 

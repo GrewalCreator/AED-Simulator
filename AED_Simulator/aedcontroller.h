@@ -1,15 +1,16 @@
 #ifndef AEDCONTROLLER_H
 #define AEDCONTROLLER_H
 #include <QObject>
+#include "QSemaphore"
+
 #include "defs.h"
 #include "aed.h"
 #include "testcontroller.h"
 #include "logger.h"
 #include "SignalType.h"
 #include "AudioTypes.h"
-#include "QRunnable"
 #include "processtracker.h"
-#include "QSemaphore"
+#include "heartrategenerator.h"
 
 class TestController;
 
@@ -25,13 +26,13 @@ signals:
 };
 
 
-class AEDController: public QRunnable{
+class AEDController: public QObject{
+    Q_OBJECT
 public:
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
     AED* getAED();
     Logger* getLogger();
-    void run() override;
     AEDTransmitter* transmit;
     virtual ~AEDController();
     void testSignals();
@@ -41,17 +42,22 @@ public:
     bool powerAEDOff();
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker();
+    HeartRateGenerator* getHeartRateGenerator();
 
 private:
     void checkAll();
     QSemaphore* semaphore;
-    void cleanup();
     bool breakflag;
     AED* automatedED;
     TestController* testControlSystem;
     Logger* logger;
     ProcessTracker* processTracker;
+    HeartRateGenerator* heartRateGenerator;
+    void cleanup();
+private slots:
+    void run();
 };
+
 
 
 

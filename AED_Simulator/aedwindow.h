@@ -1,13 +1,12 @@
 #ifndef AEDWINDOW_H
 #define AEDWINDOW_H
-
+#include "QThread"
 #include <QMainWindow>
 #include "aedcontroller.h"
 #include "testcontroller.h"
 #include <QMap>
 #include <QPixmap>
 #include <QLabel>
-#include "QThreadPool"
 #include "QDir"
 #include "QRegularExpression"
 
@@ -31,7 +30,7 @@ private:
     QMap<SignalType,QLabel*> uiMap;
     AEDController* controller;
     QSemaphore* semaphore;
-    QThreadPool* controlPool;
+    QThread* controlThread;
     //TODO: make 2 signal handlers: static and dynamic
     void loadImgs();
     void initImgs();
@@ -49,6 +48,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
+    void onCleanup();//implement if there are things to do when the aed is turned off
     void receiveStaticSignal(const SignalType& sig);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
     void togglePower();
