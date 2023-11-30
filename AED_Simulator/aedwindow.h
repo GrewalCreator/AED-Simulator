@@ -40,6 +40,7 @@ private:
     void setAllLights(bool);
     void styling();
     void setShockLight(bool);
+    void setPowerLight(bool);
 
 signals:
     void aboutToClose();
@@ -49,7 +50,7 @@ protected:
 
 private slots:
     void onCleanup();//implement if there are things to do when the aed is turned off
-    void receiveStaticSignal(const SignalType& sig);
+    void receiveStaticSignal(const SignalType& sig, bool state);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
     void togglePower();
     void consoleOut(const QString& message);

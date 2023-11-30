@@ -47,16 +47,25 @@ void AEDWindow::styling(){
                         }\n\
                     QPushButton:pressed {\n\
                         background-color: #FFFF00;}\n\
-");
+                        QProgressBar {\n\
+                            border: 2px solid grey;\n\
+                            border-radius: 5px;\n\
+                            background-color: #5ff578;\n\
+                            height: 20px;\n\
+                            text-align: center;\n\
+                        }\n\
+                        QProgressBar::chunk {\n\
+                            background-color: #ffcc00;\n\
+                            width: 10px;\n\
+                        }\n"
+                           );
 }
 
 
 void AEDWindow::initializeConnects(){
-    qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
-    connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Static Signal Connections
-    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
     // Dynamic Signal Connections
     connect(controller->transmit,SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
@@ -70,6 +79,7 @@ void AEDWindow::onCleanup(){
 }
 
 void AEDWindow::togglePower(){
+
     if(controller->getProcessTracker() != POWER_OFF){   // Power is On, Turn it Off
         controller->powerAEDOff();
         if (controlThread->isRunning()) {
@@ -81,6 +91,8 @@ void AEDWindow::togglePower(){
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
         //controller->powerAEDOff(); previous position of poweroff.
         controller->setProcessTracker(POWER_OFF);
+        setPowerLight(false);
+        setAllLights(false);
 
 
     }else{                                              // Power is Off, Turn It On
@@ -90,6 +102,7 @@ void AEDWindow::togglePower(){
         controller->getAED()->playAudio(POWER_ON_AUDIO);
         controller->setProcessTracker(POWER_ON);
         bool successfulPowerOn = controller->powerAEDOn();
+        setPowerLight(true);
         if(!successfulPowerOn){
             // AED NOT SAFE TO RUN, Shutting Down
             consoleOut("AED Did Not Pass Tests. Powering Off . . .");
@@ -105,37 +118,17 @@ void AEDWindow::consoleOut(const QString& message){
     ui->instruction_console->append(message);
 }
 
-void AEDWindow::receiveStaticSignal(const SignalType& sig){
+void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
     //qDebug()<<uiMap[sig]<< " has been targeted.";
-    switch(sig){
-    default:
-        break;
-
-    case LIGHTUP_COMPRESSIONS:
-        setOneLight(LIGHTUP_COMPRESSIONS,true);
-        break;
-
-    case LIGHTUP_OK:
-        setOneLight(LIGHTUP_OK,true);
-        break;
-
-    case LIGHTUP_911:
-        setOneLight(LIGHTUP_911,true);
-        break;
-
-    case LIGHTUP_PADS:
-        setOneLight(LIGHTUP_PADS,true);
-        break;
-
-    case LIGHTUP_SHOCK:
-        setShockLight(true);
-        break;
-
-    case LIGHTUP_STANDCLEAR:
-        setOneLight(LIGHTUP_STANDCLEAR,true);
-        break;
+    if(sig == LIGHTUP_SHOCK){
+        setShockLight(state);
     }
-
+    else if(sig == POWER_INDICATOR){
+        setPowerLight(state);
+    }
+    else{
+        setOneLight(sig, state);
+    }
 }
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
@@ -148,7 +141,9 @@ void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simp
     ui->compressions_image->setPixmap(*(imageMap["compressions_image_off"]));
     ui->pads_image->setPixmap(*(imageMap["pads_image_off"]));
     ui->help_image->setPixmap(*(imageMap["help_image_off"]));
+
     setShockLight(false);
+    setPowerLight(false);
 }
 
 
@@ -217,6 +212,20 @@ void AEDWindow::setShockLight(bool isLightOn){
 
     ui->shock_button->setIcon(shockimg);
     ui->shock_button->setIconSize((*imageMap["shock_button_off"]).size());
+}
+
+void AEDWindow::setPowerLight(bool isLightOn){
+    QIcon powerimg;
+    qDebug()<<"set to "<<isLightOn;
+    //setAllLights(false);
+    if(isLightOn){
+        powerimg = QIcon(*imageMap["power_button_on"]);
+    }
+    else
+        powerimg = QIcon(*imageMap["power_button_off"]);
+
+    ui->power_button->setIcon(powerimg);
+    ui->power_button->setIconSize(QSize(91,91));
 }
 
 void AEDWindow::closeEvent(QCloseEvent* event){

@@ -21,8 +21,8 @@ void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
     emit dynamicSignal(sig,data);
 }
 
-void AEDTransmitter::sendStatic(const SignalType& sig){
-    emit staticSignal(sig);
+void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
+    emit staticSignal(sig, state);
 }
 
 void AEDController::setProcessTracker(const ProcessSteps& step){
@@ -60,8 +60,8 @@ AED* AEDController::getAED(){
 }
 
 
-void AEDController::sendStaticSignal(const SignalType& signalType){
-    transmit->sendStatic(signalType);
+void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
+    transmit->sendStatic(signalType,state);
 }
 
 
@@ -79,32 +79,32 @@ void AEDController::run(){
 
         switch(i%6){
         case 0:
-            transmit->sendStatic(LIGHTUP_OK);
+            transmit->sendStatic(LIGHTUP_OK,true);
             qDebug()<<"sending ok";
             break;
 
         case 1:
-            transmit->sendStatic(LIGHTUP_911);
+            transmit->sendStatic(LIGHTUP_911,true);
             qDebug()<<"sending 911";
             break;
 
         case 2:
-            transmit->sendStatic(LIGHTUP_PADS);
+            transmit->sendStatic(LIGHTUP_PADS,true);
             qDebug()<<"sending pads";
             break;
 
         case 3:
-            transmit->sendStatic(LIGHTUP_STANDCLEAR);
+            transmit->sendStatic(LIGHTUP_STANDCLEAR,true);
             qDebug()<<"sending standclear";
             break;
 
         case 4:
-            transmit->sendStatic(LIGHTUP_SHOCK);
+            transmit->sendStatic(LIGHTUP_SHOCK,true);
             qDebug()<<"sending shock";
             break;
 
         case 5:
-            transmit->sendStatic(LIGHTUP_COMPRESSIONS);
+            transmit->sendStatic(LIGHTUP_COMPRESSIONS,true);
             qDebug()<<"sending compressions";
             break;
 

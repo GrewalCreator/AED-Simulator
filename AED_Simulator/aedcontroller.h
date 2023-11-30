@@ -19,10 +19,10 @@ class AEDTransmitter: public QObject{
 public:
     AEDTransmitter(QObject* parent = nullptr);
     void sendDynamic(const SignalType& sig, const string& data);
-    void sendStatic(const SignalType& sig);
+    void sendStatic(const SignalType& sig, bool state);
 signals:
     void dynamicSignal(const SignalType& sig, const string& data);
-    void staticSignal(const SignalType& sig);
+    void staticSignal(const SignalType& sig, bool state);
 };
 
 
@@ -36,7 +36,7 @@ public:
     AEDTransmitter* transmit;
     virtual ~AEDController();
     void testSignals();
-    void sendStaticSignal(const SignalType& signalType);
+    void sendStaticSignal(const SignalType& signalType, bool state);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
     bool powerAEDOff();
