@@ -5,10 +5,12 @@
 
 int main(int argc, char *argv[])
 {
+
     QApplication a(argc, argv);
     AEDWindow w;
     TestWindow tw;
     tw.setController(w.getController());
+    qRegisterMetaType<SignalType>("SignalType");
 
     QObject::connect(&w, SIGNAL(aboutToClose()), &tw, SLOT(close()));
     QObject::connect(&tw, SIGNAL(aboutToClose()), &w, SLOT(close()));

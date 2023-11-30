@@ -46,6 +46,7 @@ public:
 
 private:
     void checkAll();
+    void updateHR();
     QSemaphore* semaphore;
     bool breakflag;
     AED* automatedED;

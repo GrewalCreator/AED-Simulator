@@ -71,26 +71,63 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
-
+    int i = 0;
     while(!breakflag){
+        //qDebug()<<"loop"<<i;
         QThread::msleep(100);
-        qDebug()<<"Looping as thread id:"<<QThread::currentThreadId();
+        //qDebug()<<"i value:"<<i%5;
+
+        switch(i%6){
+        case 0:
+            transmit->sendStatic(LIGHTUP_OK);
+            qDebug()<<"sending ok";
+            break;
+
+        case 1:
+            transmit->sendStatic(LIGHTUP_911);
+            qDebug()<<"sending 911";
+            break;
+
+        case 2:
+            transmit->sendStatic(LIGHTUP_PADS);
+            qDebug()<<"sending pads";
+            break;
+
+        case 3:
+            transmit->sendStatic(LIGHTUP_STANDCLEAR);
+            qDebug()<<"sending standclear";
+            break;
+
+        case 4:
+            transmit->sendStatic(LIGHTUP_SHOCK);
+            qDebug()<<"sending shock";
+            break;
+
+        case 5:
+            transmit->sendStatic(LIGHTUP_COMPRESSIONS);
+            qDebug()<<"sending compressions";
+            break;
+
+        default:
+            break;
+        }
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
+        i++;
     }
     semaphore->release();
-    qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
+    //qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
     this->moveToThread(QCoreApplication::instance()->thread());
 }
 
 
 void AEDController::cleanup(){
-    qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();
+    //qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();
     breakflag = true;
 }
 
 AEDController::~AEDController(){
-    qDebug()<<"Within AEDController deconstructor as thread id:"<<QThread::currentThreadId();
-    //delete automatedED;
-    //delete transmit;
+    //qDebug()<<"Within AEDController deconstructor as thread id:"<<QThread::currentThreadId();
+    delete automatedED;
+    delete transmit;
 
 }
