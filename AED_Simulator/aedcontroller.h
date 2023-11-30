@@ -11,6 +11,7 @@
 #include "AudioTypes.h"
 #include "processtracker.h"
 #include "heartrategenerator.h"
+#include "PatientType.h"
 
 class TestController;
 
@@ -43,6 +44,7 @@ public:
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker();
     HeartRateGenerator* getHeartRateGenerator();
+    void placePads(PatientType);
 
 private:
     void checkAll();

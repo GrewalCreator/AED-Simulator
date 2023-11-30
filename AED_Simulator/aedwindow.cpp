@@ -63,6 +63,12 @@ void AEDWindow::initializeConnects(){
 
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
+
+    // Adult Pads Button
+    connect(ui->adultPads_button, SIGNAL(released()), this, SLOT(toggleAdultPads()));
+
+    // Child Pads Button
+    connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
 }
 
 void AEDWindow::onCleanup(){
@@ -99,6 +105,14 @@ void AEDWindow::togglePower(){
 
     }
 
+}
+
+void AEDWindow::toggleAdultPads(){
+    controller->placePads(PatientType::ADULT);
+}
+
+void AEDWindow::toggleChildPads(){
+    controller->placePads(PatientType::CHILD);
 }
 
 void AEDWindow::consoleOut(const QString& message){
@@ -235,5 +249,17 @@ AEDWindow::~AEDWindow(){
     qDebug()<<"in aedwindow decons";
     delete ui;
     delete controller;
+}
+
+
+void AEDWindow::on_adultPads_button_clicked()
+{
+
+}
+
+
+void AEDWindow::on_childPads_button_clicked()
+{
+
 }
 

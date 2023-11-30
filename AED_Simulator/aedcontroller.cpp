@@ -3,6 +3,9 @@
 #include "aed.h"
 #include "QThread"
 #include "QCoreApplication"
+#include <cstdlib>
+#include <ctime>
+
 AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
     automatedED = new AED(*this);
@@ -123,6 +126,41 @@ void AEDController::run(){
 void AEDController::cleanup(){
     //qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();
     breakflag = true;
+}
+
+void AEDController::placePads(PatientType type){
+
+    //TODO: uncomment when previous step (preliminary checks) are implemented
+    //if (processTracker->getCurrentStep() != ProcessSteps::ELECTRODE_PAD_PLACEMENT){
+       // return;
+    //}
+
+    int placementIndicator;
+
+    switch(type){
+
+    case(PatientType::ADULT):
+        qDebug() << "ADULT PADS";
+        break;
+    case(PatientType::CHILD):
+        qDebug() << "PEDIATRIC PADS";
+        break;
+    }
+
+    std::srand(std::time(0));
+    placementIndicator = (std::rand() % 5);
+
+    if (placementIndicator){ // 1 to 4 indicates successful pad placement
+        qDebug() << "PADS SUCCESSFULLY ATTACHED";
+        //TODO: call AEDWindow's setOneLight(LIGHTUP_PADS, false)SS
+
+        //TODO: call function for analysis
+
+    }else{
+        qDebug() << "CHECK ELECTRODE PADS";
+        return;
+    }
+
 }
 
 AEDController::~AEDController(){
