@@ -49,7 +49,7 @@ protected:
 
 private slots:
     void onCleanup();//implement if there are things to do when the aed is turned off
-    void receiveStaticSignal(const SignalType& sig);
+    void receiveStaticSignal(const SignalType& sig, bool);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
     void togglePower();
     void toggleAdultPads();
