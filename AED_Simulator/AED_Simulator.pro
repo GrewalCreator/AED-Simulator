@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui testlib
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -11,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     aed.cpp \
+    aedQTest.cpp \
     aedcontroller.cpp \
     battery.cpp \
     heartrategenerator.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     ProcessSteps.h \
     SignalType.h \
     aed.h \
+    aedQTest.h \
     aedcontroller.h \
     aedwindow.h \
     battery.h \
