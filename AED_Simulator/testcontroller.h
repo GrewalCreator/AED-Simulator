@@ -12,7 +12,7 @@ class TestController: public QObject{
 
 
 public slots:
-    void updateHeartRate(int);
+
 signals:
     void updateHeartRateImage(vector<double>&, vector<double>&);
 
@@ -24,6 +24,7 @@ public:
     virtual ~TestController();
 
     void placePads(PatientType);
+    void updateHeartRate(int);
 
 
 private:

@@ -14,6 +14,7 @@ bool AED::powerOn(){
     // Run General Safety Checks
     if(!safetyChecks()){return false;}
 
+    controller->getLogger()->log("AED Powering On");
     audioPlayer->play(INTRO_AUDIO);
     return true;
 
@@ -30,11 +31,16 @@ bool AED::checkShockSafety(){
     return true;
 }
 
+Battery* AED::getBattery() const{return this->battery;}
+
+
 bool AED::shock(int amperage){
     //Check Safety
     if(!checkShockSafety()){return false;}
 
-    if(battery->getBatteryLevels() < 5){return false;}
+    if(battery->getBatteryLevels() < 30){return false;}
+
+    controller->getLogger()->log("Shocking!");
 
 
     //Send Shock with specified ampage
@@ -43,18 +49,6 @@ bool AED::shock(int amperage){
     battery->depleteBatteryLevel();
     return true;
 }
-
-
-
-
-/*
- controller.sendStaticSignal(SIGNAL_TYPE);
- controller.sendDynamicSignal(SIGNAL_TYPE, string data);
-*/
-
-
-
-
 
 
 AED::~AED(){

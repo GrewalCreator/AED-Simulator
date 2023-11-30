@@ -26,13 +26,13 @@ void Logger::setup(){
         // Set this file as this runtime's file to write to [activeFile]
 }
 
-void Logger::log(string message){
+void Logger::log(const QString& message){
     if(!activeFile || !activeFile->isOpen()){
         qInfo() << "Could Not Load Log File" << Qt::endl;
         return;
     }
     QString prefix = dateHandler->currentDateTime().toString("yyyy:MM:dd hh:dd:ss") + " ===> ";
-    QString qMessage = prefix + QString::fromStdString(message);
+    QString qMessage = prefix + message;
 
     outStream << qMessage << Qt::endl;
 
