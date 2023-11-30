@@ -11,6 +11,7 @@
 #include "AudioTypes.h"
 #include "processtracker.h"
 #include "heartrategenerator.h"
+#include "PatientType.h"
 
 class TestController;
 
@@ -36,6 +37,7 @@ public:
     AEDTransmitter* transmit;
     virtual ~AEDController();
     void testSignals();
+    void print(string message);
     void sendStaticSignal(const SignalType& signalType, bool state);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
@@ -43,6 +45,7 @@ public:
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker();
     HeartRateGenerator* getHeartRateGenerator();
+    void placePads(PatientType);
 
 private:
     void checkAll();
@@ -57,6 +60,7 @@ private:
     void cleanup();
 private slots:
     void run();
+
 };
 
 

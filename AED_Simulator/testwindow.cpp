@@ -32,3 +32,15 @@ void TestWindow::generateHeartRateImage(vector<double>& xValues, vector<double>&
 TestWindow::~TestWindow(){  
     delete ui;
 }
+
+void TestWindow::on_testChildPads_button_clicked()
+{
+    testController->placePads(PatientType::CHILD);
+}
+
+
+void TestWindow::on_testAdultPads_button_clicked()
+{
+    testController->placePads(PatientType::ADULT);
+}
+

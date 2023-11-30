@@ -57,13 +57,22 @@ void AEDWindow::styling(){
                         QProgressBar::chunk {\n\
                             background-color: #ffcc00;\n\
                             width: 10px;\n\
-                        }\n"
-                           );
+                        }\n\
+QProgressBar {\n\
+border: 2px solid grey;\n\
+border-radius: 5px;\n\
+background-color: #f1f1f1;\n\
+}\n\
+QProgressBar::chunk {\n\
+background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 red, stop:1 green);\n\
+width: 5px;\n\
+margin: 0.5px;\n\
+}\n"
+);
 }
 
 
 void AEDWindow::initializeConnects(){
-
     // Static Signal Connections
     connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
@@ -72,6 +81,15 @@ void AEDWindow::initializeConnects(){
 
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
+
+    // Adult Pads Button
+    connect(ui->adultPads_button, SIGNAL(released()), this, SLOT(toggleAdultPads()));
+
+    // Child Pads Button
+    connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
+
+    // Print Messages To Console
+
 }
 
 void AEDWindow::onCleanup(){
@@ -114,8 +132,17 @@ void AEDWindow::togglePower(){
 
 }
 
-void AEDWindow::consoleOut(const QString& message){
-    ui->instruction_console->append(message);
+void AEDWindow::toggleAdultPads(){
+    controller->placePads(PatientType::ADULT);
+}
+
+void AEDWindow::toggleChildPads(){
+    controller->placePads(PatientType::CHILD);
+}
+
+void AEDWindow::consoleOut(const string& message){
+    QString qMessage = QString::fromStdString(message);
+    QMetaObject::invokeMethod(ui->instruction_console, "setPlainText", Qt::QueuedConnection, Q_ARG(QString, qMessage));
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
@@ -131,8 +158,18 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
     }
 }
 
+
+
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
-    qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
+    switch(sig){
+        case PRINT:
+            consoleOut(data);
+            break;
+        default:
+            break;
+    }
+
+    //qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
@@ -244,5 +281,17 @@ AEDWindow::~AEDWindow(){
     qDebug()<<"in aedwindow decons";
     delete ui;
     delete controller;
+}
+
+
+void AEDWindow::on_adultPads_button_clicked()
+{
+
+}
+
+
+void AEDWindow::on_childPads_button_clicked()
+{
+
 }
 
