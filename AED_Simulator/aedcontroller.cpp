@@ -114,13 +114,12 @@ void AEDController::placePads(PatientType type){
     placementIndicator = (std::rand() % 5);
 
     if (placementIndicator){ // 1 to 4 indicates successful pad placement
-        //TODO: replace qDebug with function for printing to console
-        print("PADS SUCCESSFULLY ATTACHED");
+        sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
         sendStaticSignal(LIGHTUP_PADS, false);
         //TODO: call function for analysis
 
     }else{
-        print("CHECK ELECTRODE PADS");
+        sendDynamicSignal(PRINT,"CHECK ELECTRODE PADS");
         return;
     }
 
