@@ -52,17 +52,23 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
-    qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
     connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Static Signal Connections
-    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
     // Dynamic Signal Connections
     connect(controller->transmit,SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
+
+    // Adult Pads Button
+    connect(ui->adultPads_button, SIGNAL(released()), this, SLOT(toggleAdultPads()));
+
+    // Child Pads Button
+    connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
 }
 
 void AEDWindow::onCleanup(){
@@ -101,42 +107,32 @@ void AEDWindow::togglePower(){
 
 }
 
+void AEDWindow::toggleAdultPads(){
+    controller->placePads(PatientType::ADULT);
+}
+
+void AEDWindow::toggleChildPads(){
+    controller->placePads(PatientType::CHILD);
+}
+
 void AEDWindow::consoleOut(const QString& message){
     ui->instruction_console->append(message);
 }
 
-void AEDWindow::receiveStaticSignal(const SignalType& sig){
+void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
     //qDebug()<<uiMap[sig]<< " has been targeted.";
-    switch(sig){
-    default:
-        break;
-
-    case LIGHTUP_COMPRESSIONS:
-        setOneLight(LIGHTUP_COMPRESSIONS,true);
-        break;
-
-    case LIGHTUP_OK:
-        setOneLight(LIGHTUP_OK,true);
-        break;
-
-    case LIGHTUP_911:
-        setOneLight(LIGHTUP_911,true);
-        break;
-
-    case LIGHTUP_PADS:
-        setOneLight(LIGHTUP_PADS,true);
-        break;
-
-    case LIGHTUP_SHOCK:
-        setShockLight(true);
-        break;
-
-    case LIGHTUP_STANDCLEAR:
-        setOneLight(LIGHTUP_STANDCLEAR,true);
-        break;
+    if(sig == LIGHTUP_SHOCK){
+        setShockLight(state);
     }
-
+    else if(sig == POWER_INDICATOR){
+        //setPowerLight(state);
+    }
+    else{
+        setOneLight(sig, state);
+    }
 }
+
+
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
     qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
@@ -235,5 +231,17 @@ AEDWindow::~AEDWindow(){
     qDebug()<<"in aedwindow decons";
     delete ui;
     delete controller;
+}
+
+
+void AEDWindow::on_adultPads_button_clicked()
+{
+
+}
+
+
+void AEDWindow::on_childPads_button_clicked()
+{
+
 }
 

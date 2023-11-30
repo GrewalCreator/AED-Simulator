@@ -49,10 +49,14 @@ protected:
 
 private slots:
     void onCleanup();//implement if there are things to do when the aed is turned off
-    void receiveStaticSignal(const SignalType& sig);
+    void receiveStaticSignal(const SignalType& sig, bool);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
     void togglePower();
+    void toggleAdultPads();
+    void toggleChildPads();
     void consoleOut(const QString& message);
 
+    void on_adultPads_button_clicked();
+    void on_childPads_button_clicked();
 };
 #endif // AEDWINDOW_H

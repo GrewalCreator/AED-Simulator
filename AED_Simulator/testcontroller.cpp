@@ -20,6 +20,13 @@ void TestController::updateHeartRate(int newHeartRate){
 }
 
 
+void TestController::placePads(PatientType type){
+
+    controlSystem->placePads(type);
+
+}
+
+
 TestController::~TestController(){
 
 }

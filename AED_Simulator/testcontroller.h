@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "aedcontroller.h"
+#include "PatientType.h"
 
 class AEDController;
 
@@ -21,6 +22,8 @@ public:
     void setController(AEDController* controller);
 
     virtual ~TestController();
+
+    void placePads(PatientType);
 
 
 private:

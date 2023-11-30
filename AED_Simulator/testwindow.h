@@ -6,6 +6,7 @@
 #include "testcontroller.h"
 #include "QPainter"
 #include "QImage"
+#include "PatientType.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestWindow; }
@@ -30,6 +31,11 @@ protected:
 
 public slots:
     void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
+
+private slots:
+    void on_testChildPads_button_clicked();
+
+    void on_testAdultPads_button_clicked();
 
 private:
     Ui::TestWindow *ui;
