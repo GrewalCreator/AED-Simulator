@@ -36,6 +36,7 @@ public:
     Logger* getLogger() const;
     AEDTransmitter* transmit;
     virtual ~AEDController();
+    void testSignals();
     void print(string message);
     void sendStaticSignal(const SignalType& signalType, bool state);
     void sendDynamicSignal(const SignalType& signalType, const string& data);

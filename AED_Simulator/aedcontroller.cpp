@@ -67,7 +67,7 @@ AED* AEDController::getAED() const{
 
 
 void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
-    transmit->sendStatic(signalType, state);
+    transmit->sendStatic(signalType,state);
 }
 
 

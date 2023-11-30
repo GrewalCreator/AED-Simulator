@@ -40,6 +40,7 @@ private:
     void setAllLights(bool);
     void styling();
     void setShockLight(bool);
+    void setPowerLight(bool);
     void setUpVisuals();
 
 signals:
