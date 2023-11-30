@@ -53,7 +53,6 @@ void AEDWindow::styling(){
 
 void AEDWindow::initializeConnects(){
     qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
-    connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Static Signal Connections
     connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
@@ -71,7 +70,7 @@ void AEDWindow::initializeConnects(){
     connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
 
     // Print Messages To Console
-    connect(controller)
+
 }
 
 void AEDWindow::onCleanup(){
@@ -120,7 +119,7 @@ void AEDWindow::toggleChildPads(){
 
 void AEDWindow::consoleOut(const string& message){
     QString qMessage = QString::fromStdString(message);
-    ui->instruction_console->append(qMessage);
+    QMetaObject::invokeMethod(ui->instruction_console, "setPlainText", Qt::QueuedConnection, Q_ARG(QString, qMessage));
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
@@ -147,7 +146,7 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
             break;
     }
 
-    qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
+    //qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
