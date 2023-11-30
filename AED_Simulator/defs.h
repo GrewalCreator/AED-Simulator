@@ -14,5 +14,8 @@
 
 using std::string;
 using std::vector;
+using std::srand;
+using std::time;
+using std::rand;
 
 #endif // DEFS_H

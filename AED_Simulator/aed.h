@@ -15,6 +15,7 @@ public:
     bool checkShockSafety();
     bool shock(int amperage);
     bool powerOn();
+    Battery* getBattery() const;
 
     virtual ~AED();
 

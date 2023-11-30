@@ -32,8 +32,8 @@ class AEDController: public QObject{
 public:
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
-    AED* getAED();
-    Logger* getLogger();
+    AED* getAED() const;
+    Logger* getLogger() const;
     AEDTransmitter* transmit;
     virtual ~AEDController();
     void print(string message);
@@ -42,9 +42,9 @@ public:
     bool powerAEDOn();
     bool powerAEDOff();
     void setProcessTracker(const ProcessSteps& step);
-    const ProcessSteps& getProcessTracker();
-    HeartRateGenerator* getHeartRateGenerator();
-    void placePads(PatientType);
+    const ProcessSteps& getProcessTracker() const;
+    HeartRateGenerator* getHeartRateGenerator() const;
+    void placePads(const PatientType&);
 
 private:
     void checkAll();
