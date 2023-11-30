@@ -52,7 +52,7 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
-    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
+    qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&)), this, SLOT(receiveStaticSignal(const SignalType& )));
     connect(controller->transmit, SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Static Signal Connections
@@ -106,7 +106,36 @@ void AEDWindow::consoleOut(const QString& message){
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig){
-    qDebug()<<uiMap[sig]<< " has been targeted.";
+    //qDebug()<<uiMap[sig]<< " has been targeted.";
+    switch(sig){
+    default:
+        break;
+
+    case LIGHTUP_COMPRESSIONS:
+        setOneLight(LIGHTUP_COMPRESSIONS,true);
+        break;
+
+    case LIGHTUP_OK:
+        setOneLight(LIGHTUP_OK,true);
+        break;
+
+    case LIGHTUP_911:
+        setOneLight(LIGHTUP_911,true);
+        break;
+
+    case LIGHTUP_PADS:
+        setOneLight(LIGHTUP_PADS,true);
+        break;
+
+    case LIGHTUP_SHOCK:
+        setShockLight(true);
+        break;
+
+    case LIGHTUP_STANDCLEAR:
+        setOneLight(LIGHTUP_STANDCLEAR,true);
+        break;
+    }
+
 }
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
@@ -148,12 +177,12 @@ void AEDWindow::setAllLights(bool lit){
     QString uiname;
     foreach(auto i,uiMap){
         uiname = i->objectName();
-        qDebug()<<i->objectName()<<!imageMap.contains(uiname);
+        //qDebug()<<i->objectName()<<!imageMap.contains(uiname);
         if(!imageMap.contains(uiname+"_on") || !imageMap.contains(uiname+"_off") ){
             qDebug()<<uiname<<"image for case:" << lit <<" was not found in the map for whatever reason";
              continue;
         }
-        qDebug()<<i->objectName();
+        //qDebug()<<i->objectName();
         if(lit){
             i->setPixmap(*(imageMap[uiname+"_on"]));
         }
@@ -167,6 +196,7 @@ void AEDWindow::setAllLights(bool lit){
 void AEDWindow::setOneLight(const SignalType sig,bool lit){
     setAllLights(false);
     QLabel* label = uiMap[sig];
+    //qDebug()<<label->objectName()<<"is being targeted";
 
     if(lit){
         label->setPixmap(*(imageMap[label->objectName()+"_on"]));
@@ -178,6 +208,7 @@ void AEDWindow::setOneLight(const SignalType sig,bool lit){
 
 void AEDWindow::setShockLight(bool isLightOn){
     QIcon shockimg;
+    //setAllLights(false);
     if(isLightOn){
         shockimg = QIcon(*imageMap["shock_button_on"]);
     }

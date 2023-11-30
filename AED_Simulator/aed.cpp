@@ -22,6 +22,7 @@ bool AED::powerOn(){
 
 bool AED::safetyChecks(){
     // Implement Safety Checks
+
     return true;
 }
 
