@@ -54,7 +54,7 @@ private slots:
     void togglePower();
     void toggleAdultPads();
     void toggleChildPads();
-    void consoleOut(const QString& message);
+    void consoleOut(const string& message);
 
     void on_adultPads_button_clicked();
     void on_childPads_button_clicked();

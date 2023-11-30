@@ -69,6 +69,9 @@ void AEDWindow::initializeConnects(){
 
     // Child Pads Button
     connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
+
+    // Print Messages To Console
+    connect(controller)
 }
 
 void AEDWindow::onCleanup(){
@@ -115,8 +118,9 @@ void AEDWindow::toggleChildPads(){
     controller->placePads(PatientType::CHILD);
 }
 
-void AEDWindow::consoleOut(const QString& message){
-    ui->instruction_console->append(message);
+void AEDWindow::consoleOut(const string& message){
+    QString qMessage = QString::fromStdString(message);
+    ui->instruction_console->append(qMessage);
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
@@ -135,6 +139,14 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
 
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
+    switch(sig){
+        case PRINT:
+            consoleOut(data);
+            break;
+        default:
+            break;
+    }
+
     qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 

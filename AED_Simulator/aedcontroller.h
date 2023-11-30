@@ -36,7 +36,7 @@ public:
     Logger* getLogger();
     AEDTransmitter* transmit;
     virtual ~AEDController();
-    void testSignals();
+    void print(string message);
     void sendStaticSignal(const SignalType& signalType, bool state);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
@@ -59,6 +59,7 @@ private:
     void cleanup();
 private slots:
     void run();
+
 };
 
 

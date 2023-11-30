@@ -18,7 +18,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 
-};
+}
 
 void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
     emit dynamicSignal(sig,data);
@@ -27,6 +27,7 @@ void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
 void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
+
 
 void AEDController::setProcessTracker(const ProcessSteps& step){
     this->processTracker->setCurrentStep(step);
