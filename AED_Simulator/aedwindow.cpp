@@ -95,6 +95,8 @@ void AEDWindow::initializeConnects(){
     // Child Pads Button
     connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
 
+    connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
+
 
 }
 
@@ -269,10 +271,11 @@ void AEDWindow::setPowerLight(bool isLightOn){
 }
 
 void AEDWindow::closeEvent(QCloseEvent* event){
+    qDebug()<<"in closeeevent, before emitting aboutoclose";
     emit aboutToClose();
     controller->powerAEDOff();
-    semaphore->acquire();
-
+    //semaphore->acquire(); this was causing problems
+    qDebug()<<"in closeeevent";
     QString currentThreadId = "Semaphore Acquired As Thread : " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     controller->getLogger()->log(currentThreadId);
     QWidget::closeEvent(event);
@@ -288,7 +291,9 @@ AEDWindow::~AEDWindow(){
     delete controller;
 }
 
-
+void AEDWindow::recharge(){
+    controller->recharge();
+}
 void AEDWindow::on_adultPads_button_clicked()
 {
 

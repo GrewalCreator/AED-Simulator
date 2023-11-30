@@ -42,6 +42,7 @@ public:
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
     bool powerAEDOff();
+    void recharge();
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
     HeartRateGenerator* getHeartRateGenerator() const;

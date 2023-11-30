@@ -84,7 +84,7 @@ void AEDController::run(){
         logger->log(currentThreadId);
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
     }
-    semaphore->release(); 
+    //semaphore->release();
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
     this->moveToThread(QCoreApplication::instance()->thread());
@@ -131,6 +131,10 @@ void AEDController::placePads(const PatientType& type){
         return;
     }
 
+}
+
+void AEDController::recharge(){
+    qDebug()<<"ooo that zaza";
 }
 
 AEDController::~AEDController(){
