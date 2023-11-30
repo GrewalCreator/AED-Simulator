@@ -14,6 +14,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     heartRateGenerator = new HeartRateGenerator();
     breakflag=false;
     semaphore = sem;
+    logger->log("Calling AEDController Constructor");
 }
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
@@ -33,11 +34,11 @@ void AEDController::setProcessTracker(const ProcessSteps& step){
     this->processTracker->setCurrentStep(step);
 }
 
-const ProcessSteps& AEDController::getProcessTracker(){
+const ProcessSteps& AEDController::getProcessTracker() const{
     return this->processTracker->getCurrentStep();
 }
 
-HeartRateGenerator* AEDController::getHeartRateGenerator(){
+HeartRateGenerator* AEDController::getHeartRateGenerator() const{
     return heartRateGenerator;
 }
 
@@ -50,16 +51,17 @@ bool AEDController::powerAEDOn(){
 }
 
 bool AEDController::powerAEDOff(){
-    qDebug()<<"in aedcontroller poweroff, calling cleanup now";
+
+    logger->log("Calling AEDController PowerOff");
     this->cleanup();
     return true;//just true for now
 }
 
-Logger* AEDController::getLogger(){
+Logger* AEDController::getLogger() const{
     return logger;
 }
 
-AED* AEDController::getAED(){
+AED* AEDController::getAED() const{
     return automatedED;
 }
 
@@ -78,21 +80,24 @@ void AEDController::run(){
 
     while(!breakflag){
         QThread::msleep(100);
-        qDebug()<<"Looping as thread id:"<<QThread::currentThreadId();
+        QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
+        logger->log(currentThreadId);
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
     }
-    semaphore->release();
-    qDebug()<<"sem released as thread id:"<<QThread::currentThreadId();
+    semaphore->release(); 
+    QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
+    logger->log(currentThreadId);
     this->moveToThread(QCoreApplication::instance()->thread());
 }
 
 
 void AEDController::cleanup(){
-    qDebug()<<"doing cleanup as thread id:"<<QThread::currentThreadId();
+    QString currentThreadId = "Cleanup Within AEDController As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
+    logger->log(currentThreadId);
     breakflag = true;
 }
 
-void AEDController::placePads(PatientType type){
+void AEDController::placePads(const PatientType& type){
 
     //TODO: uncomment when previous step (preliminary checks) are implemented
     //if (processTracker->getCurrentStep() != ProcessSteps::ELECTRODE_PAD_PLACEMENT){
@@ -103,16 +108,18 @@ void AEDController::placePads(PatientType type){
 
     switch(type){
 
-    case(PatientType::ADULT):
-        qDebug() << "ADULT PADS";
-        break;
-    case(PatientType::CHILD):
-        qDebug() << "PEDIATRIC PADS";
-        break;
+        case(ADULT):
+            logger->log("Placing Adult Pads");
+
+            break;
+        case(CHILD):
+            logger->log("Placing Pediatric Pads");
+
+            break;
     }
 
-    std::srand(std::time(0));
-    placementIndicator = (std::rand() % 5);
+    srand(time(0));
+    placementIndicator = (rand() % 5);
 
     if (placementIndicator){ // 1 to 4 indicates successful pad placement
         sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
@@ -127,8 +134,9 @@ void AEDController::placePads(PatientType type){
 }
 
 AEDController::~AEDController(){
-    qDebug()<<"Within AEDController deconstructor as thread id:"<<QThread::currentThreadId();
-    //delete automatedED;
-    //delete transmit;
+    QString currentThreadId = "AEDController Destructor Called As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
+    logger->log(currentThreadId);
+    delete automatedED;
+    delete transmit;
 
 }

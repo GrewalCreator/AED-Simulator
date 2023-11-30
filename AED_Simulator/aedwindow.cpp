@@ -8,18 +8,25 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     controller->setProcessTracker(POWER_OFF);
     signalToString();
     initializeConnects();
-    loadImgs();//the following sequence of function calls must maintain order: initImgs depends on loadImgs.
-    initImgs();
-    styling();
+    setUpVisuals();
     controlThread = new QThread();
 
 
 }
+
+void AEDWindow::setUpVisuals(){
+    // Sequence of Function Calls Must Remain In Order! initImgs() relys on loadImgs()
+    loadImgs();
+    initImgs();
+    styling();
+}
+
+
 void AEDWindow::signalToString(){
 
     uiMap[LIGHTUP_OK] = ui->ok_image;
     uiMap[LIGHTUP_COMPRESSIONS] = ui->compressions_image;
-    //uiMap[SET_STATUS] = ui->statusLight_image;
+    uiMap[SET_STATUS] = ui->statusLight_image;
     uiMap[LIGHTUP_911] = ui->help_image;
     uiMap[LIGHTUP_PADS] = ui->pads_image;
     uiMap[LIGHTUP_STANDCLEAR] = ui->standclear_image;
@@ -52,7 +59,7 @@ void AEDWindow::styling(){
 
 
 void AEDWindow::initializeConnects(){
-    qDebug()<<"did transmitter connect?"<<connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
+    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
     // Static Signal Connections
     connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
@@ -69,16 +76,17 @@ void AEDWindow::initializeConnects(){
     // Child Pads Button
     connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
 
-    // Print Messages To Console
 
 }
 
-void AEDWindow::onCleanup(){
-    qDebug()<<"i fucking hate threads";
-}
+
 
 void AEDWindow::togglePower(){
-    if(controller->getProcessTracker() != POWER_OFF){   // Power is On, Turn it Off
+    if(controller->getProcessTracker() != POWER_OFF){
+
+        // Power is On, Turn it Off
+
+
         controller->powerAEDOff();
         if (controlThread->isRunning()) {
             controlThread->quit();
@@ -91,7 +99,10 @@ void AEDWindow::togglePower(){
         controller->setProcessTracker(POWER_OFF);
 
 
-    }else{                                              // Power is Off, Turn It On
+    }else{
+
+        // Power is Off, Turn It On
+
         connect(controlThread, SIGNAL(started()), controller, SLOT(run()));
         controller->moveToThread(controlThread);
         controlThread->start();
@@ -110,11 +121,11 @@ void AEDWindow::togglePower(){
 }
 
 void AEDWindow::toggleAdultPads(){
-    controller->placePads(PatientType::ADULT);
+    controller->placePads(ADULT);
 }
 
 void AEDWindow::toggleChildPads(){
-    controller->placePads(PatientType::CHILD);
+    controller->placePads(CHILD);
 }
 
 void AEDWindow::consoleOut(const string& message){
@@ -123,7 +134,6 @@ void AEDWindow::consoleOut(const string& message){
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
-    //qDebug()<<uiMap[sig]<< " has been targeted.";
     if(sig == LIGHTUP_SHOCK){
         setShockLight(state);
     }
@@ -146,7 +156,6 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
             break;
     }
 
-    //qDebug()<<uiMap[sig]<< " has been targeted with data "<< QString::fromStdString(data);
 }
 
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
@@ -165,7 +174,6 @@ void AEDWindow::loadImgs(){
     foreach(QString filename, images) {
         filename.resize(filename.length()-4);
         QString belongsTo = QString(filename).remove("_off").remove("_on");
-        //qDebug()<<filename<<" Added to map";
         QPixmap* p = new QPixmap(IMAGE_PATH+filename);
         if(belongsTo == "compressions_image"){
             *p = p->scaled(ui->compressions_image->size());//scales pixmap to compression image
@@ -184,12 +192,11 @@ void AEDWindow::setAllLights(bool lit){
     QString uiname;
     foreach(auto i,uiMap){
         uiname = i->objectName();
-        //qDebug()<<i->objectName()<<!imageMap.contains(uiname);
         if(!imageMap.contains(uiname+"_on") || !imageMap.contains(uiname+"_off") ){
-            qDebug()<<uiname<<"image for case:" << lit <<" was not found in the map for whatever reason";
+            controller->getLogger()->log("Image For " + uiname + "' Turning " + lit  + " Was Not Found");
              continue;
         }
-        //qDebug()<<i->objectName();
+
         if(lit){
             i->setPixmap(*(imageMap[uiname+"_on"]));
         }
@@ -203,13 +210,13 @@ void AEDWindow::setAllLights(bool lit){
 void AEDWindow::setOneLight(const SignalType sig,bool lit){
     setAllLights(false);
     QLabel* label = uiMap[sig];
-    //qDebug()<<label->objectName()<<"is being targeted";
+
 
     if(lit){
         label->setPixmap(*(imageMap[label->objectName()+"_on"]));
     }
     else{
-        label->setPixmap(*(imageMap[label->objectName()+"_off"]));
+        label->setPixmap(*(imageMap[label->objectName()+ "_off"]));
     }
 }
 
@@ -230,7 +237,9 @@ void AEDWindow::closeEvent(QCloseEvent* event){
     emit aboutToClose();
     controller->powerAEDOff();
     semaphore->acquire();
-    qDebug()<<"sem acquired as thread id:"<<QThread::currentThreadId();
+
+    QString currentThreadId = "Semaphore Acquired As Thread : " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
+    controller->getLogger()->log(currentThreadId);
     QWidget::closeEvent(event);
 }
 
@@ -239,7 +248,7 @@ AEDController* AEDWindow::getController(){
 }
 
 AEDWindow::~AEDWindow(){
-    qDebug()<<"in aedwindow decons";
+    controller->getLogger()->log("AEDWindow Destructor Called");
     delete ui;
     delete controller;
 }

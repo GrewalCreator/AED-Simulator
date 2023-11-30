@@ -37,6 +37,8 @@ private slots:
 
     void on_testAdultPads_button_clicked();
 
+    void updateHR();
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;
