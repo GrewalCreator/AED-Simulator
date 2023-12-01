@@ -19,11 +19,16 @@ void TestController::updateHeartRate(int newHeartRate){
     emit updateHeartRateImage(xValues, yValues);
 }
 
+void TestController::placePads(const PatientType& type){
+    if(!(controlSystem->getCurrentStep() > POWER_OFF)){return;}
+    bool placedSuccessfully = controlSystem->placePads(type);
+    if(placedSuccessfully){
+        controlSystem->setCurrentStep(ANALYZE_ECG);
+    }
+}
 
-void TestController::placePads(PatientType type){
-
-    controlSystem->placePads(type);
-
+void TestController::setPatientHR(double heartRate){
+    controlSystem->getPatient()->setHeartRate(heartRate);
 }
 
 

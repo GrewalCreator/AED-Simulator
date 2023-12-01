@@ -11,7 +11,7 @@ class Logger
 {
 public:
     Logger();
-    void log(const QString&message);
+    void log(const QString& message);
     virtual ~Logger();
 private:
     QFile* activeFile;

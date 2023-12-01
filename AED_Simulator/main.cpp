@@ -8,12 +8,15 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     AEDWindow w;
+    w.getController()->getLogger()->log("Main Function");
     TestWindow tw;
     tw.setController(w.getController());
     qRegisterMetaType<SignalType>("SignalType");
+
     qRegisterMetaType<std::string>("string");
     QObject::connect(&w, SIGNAL(aboutToClose()), &tw, SLOT(close()));
     QObject::connect(&tw, SIGNAL(aboutToClose()), &w, SLOT(close()));
+
 
     tw.show();
     w.show();

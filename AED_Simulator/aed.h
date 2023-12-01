@@ -24,7 +24,6 @@ private:
     MediaPlayer* audioPlayer;
     Battery* battery;
 
-    bool
-    safetyChecks();
+    bool safetyChecks();
     };
 #endif // AED_H
