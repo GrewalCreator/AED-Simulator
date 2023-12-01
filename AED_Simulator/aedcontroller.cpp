@@ -98,8 +98,8 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        if(timeElapsed > 10){
-            setProcessTracker(ELECTRODE_PAD_PLACEMENT);
+        if(automatedED->getPadStatus()){
+            setProcessTracker(ANALYZE_ECG);
             timeElapsed=0;
         }
         break;
@@ -154,6 +154,8 @@ void AEDController::placePads(const PatientType& type){
             logger->log("Placing Pediatric Pads");
 
             break;
+        default:
+            break;
     }
 
     srand(time(0));
@@ -161,7 +163,10 @@ void AEDController::placePads(const PatientType& type){
 
     if (placementIndicator){ // 1 to 4 indicates successful pad placement
         sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
-        sendStaticSignal(LIGHTUP_PADS, false);
+        automatedED->setPads(type);
+        //sendStaticSignal(LIGHTUP_PADS, false);
+
+
         //TODO: call function for analysis
 
     }else{
@@ -184,5 +189,4 @@ AEDController::~AEDController(){
     logger->log(currentThreadId);
     delete automatedED;
     delete transmit;
-
 }

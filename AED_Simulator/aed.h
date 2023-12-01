@@ -4,7 +4,7 @@
 #include "mediaplayer.h"
 #include "SignalType.h"
 #include "battery.h"
-
+#include "PatientType.h"
 
 class AEDController;
 
@@ -16,6 +16,8 @@ public:
     bool shock(int amperage);
     bool powerOn();
     Battery* getBattery() const;
+    void setPads(PatientType);
+    PatientType getPadStatus();
 
     virtual ~AED();
 
@@ -23,8 +25,7 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
-
-    bool
-    safetyChecks();
+    PatientType padType;
+    bool safetyChecks();
     };
 #endif // AED_H

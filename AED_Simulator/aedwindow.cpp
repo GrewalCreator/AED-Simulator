@@ -305,7 +305,13 @@ AEDController* AEDWindow::getController(){
 AEDWindow::~AEDWindow(){
     controller->getLogger()->log("AEDWindow Destructor Called");
     delete ui;
+    controller->powerAEDOff();
+    if (controlThread->isRunning()) {
+        controlThread->quit();
+        controlThread->wait();
+    }
     delete controller;
+    delete controlThread;
 }
 
 void AEDWindow::recharge(){
