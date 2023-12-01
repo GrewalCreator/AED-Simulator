@@ -21,10 +21,14 @@ public:
 
     void setController(AEDController* controller);
 
+    void setPatientHR(double heartRate);
+
+    void updateHeartRate(int);
+
+    void placePads(const PatientType& type);
     virtual ~TestController();
 
-    void placePads(PatientType);
-    void updateHeartRate(int);
+
 
 
 private:

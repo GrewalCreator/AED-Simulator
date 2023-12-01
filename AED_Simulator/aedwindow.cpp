@@ -5,11 +5,13 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     ui->setupUi(this);
     semaphore = new QSemaphore(0);
     controller = new AEDController(semaphore, this);
-    controller->setProcessTracker(POWER_OFF);
-    signalToString();
-    initializeConnects();
-    setUpVisuals();
     controlThread = new QThread();
+    controller->setCurrentStep(POWER_OFF);
+    signalToString();
+    setUpVisuals();
+    initializeConnects();
+
+
 
 
 }
@@ -89,15 +91,11 @@ void AEDWindow::initializeConnects(){
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
 
-    // Adult Pads Button
-    connect(ui->adultPads_button, SIGNAL(released()), this, SLOT(toggleAdultPads()));
-
-    // Child Pads Button
-    connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
-
     connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
 
     connect(ui->shock_button, SIGNAL(clicked()), this, SLOT(shockPressed()));
+
+
 
 
 }
@@ -108,17 +106,21 @@ void AEDWindow::shockPressed(){
 
 void AEDWindow::togglePower(){
 
-    if(controller->getProcessTracker() != POWER_OFF){   // Power is On, Turn it Off
+    if(controller->getCurrentStep() != POWER_OFF){
+
+        // Power is On, Turn it Off
+
+        disconnect(controlThread, SIGNAL(started()), 0, 0);
         controller->powerAEDOff();
         if (controlThread->isRunning()) {
             controlThread->quit();
             controlThread->wait();
         }
-        disconnect(controlThread, SIGNAL(started()), controller, SLOT(run()));
+
 
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
-        //controller->powerAEDOff(); previous position of poweroff.
-        controller->setProcessTracker(POWER_OFF);
+
+        controller->setCurrentStep(POWER_OFF);
         setPowerLight(false);
         setAllLights(false);
 
@@ -126,12 +128,12 @@ void AEDWindow::togglePower(){
     }else{
 
         // Power is Off, Turn It On
-
         connect(controlThread, SIGNAL(started()), controller, SLOT(run()));
+
         controller->moveToThread(controlThread);
         controlThread->start();
         controller->getAED()->playAudio(POWER_ON_AUDIO);
-        controller->setProcessTracker(CHECK_OK);
+        controller->setCurrentStep(CHECK_OK);
         bool successfulPowerOn = controller->powerAEDOn();
         setPowerLight(true);
         if(!successfulPowerOn){
@@ -143,14 +145,6 @@ void AEDWindow::togglePower(){
 
     }
 
-}
-
-void AEDWindow::toggleAdultPads(){
-    controller->placePads(ADULT);
-}
-
-void AEDWindow::toggleChildPads(){
-    controller->placePads(CHILD);
 }
 
 void AEDWindow::consoleOut(const string& message){
@@ -262,7 +256,7 @@ void AEDWindow::setOneLight(const SignalType sig,bool lit){
 
 void AEDWindow::setShockLight(bool isLightOn){
     QIcon shockimg;
-    //setAllLights(false);
+
     if(isLightOn){
         shockimg = QIcon(*imageMap["shock_button_on"]);
     }
@@ -275,8 +269,7 @@ void AEDWindow::setShockLight(bool isLightOn){
 
 void AEDWindow::setPowerLight(bool isLightOn){
     QIcon powerimg;
-    qDebug()<<"set to "<<isLightOn;
-    //setAllLights(false);
+
     if(isLightOn){
         powerimg = QIcon(*imageMap["power_button_on"]);
     }
@@ -287,44 +280,41 @@ void AEDWindow::setPowerLight(bool isLightOn){
     ui->power_button->setIconSize(QSize(91,91));
 }
 
+
 void AEDWindow::closeEvent(QCloseEvent* event){
-    qDebug()<<"in closeeevent, before emitting aboutoclose";
+    controller->getLogger()->log("AEDWindow Close Event");
     emit aboutToClose();
-    controller->powerAEDOff();
-    //semaphore->acquire(); this was causing problems
-    qDebug()<<"in closeeevent";
     QString currentThreadId = "Semaphore Acquired As Thread : " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     controller->getLogger()->log(currentThreadId);
     QWidget::closeEvent(event);
 }
 
+
 AEDController* AEDWindow::getController(){
     return controller;
 }
 
+
+
+void AEDWindow::recharge(){
+    controller->recharge();
+}
+
 AEDWindow::~AEDWindow(){
     controller->getLogger()->log("AEDWindow Destructor Called");
-    delete ui;
+
     controller->powerAEDOff();
     if (controlThread->isRunning()) {
         controlThread->quit();
         controlThread->wait();
     }
+
+    delete ui;
+    delete semaphore;
     delete controller;
     delete controlThread;
-}
 
-void AEDWindow::recharge(){
-    controller->recharge();
-}
-void AEDWindow::on_adultPads_button_clicked()
-{
 
 }
 
-
-void AEDWindow::on_childPads_button_clicked()
-{
-
-}
 

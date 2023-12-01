@@ -7,7 +7,7 @@
 class Patient {
 public:
     // Constructor
-    Patient(string& name, PatientType& type);
+    Patient(const PatientType& type);
 
     // Getters and Setters for member variables
     bool getIsInWater() const;
@@ -18,6 +18,8 @@ public:
 
     bool getHasPadsOn() const;
     void setHasPadsOn(bool hasPadsOn);
+
+    const PatientType& getPatientType() const;
 
 
 

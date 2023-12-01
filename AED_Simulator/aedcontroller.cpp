@@ -12,6 +12,12 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     logger = new Logger();
     processTracker = new ProcessTracker();
     heartRateGenerator = new HeartRateGenerator();
+    pads = new ElectrodePads();
+    patientAdult = new Patient(ADULT);
+    patientChild = new Patient(CHILD);
+
+    activePatient = patientAdult;
+
     breakflag=false;
     semaphore = sem;
     logger->log("Calling AEDController Constructor");
@@ -30,14 +36,18 @@ void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
 
-AEDTransmitter* AEDController::getTransmitter(){
-    return transmit;
-}
-void AEDController::setProcessTracker(const ProcessSteps& step){
+
+
+void AEDController::setCurrentStep(const ProcessSteps& step){
+
     this->processTracker->setCurrentStep(step);
 }
 
-const ProcessSteps& AEDController::getProcessTracker() const{
+AEDTransmitter* AEDController::getTransmitter(){
+    return transmit;
+}
+
+const ProcessSteps& AEDController::getCurrentStep() const{
     return this->processTracker->getCurrentStep();
 }
 
@@ -68,6 +78,10 @@ AED* AEDController::getAED() const{
     return automatedED;
 }
 
+Patient* AEDController::getPatient() const{
+    return activePatient;
+}
+
 
 void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
     transmit->sendStatic(signalType,state);
@@ -83,7 +97,7 @@ void AEDController::stepProgress(){
     case CHECK_OK:{
         sendStaticSignal(LIGHTUP_OK,true);
         if(timeElapsed > 10){
-            setProcessTracker(GET_HELP);
+            setCurrentStep(GET_HELP);
             timeElapsed=0;
         }
         break;
@@ -91,15 +105,15 @@ void AEDController::stepProgress(){
     case GET_HELP:{
         sendStaticSignal(LIGHTUP_911, true);
         if(timeElapsed > 10){
-            setProcessTracker(ELECTRODE_PAD_PLACEMENT);
+            setCurrentStep(ELECTRODE_PAD_PLACEMENT);
             timeElapsed=0;
         }
         break;
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        if(automatedED->getPadStatus()){
-            setProcessTracker(ANALYZE_ECG);
+        if(false){
+            setCurrentStep(ANALYZE_ECG);
             timeElapsed=0;
         }
         break;
@@ -122,7 +136,6 @@ void AEDController::run(){
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
         timeElapsed++;
     }
-    //semaphore->release();
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
     this->moveToThread(QCoreApplication::instance()->thread());
@@ -135,44 +148,42 @@ void AEDController::cleanup(){
     breakflag = true;
 }
 
-void AEDController::placePads(const PatientType& type){
 
-    //TODO: uncomment when previous step (preliminary checks) are implemented
-    //if (processTracker->getCurrentStep() != ProcessSteps::ELECTRODE_PAD_PLACEMENT){
-       // return;
-    //}
-
-    int placementIndicator;
-
-    switch(type){
-
-        case(ADULT):
-            logger->log("Placing Adult Pads");
-
-            break;
-        case(CHILD):
-            logger->log("Placing Pediatric Pads");
-
-            break;
-        default:
-            break;
-    }
-
+bool AEDController::placePads(const PatientType& type){
+    logger->log("Attempting To Place Pads");
     srand(time(0));
-    placementIndicator = (rand() % 5);
+    bool correctlyPlaced = (rand() % 5) != 0;
+    if(correctlyPlaced){
+        switch(type){
 
-    if (placementIndicator){ // 1 to 4 indicates successful pad placement
+            case(ADULT):
+                logger->log("Placing Adult Pads");
+                pads->setPadType(ADULT);
+                break;
+            case(CHILD):
+                logger->log("Placing Pediatric Pads");
+                pads->setPadType(ADULT);
+                break;
+
+        }
+
+        pads->setPadPlacement(true);
+        activePatient->setHasPadsOn(true);
+
+
         sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
-        automatedED->setPads(type);
-        //sendStaticSignal(LIGHTUP_PADS, false);
 
-
-        //TODO: call function for analysis
-
+        return true;
     }else{
+
         sendDynamicSignal(PRINT,"CHECK ELECTRODE PADS");
-        return;
+        logger->log("Pad Placement Failed: Applied Incorrectly");
+        pads->setPadPlacement(false);
+
+        return false;
+
     }
+
 
 }
 
@@ -189,4 +200,8 @@ AEDController::~AEDController(){
     logger->log(currentThreadId);
     delete automatedED;
     delete transmit;
+    delete pads;
+    delete logger;
+    delete processTracker;
+    delete heartRateGenerator;
 }

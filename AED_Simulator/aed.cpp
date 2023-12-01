@@ -21,14 +21,6 @@ bool AED::powerOn(){
 
 }
 
-void AED::setPads(PatientType p){
-    padType = p;
-}
-
-PatientType AED::getPadStatus(){
-    return padType;
-}
-
 
 bool AED::safetyChecks(){
     // Implement Safety Checks

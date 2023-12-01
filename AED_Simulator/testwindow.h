@@ -23,20 +23,17 @@ public:
     virtual ~TestWindow();
     void setController(AEDController*);
 
+
 signals:
     void aboutToClose();
 
 protected:
     void closeEvent(QCloseEvent *event) override;
 
-public slots:
-    void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
 
 private slots:
-    void on_testChildPads_button_clicked();
-
-    void on_testAdultPads_button_clicked();
-
+    void padPlaced();
+    void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
     void updateHR();
 
 private:

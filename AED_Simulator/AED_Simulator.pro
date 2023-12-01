@@ -14,6 +14,7 @@ SOURCES += \
     aedQTest.cpp \
     aedcontroller.cpp \
     battery.cpp \
+    electrodepads.cpp \
     heartrategenerator.cpp \
     logger.cpp \
     main.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     aedwindow.h \
     battery.h \
     defs.h \
+    electrodepads.h \
     heartrategenerator.h \
     logger.h \
     mediaplayer.h \

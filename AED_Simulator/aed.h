@@ -16,8 +16,6 @@ public:
     bool shock(int amperage);
     bool powerOn();
     Battery* getBattery() const;
-    void setPads(PatientType);
-    PatientType getPadStatus();
 
     virtual ~AED();
 
@@ -25,7 +23,6 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
-    PatientType padType;
     bool safetyChecks();
     };
 #endif // AED_H
