@@ -81,10 +81,10 @@ margin: 0.5px;\n\
 
 void AEDWindow::initializeConnects(){
     // Static Signal Connections
-    connect(controller->transmit, SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
+    connect(controller->getTransmitter(), SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
     // Dynamic Signal Connections
-    connect(controller->transmit,SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
+    connect(controller->getTransmitter(),SIGNAL(dynamicSignal(const SignalType&, const string&)), this, SLOT(receiveDynamicSignal(const SignalType&, const string&)));
 
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
@@ -97,10 +97,14 @@ void AEDWindow::initializeConnects(){
 
     connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
 
+    connect(ui->shock_button, SIGNAL(clicked()), this, SLOT(shockPressed()));
+
 
 }
 
-
+void AEDWindow::shockPressed(){
+    controller->shockPressed();
+}
 
 void AEDWindow::togglePower(){
 
@@ -170,13 +174,26 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
     switch(sig){
+
+        case BATTERY:{
+            int batteryvalue = stoi(data);
+            updateBattery(batteryvalue);
+            break;
+    }
+
+
         case PRINT:
             consoleOut(data);
             break;
+
         default:
             break;
     }
 
+}
+
+void AEDWindow::updateBattery(int value){
+    ui->batteryBar->setValue(value);
 }
 
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui

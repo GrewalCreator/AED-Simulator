@@ -42,6 +42,7 @@ private:
     void setShockLight(bool);
     void setPowerLight(bool);
     void setUpVisuals();
+    void updateBattery(int);
 
 signals:
     void aboutToClose();
@@ -57,6 +58,7 @@ private slots:
     void toggleChildPads();
     void consoleOut(const string& message);
     void recharge();
+    void shockPressed();
     void on_adultPads_button_clicked();
     void on_childPads_button_clicked();
 };

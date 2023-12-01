@@ -30,11 +30,11 @@ signals:
 class AEDController: public QObject{
     Q_OBJECT
 public:
+    AEDTransmitter* getTransmitter();
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
     AED* getAED() const;
     Logger* getLogger() const;
-    AEDTransmitter* transmit;
     virtual ~AEDController();
     void testSignals();
     void print(string message);
@@ -43,14 +43,17 @@ public:
     bool powerAEDOn();
     bool powerAEDOff();
     void recharge();
+    void shockPressed();
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
     HeartRateGenerator* getHeartRateGenerator() const;
     void placePads(const PatientType&);
 
 private:
+    AEDTransmitter* transmit;
     void checkAll();
     void updateHR();
+    int timeElapsed;
     QSemaphore* semaphore;
     bool breakflag;
     AED* automatedED;
