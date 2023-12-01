@@ -21,6 +21,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     breakflag=false;
     semaphore = sem;
     logger->log("Calling AEDController Constructor");
+    timeElapsed = 0;
 }
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
@@ -36,8 +37,14 @@ void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
 }
 
 
+
 void AEDController::setCurrentStep(const ProcessSteps& step){
+
     this->processTracker->setCurrentStep(step);
+}
+
+AEDTransmitter* AEDController::getTransmitter(){
+    return transmit;
 }
 
 const ProcessSteps& AEDController::getCurrentStep() const{
@@ -92,9 +99,12 @@ void AEDController::run(){
         QThread::msleep(100);
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
+
+
+        sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
+        timeElapsed++;
     }
-    semaphore->release(); 
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
     this->moveToThread(QCoreApplication::instance()->thread());
@@ -149,6 +159,14 @@ bool AEDController::placePads(const PatientType& type){
     }
 
 
+}
+
+void AEDController::recharge(){
+    automatedED->getBattery()->chargeBattery();
+}
+
+void AEDController::shockPressed(){
+    automatedED->getBattery()->depleteBatteryLevel();
 }
 
 AEDController::~AEDController(){

@@ -42,13 +42,12 @@ void TestWindow::setController(AEDController* controller){
     testController->setController(controller);
 }
 
-/*
-void TestWindow::closeEvent(QCloseEvent* event){
-    //emit aboutToClose();
 
+void TestWindow::closeEvent(QCloseEvent* event){
+    emit aboutToClose();
     QWidget::closeEvent(event);
 }
-*/
+
 
 void TestWindow::generateHeartRateImage(vector<double>& xValues, vector<double>& yValues) {
     // Has not been working

@@ -13,8 +13,10 @@ int main(int argc, char *argv[])
     tw.setController(w.getController());
     qRegisterMetaType<SignalType>("SignalType");
 
-    //QObject::connect(&w, SIGNAL(aboutToClose()), &tw, SLOT(close()));
-    //QObject::connect(&tw, SIGNAL(aboutToClose()), &w, SLOT(close()));
+    qRegisterMetaType<std::string>("string");
+    QObject::connect(&w, SIGNAL(aboutToClose()), &tw, SLOT(close()));
+    QObject::connect(&tw, SIGNAL(aboutToClose()), &w, SLOT(close()));
+
 
     tw.show();
     w.show();

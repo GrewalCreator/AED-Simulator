@@ -12,6 +12,7 @@ enum SignalType{
     LIGHTUP_PADS,
     LIGHTUP_STANDCLEAR,
     SET_STATUS,
+    BATTERY,
 
 };
 

@@ -42,20 +42,22 @@ private:
     void setShockLight(bool);
     void setPowerLight(bool);
     void setUpVisuals();
+    void updateBattery(int);
 
 signals:
     void aboutToClose();
 
 protected:
-    //void closeEvent(QCloseEvent *event) override;
+    void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void receiveStaticSignal(const SignalType& sig, bool);
     void receiveDynamicSignal(const SignalType& sig, const string& data);
     void togglePower();
-    void toggleAdultPads();
-    void toggleChildPads();
     void consoleOut(const string& message);
+
+    void recharge();
+    void shockPressed();
 
 
 };
