@@ -4,6 +4,7 @@
 enum PatientType{
     CHILD,  // Regular Child
     ADULT,  // Regular Adult
+
 };
 
 #endif // PATIENTTYPE_H

@@ -119,11 +119,6 @@ void AEDController::cleanup(){
 
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
-    if(activePatient->getPatientType() != type){
-        sendDynamicSignal(PRINT,"INCORRECT PADS");
-        logger->log("Pad Placement Failed : Incorrect Pads");
-        return false;
-    }
     srand(time(0));
     bool correctlyPlaced = (rand() % 5) != 0;
     if(correctlyPlaced){
@@ -137,7 +132,7 @@ bool AEDController::placePads(const PatientType& type){
                 logger->log("Placing Pediatric Pads");
                 pads->setPadType(ADULT);
                 break;
-    \
+
         }
 
         pads->setPadPlacement(true);
@@ -145,13 +140,12 @@ bool AEDController::placePads(const PatientType& type){
 
 
         sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
-        sendStaticSignal(LIGHTUP_PADS, false);
         return true;
 
     }else{
 
         sendDynamicSignal(PRINT,"CHECK ELECTRODE PADS");
-        logger->log("Pad Placement Failed: Applied Incorrectyl");
+        logger->log("Pad Placement Failed: Applied Incorrectly");
         pads->setPadPlacement(false);
 
         return false;

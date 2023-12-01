@@ -91,12 +91,6 @@ void AEDWindow::initializeConnects(){
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
 
-    // Adult Pads Button
-    connect(ui->adultPads_button, SIGNAL(released()), this, SLOT(toggleAdultPads()));
-
-    // Child Pads Button
-    connect(ui->childPads_button, SIGNAL(released()), this, SLOT(toggleChildPads()));
-
     connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
 
     connect(ui->shock_button, SIGNAL(clicked()), this, SLOT(shockPressed()));
@@ -290,7 +284,6 @@ void AEDWindow::setPowerLight(bool isLightOn){
 void AEDWindow::closeEvent(QCloseEvent* event){
     controller->getLogger()->log("AEDWindow Close Event");
     emit aboutToClose();
-    controller->powerAEDOff();
     QString currentThreadId = "Semaphore Acquired As Thread : " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     controller->getLogger()->log(currentThreadId);
     QWidget::closeEvent(event);
@@ -301,18 +294,26 @@ AEDController* AEDWindow::getController(){
     return controller;
 }
 
-AEDWindow::~AEDWindow(){
-    controller->getLogger()->log("AEDWindow Destructor Called");
-    delete ui;
-    delete semaphore;
-    delete controller;
-    delete controlThread;
-
-}
 
 void AEDWindow::recharge(){
     controller->recharge();
 }
 
+AEDWindow::~AEDWindow(){
+    controller->getLogger()->log("AEDWindow Destructor Called");
+
+    controller->powerAEDOff();
+    if (controlThread->isRunning()) {
+        controlThread->quit();
+        controlThread->wait();
+    }
+
+    delete ui;
+    delete semaphore;
+    delete controller;
+    delete controlThread;
+
+
+}
 
 
