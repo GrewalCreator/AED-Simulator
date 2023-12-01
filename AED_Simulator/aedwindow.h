@@ -47,7 +47,7 @@ signals:
     void aboutToClose();
 
 protected:
-    void closeEvent(QCloseEvent *event) override;
+    //void closeEvent(QCloseEvent *event) override;
 
 private slots:
     void receiveStaticSignal(const SignalType& sig, bool);
@@ -57,7 +57,6 @@ private slots:
     void toggleChildPads();
     void consoleOut(const string& message);
 
-    void on_adultPads_button_clicked();
-    void on_childPads_button_clicked();
+
 };
 #endif // AEDWINDOW_H

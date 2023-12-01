@@ -12,6 +12,8 @@
 #include "processtracker.h"
 #include "heartrategenerator.h"
 #include "PatientType.h"
+#include "electrodepads.h"
+#include "patient.h"
 
 class TestController;
 
@@ -32,20 +34,24 @@ class AEDController: public QObject{
 public:
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
-    AED* getAED() const;
-    Logger* getLogger() const;
+
     AEDTransmitter* transmit;
-    virtual ~AEDController();
-    void testSignals();
-    void print(string message);
+
     void sendStaticSignal(const SignalType& signalType, bool state);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
     bool powerAEDOff();
-    void setProcessTracker(const ProcessSteps& step);
-    const ProcessSteps& getProcessTracker() const;
+    void setCurrentStep(const ProcessSteps& step);
+    const ProcessSteps& getCurrentStep() const;
     HeartRateGenerator* getHeartRateGenerator() const;
-    void placePads(const PatientType&);
+    AED* getAED() const;
+    Logger* getLogger() const;
+    bool placePads(const PatientType& type);
+    Patient* getPatient() const;
+
+
+    virtual ~AEDController();
+
 
 private:
     void checkAll();
@@ -57,7 +63,13 @@ private:
     Logger* logger;
     ProcessTracker* processTracker;
     HeartRateGenerator* heartRateGenerator;
+    ElectrodePads* pads;
+    Patient* patientAdult;
+    Patient* patientChild;
+    Patient* activePatient;
     void cleanup();
+
+
 private slots:
     void run();
 

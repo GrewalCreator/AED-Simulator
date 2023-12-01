@@ -54,7 +54,7 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="testChildPads_button">
+   <widget class="QPushButton" name="childPad_button">
     <property name="geometry">
      <rect>
       <x>420</x>
@@ -67,7 +67,7 @@
      <string>Child Pads</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="testAdultPads_button">
+   <widget class="QPushButton" name="adultPad_button">
     <property name="geometry">
      <rect>
       <x>550</x>
