@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     TestWindow tw;
     tw.setController(w.getController());
     qRegisterMetaType<SignalType>("SignalType");
-
+    qRegisterMetaType<std::string>("string");
     QObject::connect(&w, SIGNAL(aboutToClose()), &tw, SLOT(close()));
     QObject::connect(&tw, SIGNAL(aboutToClose()), &w, SLOT(close()));
 
