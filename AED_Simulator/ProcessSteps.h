@@ -3,6 +3,8 @@
 
 enum ProcessSteps{
     POWER_ON,
+    CHECK_OK,
+    GET_HELP,
     ELECTRODE_PAD_PLACEMENT,
     ANALYZE_ECG,
     SHOCK,

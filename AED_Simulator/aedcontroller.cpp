@@ -78,15 +78,46 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
     transmit->sendDynamic(signalType, data);
 }
 
+void AEDController::stepProgress(){
+    switch(processTracker->getCurrentStep()){
+    case CHECK_OK:{
+        sendStaticSignal(LIGHTUP_OK,true);
+        if(timeElapsed > 10){
+            setProcessTracker(GET_HELP);
+            timeElapsed=0;
+        }
+        break;
+    }
+    case GET_HELP:{
+        sendStaticSignal(LIGHTUP_911, true);
+        if(timeElapsed > 10){
+            setProcessTracker(ELECTRODE_PAD_PLACEMENT);
+            timeElapsed=0;
+        }
+        break;
+    }
+    case ELECTRODE_PAD_PLACEMENT:{
+        sendStaticSignal(LIGHTUP_PADS, true);
+        if(timeElapsed > 10){
+            setProcessTracker(ELECTRODE_PAD_PLACEMENT);
+            timeElapsed=0;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
-
+    QThread::msleep(5000);
     while(!breakflag){
-        QThread::msleep(100);
+        QThread::msleep(200);
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
 
-
+        stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
         timeElapsed++;
