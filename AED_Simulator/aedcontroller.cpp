@@ -145,7 +145,7 @@ void AEDController::recharge(){
 }
 
 void AEDController::shockPressed(){
-    automatedED->getBattery()->depleteBatteryLevel();
+    automatedED->shock(1);
 }
 
 AEDController::~AEDController(){

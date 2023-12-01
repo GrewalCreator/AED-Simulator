@@ -57,6 +57,7 @@ private:
     QSemaphore* semaphore;
     bool breakflag;
     AED* automatedED;
+    void stepProgress();
     TestController* testControlSystem;
     Logger* logger;
     ProcessTracker* processTracker;
