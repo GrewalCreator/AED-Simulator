@@ -96,6 +96,7 @@ void AEDController::stepProgress(){
     switch(processTracker->getCurrentStep()){
     case CHECK_OK:{
         sendStaticSignal(LIGHTUP_OK,true);
+        //TODO: call checkOk function
         if(timeElapsed > 10){
             setCurrentStep(GET_HELP);
             timeElapsed=0;
@@ -104,6 +105,7 @@ void AEDController::stepProgress(){
     }
     case GET_HELP:{
         sendStaticSignal(LIGHTUP_911, true);
+        //TODO: call getHelp function
         if(timeElapsed > 10){
             setCurrentStep(ELECTRODE_PAD_PLACEMENT);
             timeElapsed=0;
@@ -112,13 +114,29 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        if(false){
+        qDebug() << "getHasPadsOn(): " << activePatient->getHasPadsOn();
+        if(activePatient->getHasPadsOn()){
             setCurrentStep(ANALYZE_ECG);
             timeElapsed=0;
         }
         break;
     }
-    default:
+    case ANALYZE_ECG:{
+        setCurrentStep(SHOCK);
+        qDebug() << "in ANALYZE_ECG";
+        break;
+    }
+    case SHOCK:{
+        setCurrentStep(CPR);
+        qDebug() << "in SHOCKS";
+        break;
+    }
+
+    case CPR:{
+        sendStaticSignal(LIGHTUP_COMPRESSIONS, true);
+        break;
+    }
+            default:
         break;
     }
 }
@@ -133,6 +151,7 @@ void AEDController::run(){
 
         stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
+        sendDynamicSignal(HEART_RATE,std::to_string(activePatient->getHeartRate()));//update heart rate
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
         timeElapsed++;
     }
@@ -151,6 +170,7 @@ void AEDController::cleanup(){
 
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
+    qDebug() << "in placePads";
     srand(time(0));
     bool correctlyPlaced = (rand() % 5) != 0;
     if(correctlyPlaced){
