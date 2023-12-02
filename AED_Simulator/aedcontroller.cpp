@@ -144,8 +144,12 @@ void AEDController::stepProgress(){
 
     case SHOCK:{
         sendStaticSignal(LIGHTUP_SHOCK, true);
+        if(hr <= 150){
+            setCurrentStep(ANALYZE_ECG);
+            sendStaticSignal(LIGHTUP_SHOCK, false);
+        }
         if(automatedED->getShockDelivered()){
-            qDebug()<<"shock has been found";
+            //qDebug()<<"shock has been found";
             if(12<timeElapsed){//really funky bad piece of code: the timer is assumed to be outside of 10 seconds, and we reset it to 0 so we can count down.
                 timeElapsed = 0;
             }

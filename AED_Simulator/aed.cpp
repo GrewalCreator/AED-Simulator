@@ -47,8 +47,6 @@ bool AED::shock(int amperage){
 
     //Check Safety
     if(!checkShockSafety()){
-
-        controller->print("PLEASE DO NOT ATTEMPT TO SHOCK AT THIS TIME.");
         return false;
     }
 

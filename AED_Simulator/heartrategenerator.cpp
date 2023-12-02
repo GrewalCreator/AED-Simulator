@@ -32,6 +32,6 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
 
         xValues.push_back(x);
         yValues.push_back(y);
-        qDebug() << "X: " << x << " Y: " << y << Qt::endl;
+        //qDebug() << "X: " << x << " Y: " << y << Qt::endl;
     }
 }
