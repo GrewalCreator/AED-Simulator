@@ -13,9 +13,10 @@ public:
     AED(AEDController& controller);
     void playAudio(const AudioTypes& audio);
     bool checkShockSafety();
-    bool shock(int amperage);
+    bool shock();
     bool powerOn();
     bool getShockDelivered();
+    int getAmperage();
     void resetShockDelivered();
     Battery* getBattery() const;
 
@@ -26,6 +27,7 @@ private:
     MediaPlayer* audioPlayer;
     Battery* battery;
     int numShocks;
+    int amperage;
     bool shockDelivered;
     bool safetyChecks();
     };
