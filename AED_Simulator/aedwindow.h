@@ -43,6 +43,7 @@ private:
     void setPowerLight(bool);
     void setUpVisuals();
     void updateBattery(int);
+    void updateHeartRate(int);
 
 signals:
     void aboutToClose();

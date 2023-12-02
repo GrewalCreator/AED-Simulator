@@ -16,6 +16,7 @@ void TestController::updateHeartRate(int newHeartRate){
     heartRaterGenerator->updateHeartRate(heartRate);
     vector<double> xValues = heartRaterGenerator->getXValues();
     vector<double> yValues = heartRaterGenerator->getYValues();
+    //controlSystem->
     emit updateHeartRateImage(xValues, yValues);
 }
 

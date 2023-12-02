@@ -13,6 +13,7 @@ enum SignalType{
     LIGHTUP_STANDCLEAR,
     SET_STATUS,
     BATTERY,
+    HEART_RATE,
 
 };
 

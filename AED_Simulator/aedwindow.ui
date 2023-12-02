@@ -258,32 +258,6 @@
        <set>Qt::AlignCenter</set>
       </property>
      </widget>
-     <widget class="QPushButton" name="adultPads_button">
-      <property name="geometry">
-       <rect>
-        <x>550</x>
-        <y>310</y>
-        <width>83</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Adult Pads</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="childPads_button">
-      <property name="geometry">
-       <rect>
-        <x>550</x>
-        <y>370</y>
-        <width>83</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Child Pads</string>
-      </property>
-     </widget>
      <widget class="QProgressBar" name="batteryBar">
       <property name="geometry">
        <rect>

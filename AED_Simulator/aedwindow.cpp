@@ -173,9 +173,12 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
             int batteryvalue = stoi(data);
             updateBattery(batteryvalue);
             break;
-    }
-
-
+        }
+        case HEART_RATE:{
+            int heartRate = stoi(data);
+            updateHeartRate(heartRate);
+            break;
+        }
         case PRINT:
             consoleOut(data);
             break;
@@ -190,6 +193,9 @@ void AEDWindow::updateBattery(int value){
     ui->batteryBar->setValue(value);
 }
 
+void AEDWindow::updateHeartRate(int heartRate){
+    ui->heartRate_LCD->display(heartRate);
+}
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
     ui->ok_image->setPixmap(*(imageMap["ok_image_off"]));
     ui->standclear_image->setPixmap(*(imageMap["standclear_image_off"]));

@@ -1,7 +1,7 @@
 #include "patient.h"
 
 Patient::Patient(const PatientType& type): patientType(type){
-
+    hasPadsOn = false;
 }
 
 bool Patient::getIsInWater() const{
