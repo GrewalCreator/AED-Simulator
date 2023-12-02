@@ -222,7 +222,7 @@ void AEDWindow::loadImgs(){
             *p = p->scaled(ui->compressions_image->size());//scales pixmap to compression image
         }
         else if(belongsTo == "shock_button")
-            *p = p->scaled(ui->shock_button->size());//scales pixmap to the size of shock button
+            *p = p->scaled(ui->shock_button->size());//scales pimap to the size of shock button
         else{
             *p = p->scaled(ui->ok_image->size());//scales pixmap to the size of standard indicator
         }

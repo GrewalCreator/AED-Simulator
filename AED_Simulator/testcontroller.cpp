@@ -21,7 +21,7 @@ void TestController::updateHeartRate(int newHeartRate){
 }
 
 void TestController::placePads(const PatientType& type){
-    if(!(controlSystem->getCurrentStep() > POWER_OFF)){return;}
+    if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
     bool placedSuccessfully = controlSystem->placePads(type);
     if(placedSuccessfully){
         controlSystem->setCurrentStep(ANALYZE_ECG);

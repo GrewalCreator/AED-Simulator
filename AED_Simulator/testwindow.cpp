@@ -68,7 +68,7 @@ void TestWindow::styling(){
 
 void TestWindow::padPlaced(){
     QPushButton* button = qobject_cast<QPushButton*>(sender());
-    qDebug()<<button->objectName();
+
     if(button){
         if(button->objectName() == "childPad_button"){
             testController->placePads(CHILD);
