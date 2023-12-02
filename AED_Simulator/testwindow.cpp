@@ -1,26 +1,14 @@
 #include "testwindow.h"
 #include "ui_testwindow.h"
 
+#define MAX_HEART_RATE 250
+
 TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWindow){
     ui->setupUi(this);
     testController = new TestController(this);
     initializeConnection();
-            this->setStyleSheet(
-                "QSlider::groove:horizontal {"
-                "    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #FF0000, stop:1 #00FF00);"
-                "    border: 1px solid #4A708B;"
-                "    height: 10px;"
-                "    border-radius: 4px;"
-                "}"
-                "QSlider::handle:horizontal {"
-                "    background: #4A708B;"
-                "    border: 1px solid #4A708B;"
-                "    width: 14px;"
-                "    height: 5px;"
-                "    margin: -500px 0;"
-                "    border-radius: 7px;"
-                "}"
-            );
+
+    styling();
 }
 
 void TestWindow::initializeConnection(){
@@ -34,6 +22,48 @@ void TestWindow::initializeConnection(){
     // Pad Placement
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
+
+    //Heart rate testing buttons
+    connect(ui->Systole, SIGNAL(clicked()), this, SLOT(setHR()));
+
+    connect(ui->vtach, SIGNAL(clicked()), this, SLOT(setHR()));
+}
+
+void TestWindow::setHR(){
+
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+
+   if(button->objectName()=="Systole"){
+       qDebug()<<"setting systole";
+       ui->heartRate_slider->setValue(10);
+   }
+   else if(button->objectName()=="VTach"){
+       ui->heartRate_slider->setValue(250);
+   }
+}
+
+void TestWindow::styling(){
+
+    //float normalBPMstart = 60;
+    //float normalBPMend = 150;
+
+    //float greenAreaStartValue = MAX_HEART_RATE / normalBPMstart;
+    //float greenAreaEndValue = MAX_HEART_RATE / normalBPMend;
+
+    this->setStyleSheet(
+    "QSlider::handle::horizontal{"
+    "   background: #4A708B; \
+        width: 14px; \
+        height: 14px; \
+        border-radius: 7px; \
+        margin: -5px 0;} \
+    QSlider::groove:horizontal{ \
+        border: 1px solid #999999; \
+        background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.2399 red, stop:0.24 #90EE90, stop:0.6 #90EE90, stop:0.6001 red); \
+        height: 10px; \
+        border-radius: 4px;}"
+    );
+
 }
 
 void TestWindow::padPlaced(){

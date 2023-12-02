@@ -93,6 +93,8 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 }
 
 void AEDController::stepProgress(){
+    int hr = activePatient->getHeartRate();
+
     switch(processTracker->getCurrentStep()){
     case CHECK_OK:{
         sendStaticSignal(LIGHTUP_OK,true);
@@ -107,6 +109,7 @@ void AEDController::stepProgress(){
         sendStaticSignal(LIGHTUP_911, true);
         //TODO: call getHelp function
         if(timeElapsed > 10){
+            sendDynamicSignal(PRINT, "Place pads on the patient.");
             setCurrentStep(ELECTRODE_PAD_PLACEMENT);
             timeElapsed=0;
         }
@@ -114,23 +117,64 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        qDebug() << "getHasPadsOn(): " << activePatient->getHasPadsOn();
-        if(activePatient->getHasPadsOn()){
+        if(activePatient->getHasPadsOn()){//TODO: MAKE THE "PADS SUCESSFULLY ATTACHED MESSAGE SHOW UP FOR LONGER THAN A SECOND
             setCurrentStep(ANALYZE_ECG);
-            timeElapsed=0;
+            sendDynamicSignal(PRINT, "Analyzing patient. DON'T TOUCH!!!");
+            sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
         }
         break;
     }
     case ANALYZE_ECG:{
-        setCurrentStep(SHOCK);
-        qDebug() << "in ANALYZE_ECG";
+        if(timeElapsed > 10){
+            if(hr > 150){
+                sendDynamicSignal(PRINT, "Shockable rhythm detected.");
+                setCurrentStep(SHOCK);
+            }
+            else if(hr < 60){
+                sendDynamicSignal(PRINT, "Shock is unadvisable. Start compressions.");
+                setCurrentStep(CPR);
+            }
+            else{
+                sendDynamicSignal(PRINT, "Patient is nominal.");
+            timeElapsed=0;
+        }
+    }
         break;
     }
+
     case SHOCK:{
-        setCurrentStep(CPR);
-        qDebug() << "in SHOCKS";
+        sendStaticSignal(LIGHTUP_SHOCK, true);
+        if(automatedED->getShockDelivered()){
+            qDebug()<<"shock has been found";
+            if(12<timeElapsed){//really funky bad piece of code: the timer is assumed to be outside of 10 seconds, and we reset it to 0 so we can count down.
+                timeElapsed = 0;
+            }
+            switch(timeElapsed){//the countdown is sent every 3 ticks, so it adds some suspense.
+                case 3:{
+                    sendDynamicSignal(PRINT, "3...");
+                    break;
+                }
+                case 6:{
+                    sendDynamicSignal(PRINT, "2...");
+                    break;
+                }
+                case 9:{
+                    sendDynamicSignal(PRINT, "1...");
+                    break;
+                }
+                case 12:{
+                    sendDynamicSignal(PRINT, "Shock Delivered. Begin Compressions.");
+                    setCurrentStep(CPR);
+                    break;
+                }
+                default:
+                break;
+            }
+        }
         break;
     }
+
+
 
     case CPR:{
         sendStaticSignal(LIGHTUP_COMPRESSIONS, true);
@@ -184,14 +228,13 @@ bool AEDController::placePads(const PatientType& type){
                 logger->log("Placing Pediatric Pads");
                 pads->setPadType(ADULT);
                 break;
-
         }
 
         pads->setPadPlacement(true);
         activePatient->setHasPadsOn(true);
 
 
-        sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
+        //sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
 
         return true;
     }else{
@@ -205,6 +248,11 @@ bool AEDController::placePads(const PatientType& type){
     }
 
 
+}
+
+void AEDController::print(string str){
+    qDebug()<<"here";
+    sendDynamicSignal(PRINT, str);
 }
 
 void AEDController::recharge(){

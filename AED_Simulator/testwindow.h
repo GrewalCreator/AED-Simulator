@@ -22,6 +22,7 @@ public:
     explicit TestWindow(QWidget *parent = nullptr);
     virtual ~TestWindow();
     void setController(AEDController*);
+    void styling();
 
 
 signals:
@@ -35,6 +36,7 @@ private slots:
     void padPlaced();
     void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
     void updateHR();
+    void setHR();
 
 private:
     Ui::TestWindow *ui;
