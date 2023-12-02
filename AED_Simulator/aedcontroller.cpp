@@ -98,7 +98,7 @@ void AEDController::stepProgress(){
     switch(processTracker->getCurrentStep()){
     case CHECK_OK:{
         sendStaticSignal(LIGHTUP_OK,true);
-        //TODO: call checkOk function
+        checkOk();
         if(timeElapsed > 10){
             setCurrentStep(GET_HELP);
             timeElapsed=0;
@@ -107,7 +107,7 @@ void AEDController::stepProgress(){
     }
     case GET_HELP:{
         sendStaticSignal(LIGHTUP_911, true);
-        //TODO: call getHelp function
+        getHelp();
         if(timeElapsed > 10){
             sendDynamicSignal(PRINT, "Place pads on the patient.");
             setCurrentStep(ELECTRODE_PAD_PLACEMENT);
@@ -214,7 +214,6 @@ void AEDController::cleanup(){
 
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
-    qDebug() << "in placePads";
     srand(time(0));
     bool correctlyPlaced = (rand() % 5) != 0;
     if(correctlyPlaced){
@@ -248,6 +247,13 @@ bool AEDController::placePads(const PatientType& type){
     }
 
 
+}
+void AEDController::checkOk() {
+    sendDynamicSignal(PRINT,"ARE YOU OK?");
+}
+
+void AEDController::getHelp() {
+    sendDynamicSignal(PRINT,"Call for help.");
 }
 
 void AEDController::print(string str){
