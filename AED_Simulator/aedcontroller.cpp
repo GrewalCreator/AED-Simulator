@@ -114,7 +114,6 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        qDebug() << "getHasPadsOn(): " << activePatient->getHasPadsOn();
         if(activePatient->getHasPadsOn()){
             setCurrentStep(ANALYZE_ECG);
             timeElapsed=0;
@@ -184,7 +183,6 @@ bool AEDController::placePads(const PatientType& type){
                 logger->log("Placing Pediatric Pads");
                 pads->setPadType(ADULT);
                 break;
-
         }
 
         pads->setPadPlacement(true);

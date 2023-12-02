@@ -22,6 +22,7 @@ public:
     explicit TestWindow(QWidget *parent = nullptr);
     virtual ~TestWindow();
     void setController(AEDController*);
+    void styling();
 
 
 signals:
