@@ -59,6 +59,8 @@ public:
     bool placePads(const PatientType& type);
     Patient* getPatient() const;
 
+    void checkOk();
+    void getHelp();
 
     virtual ~AEDController();
 
