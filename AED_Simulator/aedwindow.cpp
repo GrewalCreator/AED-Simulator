@@ -70,10 +70,10 @@ void AEDWindow::styling(){
 QProgressBar {\n\
 border: 2px solid grey;\n\
 border-radius: 5px;\n\
-background-color: #f1f1f1;\n\
+background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 red, stop:0.5 yellow, stop:0.7 #5ff578);\n\
 }\n\
 QProgressBar::chunk {\n\
-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 red, stop:1 green);\n\
+background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 white, stop:1 white);\n\
 width: 5px;\n\
 margin: 0.5px;\n\
 }\n"
@@ -293,6 +293,7 @@ void AEDWindow::closeEvent(QCloseEvent* event){
 AEDController* AEDWindow::getController(){
     return controller;
 }
+
 
 
 void AEDWindow::recharge(){

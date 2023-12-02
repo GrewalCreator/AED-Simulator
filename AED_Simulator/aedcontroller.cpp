@@ -92,15 +92,46 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
     transmit->sendDynamic(signalType, data);
 }
 
+void AEDController::stepProgress(){
+    switch(processTracker->getCurrentStep()){
+    case CHECK_OK:{
+        sendStaticSignal(LIGHTUP_OK,true);
+        if(timeElapsed > 10){
+            setCurrentStep(GET_HELP);
+            timeElapsed=0;
+        }
+        break;
+    }
+    case GET_HELP:{
+        sendStaticSignal(LIGHTUP_911, true);
+        if(timeElapsed > 10){
+            setCurrentStep(ELECTRODE_PAD_PLACEMENT);
+            timeElapsed=0;
+        }
+        break;
+    }
+    case ELECTRODE_PAD_PLACEMENT:{
+        sendStaticSignal(LIGHTUP_PADS, true);
+        if(false){
+            setCurrentStep(ANALYZE_ECG);
+            timeElapsed=0;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+}
+
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
-
+    QThread::msleep(5000);
     while(!breakflag){
-        QThread::msleep(100);
+        QThread::msleep(200);
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
 
-
+        stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
         timeElapsed++;
@@ -116,6 +147,7 @@ void AEDController::cleanup(){
     logger->log(currentThreadId);
     breakflag = true;
 }
+
 
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
@@ -140,8 +172,8 @@ bool AEDController::placePads(const PatientType& type){
 
 
         sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
-        return true;
 
+        return true;
     }else{
 
         sendDynamicSignal(PRINT,"CHECK ELECTRODE PADS");
@@ -160,7 +192,7 @@ void AEDController::recharge(){
 }
 
 void AEDController::shockPressed(){
-    automatedED->getBattery()->depleteBatteryLevel();
+    automatedED->shock(1);
 }
 
 AEDController::~AEDController(){
@@ -172,5 +204,4 @@ AEDController::~AEDController(){
     delete logger;
     delete processTracker;
     delete heartRateGenerator;
-
 }

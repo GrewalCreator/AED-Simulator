@@ -4,7 +4,7 @@
 #include "mediaplayer.h"
 #include "SignalType.h"
 #include "battery.h"
-
+#include "PatientType.h"
 
 class AEDController;
 
@@ -23,7 +23,6 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
-
     bool safetyChecks();
     };
 #endif // AED_H

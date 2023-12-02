@@ -2,14 +2,15 @@
 #define PROCESSSTEPS_H
 
 enum ProcessSteps{
+
     POWER_OFF = 0,
     CHECK_OK = 1,
-    ELECTRODE_PAD_PLACEMENT = 2,
-    ANALYZE_ECG = 3,
-    SHOCK = 4,
-    CPR = 5,
-    AFTER_CARE = 6,
-
+    GET_HELP = 2,
+    ELECTRODE_PAD_PLACEMENT = 3,
+    ANALYZE_ECG = 4,
+    SHOCK = 5,
+    CPR = 6,
+    AFTER_CARE = 7,
 };
 
 

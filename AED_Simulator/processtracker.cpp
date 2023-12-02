@@ -1,7 +1,6 @@
 #include "processtracker.h"
 
 ProcessTracker::ProcessTracker(){
-
 }
 
 
