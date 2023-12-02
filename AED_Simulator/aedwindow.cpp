@@ -175,6 +175,9 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
             break;
         }
         case HEART_RATE:{
+            if (!controller->getPatient()->getHasPadsOn()){
+                break;
+            }
             int heartRate = stoi(data);
             updateHeartRate(heartRate);
             break;
