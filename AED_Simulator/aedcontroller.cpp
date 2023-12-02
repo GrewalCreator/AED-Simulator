@@ -117,27 +117,33 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        if(activePatient->getHasPadsOn()){//TODO: MAKE THE "PADS SUCESSFULLY ATTACHED MESSAGE SHOW UP FOR LONGER THAN A SECOND
-            setCurrentStep(ANALYZE_ECG);
-            sendDynamicSignal(PRINT, "Analyzing patient. DON'T TOUCH!!!");
+        if(activePatient->getHasPadsOn()){//TODO: MAKE THE "PADS SUCESSFULLY ATTACHED MESSAGE SHOW UP FOR LONGER THAN A SECON
             sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
+            logger->log("Moving on to ANALYZE_ECG");
+            qDebug()<<"time at transition from pad placement to analysis:"<<timeElapsed;
+            timeElapsed=0;
+            setCurrentStep(ANALYZE_ECG);
         }
         break;
     }
     case ANALYZE_ECG:{
+        sendDynamicSignal(PRINT, "Analyzing patient. DON'T TOUCH!!!");
+        sendStaticSignal(LIGHTUP_STANDCLEAR, true);
         if(timeElapsed > 10){
             if(hr > 150){
                 sendDynamicSignal(PRINT, "Shockable rhythm detected.");
                 setCurrentStep(SHOCK);
+                logger->log("Moving on to SHOCK");
             }
             else if(hr < 60){
                 sendDynamicSignal(PRINT, "Shock is unadvisable. Start compressions.");
                 setCurrentStep(CPR);
+                logger->log("Moving on to CPR");
             }
             else{
                 sendDynamicSignal(PRINT, "Patient is nominal.");
-            timeElapsed=0;
-        }
+            }
+             timeElapsed=0;
     }
         break;
     }
@@ -145,7 +151,6 @@ void AEDController::stepProgress(){
     case SHOCK:{
         sendStaticSignal(LIGHTUP_SHOCK, true);
         if(automatedED->getShockDelivered()){
-            qDebug()<<"shock has been found";
             if(12<timeElapsed){//really funky bad piece of code: the timer is assumed to be outside of 10 seconds, and we reset it to 0 so we can count down.
                 timeElapsed = 0;
             }
@@ -178,6 +183,9 @@ void AEDController::stepProgress(){
 
     case CPR:{
         sendStaticSignal(LIGHTUP_COMPRESSIONS, true);
+        if(timeElapsed > 10){//added so the previous message stays up for longer
+
+    }
         break;
     }
             default:
@@ -257,7 +265,6 @@ void AEDController::getHelp() {
 }
 
 void AEDController::print(string str){
-    qDebug()<<"here";
     sendDynamicSignal(PRINT, str);
 }
 
