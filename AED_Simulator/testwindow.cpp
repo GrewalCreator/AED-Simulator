@@ -5,6 +5,22 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
     ui->setupUi(this);
     testController = new TestController(this);
     initializeConnection();
+            this->setStyleSheet(
+                "QSlider::groove:horizontal {"
+                "    background: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #FF0000, stop:1 #00FF00);"
+                "    border: 1px solid #4A708B;"
+                "    height: 10px;"
+                "    border-radius: 4px;"
+                "}"
+                "QSlider::handle:horizontal {"
+                "    background: #4A708B;"
+                "    border: 1px solid #4A708B;"
+                "    width: 14px;"
+                "    height: 5px;"
+                "    margin: -500px 0;"
+                "    border-radius: 7px;"
+                "}"
+            );
 }
 
 void TestWindow::initializeConnection(){
@@ -22,6 +38,7 @@ void TestWindow::initializeConnection(){
 
 void TestWindow::padPlaced(){
     QPushButton* button = qobject_cast<QPushButton*>(sender());
+    qDebug()<<button->objectName();
     if(button){
         if(button->objectName() == "childPad_button"){
             testController->placePads(CHILD);
