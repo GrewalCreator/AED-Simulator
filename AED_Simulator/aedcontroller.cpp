@@ -117,8 +117,8 @@ void AEDController::stepProgress(){
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        if(activePatient->getHasPadsOn()){//TODO: MAKE THE "PADS SUCESSFULLY ATTACHED MESSAGE SHOW UP FOR LONGER THAN A SECON
-            sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED");
+        if(activePatient->getHasPadsOn()){//TODO: MAKE THE "PADS SUCESSFULLY ATTACHED MESSAGE SHOW UP FOR LONGER THAN A SECOND
+            //sendDynamicSignal(PRINT,"PADS SUCCESSFULLY ATTACHED"); not a neccessary message
             logger->log("Moving on to ANALYZE_ECG");
             qDebug()<<"time at transition from pad placement to analysis:"<<timeElapsed;
             timeElapsed=0;
