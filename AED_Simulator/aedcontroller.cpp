@@ -215,7 +215,7 @@ void AEDController::cleanup(){
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
     srand(time(0));
-    bool correctlyPlaced = (rand() % 5) != 0;
+    bool correctlyPlaced = (rand() % 2) != 0;
     if(correctlyPlaced){
         switch(type){
 
