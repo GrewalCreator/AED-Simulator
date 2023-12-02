@@ -146,6 +146,7 @@ void AEDController::stepProgress(){
         sendStaticSignal(LIGHTUP_SHOCK, true);
         if(hr <= 150){
             setCurrentStep(ANALYZE_ECG);
+            sendStaticSignal(LIGHTUP_SHOCK, false);
         }
         if(automatedED->getShockDelivered()){
             //qDebug()<<"shock has been found";
