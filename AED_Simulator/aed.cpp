@@ -24,18 +24,18 @@ bool AED::powerOn(){
 
 bool AED::safetyChecks(){
     // Implement Safety Checks
-
     return true;
 }
 
 bool AED::checkShockSafety(){
-    return true;
+    return controller->getCurrentStep() == SHOCK ? true : false;
 }
 
 Battery* AED::getBattery() const{return this->battery;}
 
 
 bool AED::shock(int amperage){
+
     //Check Safety
     if(!checkShockSafety()){return false;}
 
