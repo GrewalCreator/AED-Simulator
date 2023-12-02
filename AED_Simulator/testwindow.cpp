@@ -7,6 +7,7 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
     ui->setupUi(this);
     testController = new TestController(this);
     initializeConnection();
+
     styling();
 }
 
@@ -21,6 +22,24 @@ void TestWindow::initializeConnection(){
     // Pad Placement
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
+
+    //Heart rate testing buttons
+    connect(ui->Systole, SIGNAL(clicked()), this, SLOT(setHR()));
+
+    connect(ui->vtach, SIGNAL(clicked()), this, SLOT(setHR()));
+}
+
+void TestWindow::setHR(){
+
+    QPushButton* button = qobject_cast<QPushButton*>(sender());
+
+   if(button->objectName()=="Systole"){
+       qDebug()<<"setting systole";
+       ui->heartRate_slider->setValue(10);
+   }
+   else if(button->objectName()=="VTach"){
+       ui->heartRate_slider->setValue(250);
+   }
 }
 
 void TestWindow::styling(){
@@ -49,6 +68,7 @@ void TestWindow::styling(){
 
 void TestWindow::padPlaced(){
     QPushButton* button = qobject_cast<QPushButton*>(sender());
+    qDebug()<<button->objectName();
     if(button){
         if(button->objectName() == "childPad_button"){
             testController->placePads(CHILD);

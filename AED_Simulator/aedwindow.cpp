@@ -264,6 +264,7 @@ void AEDWindow::setShockLight(bool isLightOn){
     QIcon shockimg;
 
     if(isLightOn){
+        setAllLights(false);
         shockimg = QIcon(*imageMap["shock_button_on"]);
     }
     else

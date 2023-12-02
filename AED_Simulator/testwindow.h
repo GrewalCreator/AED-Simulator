@@ -36,6 +36,7 @@ private slots:
     void padPlaced();
     void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
     void updateHR();
+    void setHR();
 
 private:
     Ui::TestWindow *ui;

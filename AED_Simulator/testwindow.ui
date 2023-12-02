@@ -83,6 +83,32 @@
      <string>Adult Pads</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="vtach">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>90</y>
+      <width>83</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>VTach</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Systole">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>83</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Systole</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

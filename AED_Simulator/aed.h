@@ -15,6 +15,8 @@ public:
     bool checkShockSafety();
     bool shock(int amperage);
     bool powerOn();
+    bool getShockDelivered();
+    void resetShockDelivered();
     Battery* getBattery() const;
 
     virtual ~AED();
@@ -23,6 +25,8 @@ private:
     AEDController* controller;
     MediaPlayer* audioPlayer;
     Battery* battery;
+    int numShocks;
+    bool shockDelivered;
     bool safetyChecks();
     };
 #endif // AED_H
