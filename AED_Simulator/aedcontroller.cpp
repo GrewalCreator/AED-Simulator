@@ -109,12 +109,13 @@ void AEDController::stepProgress(){
         if(timeElapsed > 10){
             setCurrentStep(ELECTRODE_PAD_PLACEMENT);
             timeElapsed=0;
+            sendDynamicSignal(PRINT,"");
         }
         break;
     }
     case ELECTRODE_PAD_PLACEMENT:{
         sendStaticSignal(LIGHTUP_PADS, true);
-        sendDynamicSignal(PRINT,"");
+
         if(activePatient->getHasPadsOn()){
             setCurrentStep(ANALYZE_ECG);
             timeElapsed=0;
