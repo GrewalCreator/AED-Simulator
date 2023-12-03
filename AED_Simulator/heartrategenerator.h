@@ -14,7 +14,7 @@ public:
 
     void updateHeartRate(double newHeartRate);
 
-    const vector<double>& getXValues() const;
+
     const vector<double>& getYValues() const;
 
 

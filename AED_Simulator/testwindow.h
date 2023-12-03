@@ -7,6 +7,7 @@
 #include "QPainter"
 #include "QImage"
 #include "PatientType.h"
+#include "cmath"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestWindow; }
@@ -34,7 +35,7 @@ protected:
 
 private slots:
     void padPlaced();
-    void generateHeartRateImage(vector<double>& xValues, vector<double>& yValues);
+    void generateHeartRateImage(vector<double>& yValues);
     void updateHR();
     void setHR();
 
