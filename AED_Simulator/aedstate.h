@@ -15,7 +15,7 @@ protected:
 
 };
 
-class PowerOffState : public AEDState {//we probably don't need this.
+class PowerOnState : public AEDState {//we probably don't need this.
 public:
     using AEDState::AEDState;
     virtual void stepProgress() override;

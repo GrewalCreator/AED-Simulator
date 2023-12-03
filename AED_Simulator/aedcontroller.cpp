@@ -25,7 +25,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     semaphore = sem;
     logger->log("Calling AEDController Constructor");
     timeElapsed = 0;
-    currentState = states[POWER_OFF];
+    currentState = states[POWER_ON];
 
 }
 
@@ -34,7 +34,7 @@ AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 }
 
 void AEDController::initStates(){
-    states.insert(POWER_OFF, new PowerOffState(this));
+    states.insert(POWER_ON, new PowerOnState(this));
     states.insert(CHECK_OK, new CheckPatientState(this));
     states.insert(GET_HELP, new GetHelpState(this));
     states.insert(ELECTRODE_PAD_PLACEMENT, new PadPlacementState(this));
@@ -50,7 +50,6 @@ void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
 void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
-
 
 
 void AEDController::setCurrentStep(const ProcessSteps& step){

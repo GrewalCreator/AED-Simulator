@@ -134,7 +134,7 @@ void AEDWindow::togglePower(){
         controller->moveToThread(controlThread);
         controlThread->start();
         controller->getAED()->playAudio(POWER_ON_AUDIO);
-        controller->setCurrentStep(CHECK_OK);
+        controller->setState(POWER_ON);
         bool successfulPowerOn = controller->powerAEDOn();
         setPowerLight(true);
         if(!successfulPowerOn){
