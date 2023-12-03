@@ -15,6 +15,7 @@
 #include "electrodepads.h"
 #include "patient.h"
 
+class AEDState;
 class TestController;
 
 class AEDTransmitter: public QObject{
@@ -46,6 +47,11 @@ public:
     bool powerAEDOn();
     bool powerAEDOff();
 
+    int getTimeElapsed();
+    void resetTimeElapsed();
+    void setState(ProcessSteps);// public so that states can set other states
+
+
     void setCurrentStep(const ProcessSteps& step);
     const ProcessSteps& getCurrentStep() const;
 
@@ -64,11 +70,14 @@ public:
     void checkOk();
     void getHelp();
 
+    void illuminate(SignalType);
+
     virtual ~AEDController();
 
 
 
 private:
+    void initStates();
     AEDTransmitter* transmit;
     void checkAll();
     void updateHR();
@@ -85,6 +94,9 @@ private:
     Patient* patientAdult;
     Patient* patientChild;
     Patient* activePatient;
+    AEDState* currentState;
+
+    QMap<ProcessSteps,AEDState*> states;
     void cleanup();
 
 

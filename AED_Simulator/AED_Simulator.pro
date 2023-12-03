@@ -13,6 +13,7 @@ SOURCES += \
     aed.cpp \
     aedQTest.cpp \
     aedcontroller.cpp \
+    aedstate.cpp \
     battery.cpp \
     electrodepads.cpp \
     heartrategenerator.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     aed.h \
     aedQTest.h \
     aedcontroller.h \
+    aedstate.h \
     aedwindow.h \
     battery.h \
     defs.h \
