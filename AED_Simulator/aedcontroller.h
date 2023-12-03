@@ -56,7 +56,9 @@ public:
     const ProcessSteps& getCurrentStep() const;
 
     void recharge();
+    void standClear();
     void shockPressed();
+    void decreaseBPM(int amperage);
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
 

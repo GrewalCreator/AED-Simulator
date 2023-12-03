@@ -21,11 +21,8 @@ void TestController::updateHeartRate(int newHeartRate){
 }
 
 void TestController::placePads(const PatientType& type){
-    if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}//is this ok??
+    if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
     bool placedSuccessfully = controlSystem->placePads(type);
-    if(placedSuccessfully){
-        //controlSystem->setCurrentStep(ANALYZE_ECG); removed, since step progression handles switching steps
-    }
 }
 
 void TestController::setPatientHR(double heartRate){

@@ -93,6 +93,7 @@ void AEDWindow::initializeConnects(){
 
     connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
 
+    // Shock Button
     connect(ui->shock_button, SIGNAL(clicked()), this, SLOT(shockPressed()));
 
 
@@ -250,7 +251,7 @@ void AEDWindow::setAllLights(bool lit){
     }
 }
 
-void AEDWindow::setOneLight(const SignalType sig,bool lit){
+void AEDWindow::setOneLight(const SignalType sig, bool lit){
     setAllLights(false);
     QLabel* label = uiMap[sig];
 

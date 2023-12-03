@@ -37,7 +37,7 @@ void PadPlacementState::stepProgress(){
     controller->illuminate(LIGHTUP_PADS);
     controller->print("Place pads on the patient.");
     qDebug()<<controller->getPatient()->getHasPadsOn();
-    if(controller->getPatient()->getHasPadsOn()){
+    if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
         delay++;
         if(delay<10){
             controller->print("PADS SUCESSFULLY ATTACHED.");
@@ -46,6 +46,9 @@ void PadPlacementState::stepProgress(){
             delay = 0;
             controller->setState(ANALYZE_ECG);
         }
+    }
+    else if(controller->getPatient()->getHasPadsOn() && controller->getPatient()->getImproperPlacement()){//if patient has pads on but not properly placed. again, replace this with a simple function. this is ugly and not reusable.
+        controller->print("CHECK ELECTRODE PADS");
     }
 }
 

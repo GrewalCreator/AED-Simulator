@@ -1,10 +1,14 @@
 #include "aed.h"
 #include "aedcontroller.h"
 #include "mediaplayer.h"
+
+#define AMPERAGE 20
+
 AED::AED(AEDController& controller): controller(&controller){
     audioPlayer = new MediaPlayer();
     battery = new Battery();
     numShocks = 0;
+    amperage = AMPERAGE;
     shockDelivered = false;
 }
 
@@ -39,13 +43,16 @@ bool AED::getShockDelivered(){
     return shockDelivered;
 }
 
+int AED::getAmperage(){
+    return amperage;
+}
+
 void AED::resetShockDelivered(){
     shockDelivered = false;
 }
 
-bool AED::shock(int amperage){
+bool AED::shock(){
 
-    //Check Safety
     if(!checkShockSafety()){
         return false;
     }
@@ -57,11 +64,8 @@ bool AED::shock(int amperage){
 
     controller->getLogger()->log("Shocking!");
 
-
-    //Send Shock with specified ampage
-    qDebug()<<"Shocking in AED";
-    //Deplete Battery
     battery->depleteBatteryLevel();
+
     shockDelivered = true;
     return true;
 }
