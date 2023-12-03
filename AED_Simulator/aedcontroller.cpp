@@ -5,6 +5,7 @@
 #include "QCoreApplication"
 #include <cstdlib>
 #include <ctime>
+#include "aedstate.h"
 
 AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
@@ -15,19 +16,30 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     pads = new ElectrodePads();
     patientAdult = new Patient(ADULT);
     patientChild = new Patient(CHILD);
-
+    initStates();
     activePatient = patientAdult;
-
     breakflag=false;
     semaphore = sem;
     logger->log("Calling AEDController Constructor");
     timeElapsed = 0;
+    currentState = states[POWER_OFF];
+
 }
 
 AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 
 }
 
+void AEDController::initStates(){
+    states.insert(POWER_OFF, new PowerOffState(this));
+    states.insert(CHECK_OK, new CheckPatientState(this));
+    states.insert(GET_HELP, new GetHelpState(this));
+    states.insert(ELECTRODE_PAD_PLACEMENT, new PadPlacementState(this));
+    states.insert(ANALYZE_ECG, new AnalysisState(this));
+    states.insert(SHOCK, new ShockState(this));
+    states.insert(CPR, new CompressionsState(this));
+    states.insert(AFTER_CARE, new NominalState(this));
+}
 void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
     emit dynamicSignal(sig,data);
 }
@@ -92,7 +104,7 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
     transmit->sendDynamic(signalType, data);
 }
 
-void AEDController::stepProgress(){
+/*void AEDController::stepProgress(){ REST IN PEACE STEPROGRESS, WE WILL MISS YOU
     int hr = activePatient->getHeartRate();
 
     switch(processTracker->getCurrentStep()){
@@ -150,6 +162,10 @@ void AEDController::stepProgress(){
 
     case SHOCK:{
         sendStaticSignal(LIGHTUP_SHOCK, true);
+        if(hr <= 150){
+            setCurrentStep(ANALYZE_ECG);
+            sendStaticSignal(LIGHTUP_SHOCK, false);
+        }
         if(automatedED->getShockDelivered()){
             if(12<timeElapsed){//really funky bad piece of code: the timer is assumed to be outside of 10 seconds, and we reset it to 0 so we can count down.
                 timeElapsed = 0;
@@ -192,7 +208,7 @@ void AEDController::stepProgress(){
         break;
     }
 }
-
+*/
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
     QThread::msleep(5000);
@@ -201,7 +217,7 @@ void AEDController::run(){
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
 
-        stepProgress();
+        currentState->stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
         sendDynamicSignal(HEART_RATE,std::to_string(activePatient->getHeartRate()));//update heart rate
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
@@ -219,6 +235,10 @@ void AEDController::cleanup(){
     breakflag = true;
 }
 
+void AEDController::setState(ProcessSteps s){
+    currentState = states[s];
+    setCurrentStep(s);
+}
 
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
@@ -264,8 +284,20 @@ void AEDController::getHelp() {
     sendDynamicSignal(PRINT,"Call for help.");
 }
 
+int AEDController::getTimeElapsed(){
+    return timeElapsed;
+}
+
+void AEDController::resetTimeElapsed(){
+    timeElapsed = 0;
+}
+
 void AEDController::print(string str){
     sendDynamicSignal(PRINT, str);
+}
+
+void AEDController::illuminate(SignalType p){
+    sendStaticSignal(p, true);
 }
 
 void AEDController::recharge(){
