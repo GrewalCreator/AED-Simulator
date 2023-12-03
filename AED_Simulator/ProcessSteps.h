@@ -3,7 +3,8 @@
 
 enum ProcessSteps{
 
-    POWER_OFF = 0,
+    POWER_OFF = -1,
+    POWER_ON = 0,
     CHECK_OK = 1,
     GET_HELP = 2,
     ELECTRODE_PAD_PLACEMENT = 3,

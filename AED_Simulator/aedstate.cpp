@@ -8,8 +8,20 @@ AEDState::AEDState(AEDController* c){
     delay = 0;
 }
 
-void PowerOffState::stepProgress(){
-    controller->setState(CHECK_OK);//example of switching state to the next step. if there is actually any useful logic for the off state, put it here.
+void PowerOnState::stepProgress(){
+
+
+    if (controller->getPatient()->getHasPadsOn()){
+        if (controller->getPatient()->getImproperPlacement()){
+            controller->setState(ELECTRODE_PAD_PLACEMENT);
+        }else{
+            controller->setState(ANALYZE_ECG);
+        }
+    }else{
+        controller->setState(CHECK_OK);
+    }
+    delay = 0;
+    controller->resetTimeElapsed();
 }
 
 void CheckPatientState::stepProgress(){
