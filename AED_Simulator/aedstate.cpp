@@ -75,7 +75,6 @@ void AnalysisState::stepProgress(){
             controller->setState(CPR);
         }
         else{
-
             controller->print("Patient is nominal.");
         }
     }
