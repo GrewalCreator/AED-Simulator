@@ -17,7 +17,7 @@ void TestWindow::initializeConnection(){
     connect(ui->heartRate_slider, SIGNAL(sliderReleased()), this, SLOT(updateHR()));
 
     // HeartRate Image
-    connect(testController, SIGNAL(updateHeartRateImage(vector<double>&, vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&, vector<double>&)));
+    connect(testController, SIGNAL(updateHeartRateImage(vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&)));
 
     // Pad Placement
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
@@ -96,8 +96,37 @@ void TestWindow::closeEvent(QCloseEvent* event){
 }
 
 
-void TestWindow::generateHeartRateImage(vector<double>& xValues, vector<double>& yValues) {
-    // Has not been working
+void TestWindow::generateHeartRateImage(vector<double>& yValues) {
+    QLabel* l = ui->graph_label;
+
+    QPixmap pixmap(l->width(), l->height());
+    pixmap.fill(Qt::white);
+    QPainter painter(&pixmap);
+    QPen Red(QColor(255, 0, 0), 1);
+    painter.setPen(Red);
+
+    // Assuming xValues and yValues have the same size and represent a circular pattern
+
+    // Transform circular points into a wave-like pattern
+    const double amplitude = 0.75;
+    const double frequency =  2 * M_PI * (ui->heartRate_slider->value()/5) / yValues.size();  // Adjust frequency for the number of points
+
+    for (size_t i = 0; i < yValues.size(); ++i) {
+        yValues[i] = amplitude * sin(frequency * i); // Adjust amplitude and phase shift as needed
+    }
+
+    // Plot lines connecting transformed points to create a wave
+    for (size_t i = 0; i < yValues.size() - 1; ++i) {
+
+        int startY = floor(yValues[i] * 50 + 50);
+
+        int endY = floor(yValues[i + 1] * 50 + 50);
+
+        painter.drawLine(i, startY, i+1, endY);
+    }
+
+    l->setPixmap(pixmap);
+    l->show();
 }
 
 

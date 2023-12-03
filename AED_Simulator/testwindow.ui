@@ -60,8 +60,8 @@
    <widget class="QPushButton" name="childPad_button">
     <property name="geometry">
      <rect>
-      <x>420</x>
-      <y>60</y>
+      <x>800</x>
+      <y>30</y>
       <width>83</width>
       <height>25</height>
      </rect>
@@ -73,8 +73,8 @@
    <widget class="QPushButton" name="adultPad_button">
     <property name="geometry">
      <rect>
-      <x>550</x>
-      <y>60</y>
+      <x>800</x>
+      <y>80</y>
       <width>83</width>
       <height>25</height>
      </rect>
