@@ -104,6 +104,7 @@ void ShockState::stepProgress(){
                 controller->decreaseBPM(controller->getAED()->getAmperage());
                 controller->print("Shock Delivered. Begin Compressions.");
                 delay = 0;
+                controller->getAED()->resetShockDelivered();
                 controller->resetTimeElapsed();
                 controller->setState(CPR);
             }
