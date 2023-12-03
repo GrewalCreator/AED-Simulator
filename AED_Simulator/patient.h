@@ -19,6 +19,9 @@ public:
     bool getHasPadsOn() const;
     void setHasPadsOn(bool hasPadsOn);
 
+    bool getImproperPlacement()const;
+    void setImproperPlacement(bool improper);
+
     const PatientType& getPatientType() const;
 
 
@@ -27,6 +30,7 @@ private:
     bool isInWater;
     double heartRate;
     bool hasPadsOn;
+    bool improperPlacement;
     string name;
     PatientType patientType;
 };

@@ -2,6 +2,7 @@
 
 Patient::Patient(const PatientType& type): patientType(type){
     hasPadsOn = false;
+    improperPlacement = false;
 }
 
 bool Patient::getIsInWater() const{
@@ -31,4 +32,13 @@ void Patient::setHasPadsOn(bool hasPadsOn){
 
 const PatientType& Patient::getPatientType() const{
     return patientType;
+}
+
+
+bool Patient::getImproperPlacement()const{
+    return improperPlacement;
+}
+
+void Patient::setImproperPlacement(bool improper){
+    improperPlacement = improper;
 }
