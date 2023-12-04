@@ -11,7 +11,7 @@ void PowerOnState::stepProgress(){
 
     if(controller->getErrorFlag()){
         controller->getAED()->resetShockPressed();//for the case where we get an error mid-shock
-        if(controller->getAED()->getBattery()->getBatteryLevels()<=20){
+        if(controller->getAED()->getBattery()->getBatteryLevels()<30){
             controller->print("CHANGE BATTERIES.");
             //set the status light to red and don't move on
         }

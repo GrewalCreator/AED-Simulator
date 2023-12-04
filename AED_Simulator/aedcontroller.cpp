@@ -293,7 +293,7 @@ bool AEDController::placePads(const PatientType& type){
 }
 
 void AEDController::systemsCheck(){//return if there is an error IF: BATTERY<=20 OR PAD DISCONNECTED FROM AED
-     errorFlag = (automatedED->getBattery()->getBatteryLevels() <= 20) || !(pads->isConnectedToAED());
+     errorFlag = (automatedED->getBattery()->getBatteryLevels() < 30) || !(pads->isConnectedToAED());
 }
 
 void AEDController::decreaseBPM(int amperage){
