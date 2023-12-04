@@ -16,6 +16,7 @@ public slots:
     void togglePadAED();
 signals:
     void updateHeartRateImage(vector<double>&);
+    void sliderUpdate();
 
 
 public:
@@ -28,6 +29,9 @@ public:
     void updateHeartRate(int);
 
     void placePads(const PatientType& type);
+
+    void updateSlider();
+    int getCurrentHeartRate();
     virtual ~TestController();
 
 

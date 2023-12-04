@@ -24,23 +24,34 @@ void TestWindow::initializeConnection(){
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
 
     //Heart rate testing buttons
-    connect(ui->Systole, SIGNAL(clicked()), this, SLOT(setHR()));
-
-    connect(ui->vtach, SIGNAL(clicked()), this, SLOT(setHR()));
-
+    connect(ui->systole_button, SIGNAL(clicked()), this, SLOT(setHR()));
     connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
     connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
+    connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
+
+    // Update Slider after Shock
+    connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
+}
+
+void TestWindow::updateSlider(){
+    qDebug() << "Updating Slider TestWindow";
+    ui->heartRate_slider->setValue(getCurrentHeartRate());
+
+}
+
+int TestWindow::getCurrentHeartRate(){
+    return testController->getCurrentHeartRate();
 }
 
 void TestWindow::setHR(){
 
     QPushButton* button = qobject_cast<QPushButton*>(sender());
 
-   if(button->objectName()=="Systole"){
+   if(button->objectName()=="systole_button"){
        qDebug()<<"setting systole";
        ui->heartRate_slider->setValue(10);
    }
-   else if(button->objectName()=="VTach"){
+   else if(button->objectName()=="vtach_button"){
        ui->heartRate_slider->setValue(250);
    }
 }
@@ -91,6 +102,8 @@ void TestWindow::updateHR(){
 void TestWindow::setController(AEDController* controller){
     testController->setController(controller);
 }
+
+TestController* TestWindow::getController(){return testController;}
 
 
 void TestWindow::closeEvent(QCloseEvent* event){

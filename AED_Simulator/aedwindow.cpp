@@ -101,7 +101,16 @@ void AEDWindow::initializeConnects(){
 }
 
 void AEDWindow::shockPressed(){
-    controller->shockPressed();
+    bool shockSuccess = controller->shockPressed();
+    if(shockSuccess){
+        qDebug() << "Shock Success";
+        //updateSlider();
+    }
+}
+
+void AEDWindow::updateSlider(){
+    qDebug() << "AEDWindow Update Slider";
+   controller->getTestController()->updateSlider();
 }
 
 void AEDWindow::resetUI(){
@@ -169,11 +178,17 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
     else if(sig == RESET){
         resetUI();
     }
+    else if(sig == SLIDER){
+        updateSlider();
+    }
     else{
         setOneLight(sig, state);
     }
 }
 
+void AEDWindow::setController(TestController* controller){
+    this->controller->setController(controller);
+}
 
 
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){

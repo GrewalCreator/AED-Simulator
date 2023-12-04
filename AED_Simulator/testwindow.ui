@@ -83,7 +83,7 @@
      <string>Adult Pads</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="vtach">
+   <widget class="QPushButton" name="vtach_button">
     <property name="geometry">
      <rect>
       <x>230</x>
@@ -96,7 +96,7 @@
      <string>VTach</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Systole">
+   <widget class="QPushButton" name="systole_button">
     <property name="geometry">
      <rect>
       <x>50</x>

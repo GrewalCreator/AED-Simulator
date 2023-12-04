@@ -1,7 +1,6 @@
 #include "aedstate.h"
 
-#define MIN_NOMINAL_BPM 60
-#define MAX_NOMINAL_BPM 150
+
 
 AEDState::AEDState(AEDController* c){
     controller = c;
@@ -11,7 +10,7 @@ AEDState::AEDState(AEDController* c){
 void PowerOnState::stepProgress(){
 
     if(controller->getErrorFlag()){
-        controller->getAED()->resetShockDelivered();//for the case where we get an error mid-shock
+        controller->getAED()->resetShockPressed();//for the case where we get an error mid-shock
         if(controller->getAED()->getBattery()->getBatteryLevels()<=20){
             controller->print("CHANGE BATTERIES.");
             //set the status light to red and don't move on
@@ -82,6 +81,7 @@ void PadPlacementState::stepProgress(){
 
 
 void AnalysisState::stepProgress(){
+    controller->getAED()->resetShockPressed();
     if(!controller->getPatient()->getHasPadsOn()){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
     }
@@ -119,7 +119,7 @@ void ShockState::stepProgress(){
         controller->setState(ANALYZE_ECG);
     }
 
-    if(controller->getAED()->getShockDelivered()){
+    if(controller->getAED()->getShockPressed()){
             if(delay<4){
                 controller->print("3...");
             }
@@ -130,7 +130,7 @@ void ShockState::stepProgress(){
                 controller->print("1...");
             }
             else if(delay >= 12){
-                controller->decreaseBPM(controller->getAED()->getAmperage());
+                controller->getAED()->shock();
                 delay = 0;
                 controller->resetTimeElapsed();
                 controller->setState(CPR);
@@ -148,8 +148,7 @@ void CompressionsState::stepProgress(){
     if(controller->getPatient()->getHeartRate() <= MIN_NOMINAL_BPM){
         controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
     }
-    else if(/*controller->getAED()->getShockDelivered() &&*/ controller->getPatient()->getHeartRate() >= MAX_NOMINAL_BPM){
-        controller->getAED()->resetShockDelivered();
+    else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() >= MAX_NOMINAL_BPM){
         controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
     else{//IMPORTANT: if the patient's HR enters the nominal range, do we want to stop compressions? right now, if we get them into this range, then we stop and analyse.

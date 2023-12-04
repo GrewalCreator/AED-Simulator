@@ -15,6 +15,7 @@ enum SignalType{
     BATTERY,
     HEART_RATE,
     RESET,
+    SLIDER,
 
 };
 

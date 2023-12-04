@@ -65,6 +65,9 @@ AEDTransmitter* AEDController::getTransmitter(){
 const ProcessSteps& AEDController::getCurrentStep() const{
     return this->processTracker->getCurrentStep();
 }
+TestController* AEDController::getTestController() const{
+    return testControlSystem;
+}
 
 HeartRateGenerator* AEDController::getHeartRateGenerator() const{
     return heartRateGenerator;
@@ -250,6 +253,7 @@ void AEDController::setState(ProcessSteps s){
     setCurrentStep(s);
 }
 
+
 bool AEDController::placePads(const PatientType& type){
     logger->log("Attempting To Place Pads");
     srand(time(0));
@@ -259,11 +263,13 @@ bool AEDController::placePads(const PatientType& type){
 
             case(ADULT):
                 logger->log("Placing Adult Pads");
+                qDebug() << "Placing Adult Pads";
                 pads->setPadType(ADULT);
                 break;
             case(CHILD):
                 logger->log("Placing Pediatric Pads");
-                pads->setPadType(ADULT);
+                qDebug() << "Placing Pediatric Pads";
+                pads->setPadType(CHILD);
                 break;
         }
 
@@ -308,7 +314,7 @@ void AEDController::getHelp() {
     print("Call for help.");
 }
 
-int AEDController::getTimeElapsed(){
+int AEDController::getTimeElapsed() const{
     return timeElapsed;
 }
 
@@ -320,6 +326,10 @@ void AEDController::print(string str){
     sendDynamicSignal(PRINT, str);
 }
 
+void AEDController::updateSlider(){
+    sendStaticSignal(SLIDER, true);
+}
+
 void AEDController::illuminate(SignalType p){
     sendStaticSignal(p, true);
 }
@@ -328,8 +338,13 @@ void AEDController::recharge(){
     automatedED->getBattery()->chargeBattery();
 }
 
-void AEDController::shockPressed(){
-    automatedED->shock();
+bool AEDController::shockPressed(){
+    automatedED->setShockPressed();
+    return true;
+}
+
+ElectrodePads* AEDController::getPads() const{
+    return pads;
 }
 
 ElectrodePads* AEDController::getPads(){

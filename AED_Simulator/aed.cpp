@@ -9,7 +9,7 @@ AED::AED(AEDController& controller): controller(&controller){
     battery = new Battery();
     numShocks = 0;
     amperage = AMPERAGE;
-    shockDelivered = false;
+    shockPressed= false;
 }
 
 void AED::playAudio(const AudioTypes& audio){
@@ -39,16 +39,16 @@ bool AED::checkShockSafety(){
 
 Battery* AED::getBattery() const{return this->battery;}
 
-bool AED::getShockDelivered(){
-    return shockDelivered;
+bool AED::getShockPressed(){
+    return shockPressed;
 }
 
 int AED::getAmperage(){
     return amperage;
 }
 
-void AED::resetShockDelivered(){
-    shockDelivered = false;
+void AED::resetShockPressed(){
+    shockPressed = false;
 }
 
 bool AED::shock(){
@@ -62,12 +62,56 @@ bool AED::shock(){
         return false;
     }
 
+    int currentHR = getCurrentHR();
+    controller->getPatient()->setHeartRate(currentHR - randomModifier(currentHR - 105));
+
     controller->getLogger()->log("Shocking!");
 
-    battery->depleteBatteryLevel();
 
-    shockDelivered = true;
+
+    battery->depleteBatteryLevel();
+    controller->updateSlider();
     return true;
+}
+
+int AED::randomModifier(int diff) {
+    srand(time(0));
+
+    if (!controller->getPatient()->getHasPadsOn()) {
+        qDebug() << "You Shouldn't Be In AED::randomModifier. This is a bug.";
+        return 0;
+    }
+
+    PatientType patientType = controller->getPatient()->getPatientType();
+    PatientType padType = controller->getPads()->getPadType();
+
+    int shockedAmps = 0;
+    if ((patientType == CHILD && padType == CHILD) || (patientType == ADULT && padType == ADULT)) {
+        shockedAmps = random(0, diff);
+        qDebug() << "SHOCKING SAME WITH SAME PADS FROM POSSIBLE RANGE 0 -" << diff;
+    } else if (padType == CHILD && patientType == ADULT) {
+        shockedAmps = random(0, diff / 2);
+        qDebug() << "SHOCKING ADULT WITH CHILD PADS FROM POSSIBLE RANGE 0 -" << diff / 2;
+    } else if (padType == ADULT && patientType == CHILD) {
+        shockedAmps = random(diff, getCurrentHR());
+        qDebug() << "SHOCKING CHILD WITH ADULT PADS FROM POSSIBLE RANGE 0 -" << getCurrentHR();
+    }
+
+    qDebug() << "Shocking At Amps: " << shockedAmps;
+
+    return shockedAmps;
+}
+
+void AED::setShockPressed(){
+    shockPressed = true;
+}
+
+int AED::random(int min, int max) {
+    return (rand() % (max - min + 1)) + min;
+}
+
+int AED::getCurrentHR(){
+    return controller->getPatient()->getHeartRate();
 }
 
 
