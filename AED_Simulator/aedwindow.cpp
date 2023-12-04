@@ -10,7 +10,6 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     signalToString();
     setUpVisuals();
     initializeConnects();
-
 }
 
 void AEDWindow::setUpVisuals(){
@@ -18,7 +17,7 @@ void AEDWindow::setUpVisuals(){
     loadImgs();
     initImgs();
     styling();
-    ui->batteryBar->setTextVisible(false);
+    //ui->batteryBar->setTextVisible(false);
     ui->batteryBar->setValue(0);
 }
 
@@ -113,14 +112,16 @@ void AEDWindow::updateSlider(){
    controller->getTestController()->updateSlider();
 }
 
-void AEDWindow::resetUI(){
+void AEDWindow::resetUI(bool lightOnly){
     QCoreApplication::processEvents();
     setAllLights(false);
+    if(lightOnly)return;
+
     setPowerLight(false);
     ui->heartRate_LCD->display(0);
     //QCoreApplication::processEvents();
     ui->instruction_console->setPlainText("");
-    ui->batteryBar->setTextVisible(false);
+    //ui->batteryBar->setTextVisible(false);
 
 }
 
@@ -176,7 +177,7 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
         setPowerLight(state);
     }
     else if(sig == RESET){
-        resetUI();
+        resetUI(state);
     }
     else if(sig == SLIDER){
         updateSlider();
@@ -223,6 +224,7 @@ void AEDWindow::updateBattery(int value){
 
 void AEDWindow::updateHeartRate(int heartRate){
     ui->heartRate_LCD->display(heartRate);
+    controller->getTestController()->updateHeartRate(heartRate);
 }
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
     ui->ok_image->setPixmap(*(imageMap["ok_image_off"]));

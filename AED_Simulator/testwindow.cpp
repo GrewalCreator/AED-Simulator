@@ -95,7 +95,7 @@ void TestWindow::padPlaced(){
 
 
 void TestWindow::updateHR(){
-    testController->updateHeartRate(ui->heartRate_slider->value());
+    //testController->updateHeartRate(ui->heartRate_slider->value());
     testController->setPatientHR(ui->heartRate_slider->value());
 }
 

@@ -40,6 +40,9 @@
     <property name="maximum">
      <number>250</number>
     </property>
+    <property name="sliderPosition">
+     <number>105</number>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>

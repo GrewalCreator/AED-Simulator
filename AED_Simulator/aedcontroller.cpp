@@ -219,8 +219,11 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
     QThread::msleep(5000);
+    //QElapsedTimer timer;
+    //timer.start();
     while(!breakflag){
         QThread::msleep(200);
+        //qDebug()<<"delay in between iterations minus sleep constant 200:" << timer.restart() - 200;
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
 
@@ -237,7 +240,7 @@ void AEDController::run(){
     logger->log(currentThreadId);
 
     this->moveToThread(QCoreApplication::instance()->thread());
-    sendStaticSignal(RESET,true);
+    sendStaticSignal(RESET,false);
     qDebug()<<"stopped loop";
 }
 
@@ -332,6 +335,7 @@ void AEDController::updateSlider(){
 
 void AEDController::illuminate(SignalType p){
     sendStaticSignal(p, true);
+
 }
 
 void AEDController::recharge(){

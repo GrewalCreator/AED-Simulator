@@ -10,7 +10,7 @@ void TestController::setController(AEDController* controller){
     this->controlSystem = controller;
 }
 
-void TestController::updateHeartRate(int newHeartRate){
+void TestController::updateHeartRate(int newHeartRate){//no longer called by testwindow
     double heartRate(newHeartRate);
     HeartRateGenerator* heartRaterGenerator = controlSystem->getHeartRateGenerator();
     heartRaterGenerator->updateHeartRate(heartRate);
