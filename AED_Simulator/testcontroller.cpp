@@ -42,14 +42,12 @@ void TestController::updateSlider(){
 void TestController::togglePadPatient(){
     bool setTo = controlSystem->getPatient()->getHasPadsOn()^true;
     controlSystem->getPatient()->setHasPadsOn(setTo);
-    qDebug()<<"pad patient connection set to"<<setTo;
 
 }
 
 void TestController::togglePadAED(){
     bool setTo = controlSystem->getPads()->isConnectedToAED()^true;
     controlSystem->getPads()->setIsConnectedToAED(setTo);
-    qDebug()<<"pad aed connection set to"<<setTo;
 
 }
 
