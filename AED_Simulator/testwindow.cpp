@@ -25,7 +25,8 @@ void TestWindow::initializeConnection(){
 
     //Heart rate testing buttons
     connect(ui->systole_button, SIGNAL(clicked()), this, SLOT(setHR()));
-
+    connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
+    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
     connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
 
     // Update Slider after Shock
@@ -94,7 +95,7 @@ void TestWindow::padPlaced(){
 
 
 void TestWindow::updateHR(){
-    testController->updateHeartRate(ui->heartRate_slider->value());
+    //testController->updateHeartRate(ui->heartRate_slider->value());
     testController->setPatientHR(ui->heartRate_slider->value());
 }
 
@@ -150,3 +151,5 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
 TestWindow::~TestWindow(){  
     delete ui;
 }
+
+

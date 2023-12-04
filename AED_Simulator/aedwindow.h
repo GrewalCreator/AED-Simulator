@@ -45,6 +45,7 @@ private:
     void setUpVisuals();
     void updateBattery(int);
     void updateHeartRate(int);
+    void resetUI(bool);
     void updateSlider();
 
 signals:

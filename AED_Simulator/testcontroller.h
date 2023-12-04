@@ -12,10 +12,12 @@ class TestController: public QObject{
 
 
 public slots:
-
+    void togglePadPatient();
+    void togglePadAED();
 signals:
     void updateHeartRateImage(vector<double>&);
     void sliderUpdate();
+
 
 public:
     TestController(QObject* parent = nullptr);
@@ -31,6 +33,7 @@ public:
     void updateSlider();
     int getCurrentHeartRate();
     virtual ~TestController();
+
 
 
 

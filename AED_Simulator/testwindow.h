@@ -42,6 +42,7 @@ private slots:
     void setHR();
     void updateSlider();
 
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;

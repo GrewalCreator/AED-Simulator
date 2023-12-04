@@ -9,7 +9,7 @@ AED::AED(AEDController& controller): controller(&controller){
     battery = new Battery();
     numShocks = 0;
     amperage = AMPERAGE;
-    shockDelivered = false;
+    shockPressed= false;
 }
 
 void AED::playAudio(const AudioTypes& audio){
@@ -29,7 +29,7 @@ bool AED::powerOn(){
 
 
 bool AED::safetyChecks(){
-    // Implement Safety Checks
+
     return true;
 }
 
@@ -39,16 +39,16 @@ bool AED::checkShockSafety(){
 
 Battery* AED::getBattery() const{return this->battery;}
 
-bool AED::getShockDelivered(){
-    return shockDelivered;
+bool AED::getShockPressed(){
+    return shockPressed;
 }
 
 int AED::getAmperage(){
     return amperage;
 }
 
-void AED::resetShockDelivered(){
-    shockDelivered = false;
+void AED::resetShockPressed(){
+    shockPressed = false;
 }
 
 bool AED::shock(){
@@ -70,8 +70,7 @@ bool AED::shock(){
 
 
     battery->depleteBatteryLevel();
-
-    shockDelivered = true;
+    controller->updateSlider();
     return true;
 }
 
@@ -103,6 +102,9 @@ int AED::randomModifier(int diff) {
     return shockedAmps;
 }
 
+void AED::setShockPressed(){
+    shockPressed = true;
+}
 
 int AED::random(int min, int max) {
     return (rand() % (max - min + 1)) + min;

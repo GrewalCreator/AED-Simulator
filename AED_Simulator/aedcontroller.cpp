@@ -26,6 +26,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     logger->log("Calling AEDController Constructor");
     timeElapsed = 0;
     currentState = states[POWER_ON];
+    errorFlag = false;
 
 }
 
@@ -218,10 +219,16 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
     QThread::msleep(5000);
+    //QElapsedTimer timer;
+    //timer.start();
     while(!breakflag){
         QThread::msleep(200);
+        //qDebug()<<"delay in between iterations minus sleep constant 200:" << timer.restart() - 200;
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
+
+        systemsCheck();
+        if(errorFlag) setState(POWER_ON);
 
         currentState->stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
@@ -231,7 +238,10 @@ void AEDController::run(){
     }
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
+
     this->moveToThread(QCoreApplication::instance()->thread());
+    sendStaticSignal(RESET,false);
+    qDebug()<<"stopped loop";
 }
 
 
@@ -285,6 +295,10 @@ bool AEDController::placePads(const PatientType& type){
 
 }
 
+void AEDController::systemsCheck(){//return if there is an error IF: BATTERY<=20 OR PAD DISCONNECTED FROM AED
+     errorFlag = (automatedED->getBattery()->getBatteryLevels() < 30) || !(pads->isConnectedToAED());
+}
+
 void AEDController::decreaseBPM(int amperage){
         this->getPatient()->setHeartRate(this->getPatient()->getHeartRate() - amperage);
     }
@@ -315,8 +329,13 @@ void AEDController::print(string str){
     sendDynamicSignal(PRINT, str);
 }
 
+void AEDController::updateSlider(){
+    sendStaticSignal(SLIDER, true);
+}
+
 void AEDController::illuminate(SignalType p){
     sendStaticSignal(p, true);
+
 }
 
 void AEDController::recharge(){
@@ -324,13 +343,21 @@ void AEDController::recharge(){
 }
 
 bool AEDController::shockPressed(){
-    return automatedED->shock();
+    automatedED->setShockPressed();
+    return true;
 }
 
 ElectrodePads* AEDController::getPads() const{
     return pads;
 }
 
+ElectrodePads* AEDController::getPads(){
+    return pads;
+}
+
+bool AEDController::getErrorFlag(){
+    return errorFlag;
+}
 AEDController::~AEDController(){
     QString currentThreadId = "AEDController Destructor Called As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);

@@ -10,7 +10,7 @@ void TestController::setController(AEDController* controller){
     this->controlSystem = controller;
 }
 
-void TestController::updateHeartRate(int newHeartRate){
+void TestController::updateHeartRate(int newHeartRate){//no longer called by testwindow
     double heartRate(newHeartRate);
     HeartRateGenerator* heartRaterGenerator = controlSystem->getHeartRateGenerator();
     heartRaterGenerator->updateHeartRate(heartRate);
@@ -35,6 +35,20 @@ void TestController::setPatientHR(double heartRate){
 void TestController::updateSlider(){
     qDebug() << "TestController Update Slider";
     emit sliderUpdate();
+}
+
+
+
+void TestController::togglePadPatient(){
+    bool setTo = controlSystem->getPatient()->getHasPadsOn()^true;
+    controlSystem->getPatient()->setHasPadsOn(setTo);
+
+}
+
+void TestController::togglePadAED(){
+    bool setTo = controlSystem->getPads()->isConnectedToAED()^true;
+    controlSystem->getPads()->setIsConnectedToAED(setTo);
+
 }
 
 

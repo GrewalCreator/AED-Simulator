@@ -16,9 +16,10 @@ public:
     bool checkShockSafety();
     bool shock();
     bool powerOn();
-    bool getShockDelivered();
+    bool getShockPressed();
     int getAmperage();
-    void resetShockDelivered();
+    void setShockPressed();
+    void resetShockPressed();
     Battery* getBattery() const;
 
     virtual ~AED();
@@ -29,7 +30,7 @@ private:
     Battery* battery;
     int numShocks;
     int amperage;
-    bool shockDelivered;
+    bool shockPressed;
     bool safetyChecks();
     int getCurrentHR();
     int randomModifier(int diff);
