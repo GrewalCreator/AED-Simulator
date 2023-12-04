@@ -23,6 +23,7 @@ public:
     void setImproperPlacement(bool improper);
 
     const PatientType& getPatientType() const;
+    bool isDead();
 
 
 
