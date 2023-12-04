@@ -29,8 +29,19 @@ void TestWindow::initializeConnection(){
     connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
     connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
 
+    connect(ui->compressionButton, SIGNAL(released()), this, SLOT(handleCompresstionButtonPress()));
+
     // Update Slider after Shock
     connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
+}
+
+void TestWindow::handleCompresstionButtonPress() {
+    int currentValue = ui->compresstionNumber->value();
+
+        // Ensure the value doesn't exceed 30
+        if (currentValue < 30) {
+            ui->compresstionNumber->display(currentValue + 1);
+        }
 }
 
 void TestWindow::updateSlider(){

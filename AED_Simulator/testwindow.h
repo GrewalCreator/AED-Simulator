@@ -41,7 +41,7 @@ private slots:
     void updateHR();
     void setHR();
     void updateSlider();
-
+    void handleCompresstionButtonPress();
 
 private:
     Ui::TestWindow *ui;
