@@ -14,6 +14,7 @@ class TestController: public QObject{
 public slots:
     void togglePadPatient();
     void togglePadAED();
+    void toggleWetPatient();
 signals:
     void updateHeartRateImage(vector<double>&);
     void sliderUpdate();

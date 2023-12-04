@@ -20,6 +20,16 @@ void TestController::updateHeartRate(int newHeartRate){//no longer called by tes
     emit updateHeartRateImage(yValues);
 }
 
+void TestController::toggleWetPatient(){
+    bool isWet = controlSystem->getPatient()->getIsInWater();
+    if(isWet){
+        controlSystem->getPatient()->setIsInWater(false);
+    }else{
+        controlSystem->getPatient()->setIsInWater(true);
+    }
+
+}
+
 AEDController* TestController::getControlSystem(){
     return controlSystem;
 }

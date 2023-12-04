@@ -56,6 +56,11 @@ bool AED::shock(){
     if(!checkShockSafety()){
         return false;
     }
+    if(controller->getPatient()->getIsInWater()){
+        controller->getPatient()->setHeartRate(MAX_BPM);
+        controller->sendDynamicSignal(HEART_RATE,std::to_string(controller->getPatient()->getHeartRate()));
+
+    }
 
     if(battery->getBatteryLevels() < 30){
         controller->print("BATTERY LEVELS TOO LOW, PLEASE REPLACE");
@@ -63,14 +68,14 @@ bool AED::shock(){
     }
 
     int currentHR = getCurrentHR();
-    controller->getPatient()->setHeartRate(currentHR - randomModifier(currentHR - 105));
+    controller->updateHR(currentHR - randomModifier(currentHR - 105));
 
     controller->getLogger()->log("Shocking!");
 
 
 
     battery->depleteBatteryLevel();
-    controller->updateSlider();
+
     return true;
 }
 
@@ -87,11 +92,11 @@ int AED::randomModifier(int diff) {
 
     int shockedAmps = 0;
     if ((patientType == CHILD && padType == CHILD) || (patientType == ADULT && padType == ADULT)) {
-        shockedAmps = random(0, diff);
-        qDebug() << "SHOCKING SAME WITH SAME PADS FROM POSSIBLE RANGE 0 -" << diff;
+        shockedAmps = random(0, ceil(sqrt(diff)));
+        qDebug() << "SHOCKING SAME WITH SAME PADS FROM POSSIBLE RANGE 0 -" << ceil(sqrt(diff));
     } else if (padType == CHILD && patientType == ADULT) {
-        shockedAmps = random(0, diff / 2);
-        qDebug() << "SHOCKING ADULT WITH CHILD PADS FROM POSSIBLE RANGE 0 -" << diff / 2;
+        shockedAmps = random(0, ceil(cbrt(diff)));
+        qDebug() << "SHOCKING ADULT WITH CHILD PADS FROM POSSIBLE RANGE 0 -" << ceil(cbrt(diff));
     } else if (padType == ADULT && patientType == CHILD) {
         shockedAmps = random(diff, getCurrentHR());
         qDebug() << "SHOCKING CHILD WITH ADULT PADS FROM POSSIBLE RANGE 0 -" << getCurrentHR();

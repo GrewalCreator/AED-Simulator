@@ -27,6 +27,7 @@ public:
 signals:
     void dynamicSignal(const SignalType& sig, const string& data);
     void staticSignal(const SignalType& sig, bool state);
+
 };
 
 
@@ -36,13 +37,14 @@ public:
     AEDTransmitter* getTransmitter();
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
-
+    void updateHR(int heartRate);
     AED* getAED() const;
     Logger* getLogger() const;
 
     void print(string message);
 
-    void sendStaticSignal(const SignalType& signalType, bool state);
+
+    void sendStaticSignal(const SignalType& signalType, bool state = true);
     void sendDynamicSignal(const SignalType& signalType, const string& data);
     bool powerAEDOn();
     bool powerAEDOff();

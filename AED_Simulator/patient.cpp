@@ -2,6 +2,7 @@
 
 Patient::Patient(const PatientType& type): patientType(type){
     hasPadsOn = false;
+    isInWater = false;
     improperPlacement = true;
     heartRate = 105;
 }

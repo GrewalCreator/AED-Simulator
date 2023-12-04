@@ -2,7 +2,7 @@
 #include "ui_testwindow.h"
 #include "defs.h"
 
-#define MAX_HEART_RATE 250
+
 
 TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWindow){
     ui->setupUi(this);
@@ -16,6 +16,7 @@ void TestWindow::initializeConnection(){
 
     // Slider Connection
     connect(ui->heartRate_slider, SIGNAL(sliderReleased()), this, SLOT(updateHR()));
+
 
     // HeartRate Image
     connect(testController, SIGNAL(updateHeartRateImage(vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&)));
@@ -34,30 +35,44 @@ void TestWindow::initializeConnection(){
 
     // Update Slider after Shock
     connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
+
+    // Wet Patient
+    connect(ui->toggle_wet, SIGNAL(released()), testController, SLOT(toggleWetPatient()));
 }
 
 void TestWindow::handleCompressionButtonPress() {
     int currentValue = ui->compressionNumber->value();
-    int newHeartRate, randomValue;
+    int newHeartRate = getCurrentHeartRate();
+    int randomValue = 0;
 
-    if(testController->getControlSystem()->getCurrentStep() == CPR ){
-        if (currentValue < MAX_NUMBER_COMPRESSION) {
 
-            ui->compressionNumber->display(currentValue + 1);
-
-            randomValue = QRandomGenerator::global()->bounded(1, 11);
-
-            if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
-                newHeartRate = getCurrentHeartRate() - randomValue;
-                //updateSlider();
-             }else{
-                if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
-                    newHeartRate = getCurrentHeartRate() + randomValue;
-                }
-            }
-        testController->setPatientHR(newHeartRate);
-        }
+    if(testController->getControlSystem()->getCurrentStep() != CPR){return;}
+    if(currentValue >= MAX_NUMBER_COMPRESSION){
+        testController->getControlSystem()->sendDynamicSignal(PRINT, "MAXIMUM NUMBER OF COMPRESSIONS REACHED");
+        return;
     }
+    if(ui->compressionNumber->value() >= 3){
+        ui->compressionNumber->display(0);
+        testController->getControlSystem()->setState(ANALYZE_ECG);
+        return;
+    }
+
+    ui->compressionNumber->display(currentValue + 1);
+
+    randomValue = QRandomGenerator::global()->bounded(0, 11);
+
+    if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() - randomValue;
+
+     }else if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() + randomValue;
+
+    }
+    testController->getControlSystem()->updateHR(newHeartRate);
+
+
+
+
 }
 
 void TestWindow::updateSlider(){
@@ -84,12 +99,6 @@ void TestWindow::setHR(){
 }
 
 void TestWindow::styling(){
-
-    //float normalBPMstart = 60;
-    //float normalBPMend = 150;
-
-    //float greenAreaStartValue = MAX_HEART_RATE / normalBPMstart;
-    //float greenAreaEndValue = MAX_HEART_RATE / normalBPMend;
 
     this->setStyleSheet(
     "QSlider::handle::horizontal{"
@@ -148,17 +157,15 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
     QPen Red(QColor(255, 0, 0), 1);
     painter.setPen(Red);
 
-    // Assuming xValues and yValues have the same size and represent a circular pattern
 
-    // Transform circular points into a wave-like pattern
     const double amplitude = 0.75;
-    const double frequency =  2 * M_PI * (ui->heartRate_slider->value()/5) / yValues.size();  // Adjust frequency for the number of points
+    const double frequency =  2 * M_PI * (ui->heartRate_slider->value()/5) / yValues.size();
 
     for (size_t i = 0; i < yValues.size(); ++i) {
-        yValues[i] = amplitude * sin(frequency * i); // Adjust amplitude and phase shift as needed
+        yValues[i] = amplitude * sin(frequency * i);
     }
 
-    // Plot lines connecting transformed points to create a wave
+
     for (size_t i = 0; i < yValues.size() - 1; ++i) {
 
         int startY = floor(yValues[i] * 50 + 50);
@@ -177,6 +184,7 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
 
 TestWindow::~TestWindow(){  
     delete ui;
+    delete testController;
 }
 
 
