@@ -52,6 +52,7 @@ void MediaPlayer::play(const AudioTypes& audio){
             qInfo() << "OS Not Recognized. Cannot Play Audio" << Qt::endl;
         #endif
     }
+
 }
 
 MediaPlayer::~MediaPlayer(){

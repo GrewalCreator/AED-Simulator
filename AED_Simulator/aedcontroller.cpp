@@ -25,7 +25,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     semaphore = sem;
     logger->log("Calling AEDController Constructor");
     timeElapsed = 0;
-    currentState = states[POWER_OFF];
+    currentState = states[POWER_ON];
 
 }
 
@@ -34,7 +34,7 @@ AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 }
 
 void AEDController::initStates(){
-    states.insert(POWER_OFF, new PowerOffState(this));
+    states.insert(POWER_ON, new PowerOnState(this));
     states.insert(CHECK_OK, new CheckPatientState(this));
     states.insert(GET_HELP, new GetHelpState(this));
     states.insert(ELECTRODE_PAD_PLACEMENT, new PadPlacementState(this));
@@ -50,7 +50,6 @@ void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
 void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
-
 
 
 void AEDController::setCurrentStep(const ProcessSteps& step){
@@ -220,7 +219,7 @@ void AEDController::run(){
         QThread::msleep(200);
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
-
+        qDebug()<<"looping in run";
         currentState->stepProgress();
         sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
         sendDynamicSignal(HEART_RATE,std::to_string(activePatient->getHeartRate()));//update heart rate
@@ -229,7 +228,10 @@ void AEDController::run(){
     }
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
+
     this->moveToThread(QCoreApplication::instance()->thread());
+    sendStaticSignal(RESET,true);
+    qDebug()<<"stopped loop";
 }
 
 

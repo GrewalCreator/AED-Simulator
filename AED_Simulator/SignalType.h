@@ -14,6 +14,7 @@ enum SignalType{
     SET_STATUS,
     BATTERY,
     HEART_RATE,
+    RESET,
 
 };
 

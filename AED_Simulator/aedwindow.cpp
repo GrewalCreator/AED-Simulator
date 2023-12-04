@@ -11,9 +11,6 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
     setUpVisuals();
     initializeConnects();
 
-
-
-
 }
 
 void AEDWindow::setUpVisuals(){
@@ -21,6 +18,8 @@ void AEDWindow::setUpVisuals(){
     loadImgs();
     initImgs();
     styling();
+    ui->batteryBar->setTextVisible(false);
+    ui->batteryBar->setValue(0);
 }
 
 
@@ -105,25 +104,31 @@ void AEDWindow::shockPressed(){
     controller->shockPressed();
 }
 
+void AEDWindow::resetUI(){
+    QCoreApplication::processEvents();
+    setAllLights(false);
+    setPowerLight(false);
+    ui->heartRate_LCD->display(0);
+    //QCoreApplication::processEvents();
+    ui->instruction_console->setPlainText("");
+    ui->batteryBar->setTextVisible(false);
+
+}
+
 void AEDWindow::togglePower(){
 
     if(controller->getCurrentStep() != POWER_OFF){
 
         // Power is On, Turn it Off
-
         disconnect(controlThread, SIGNAL(started()), 0, 0);
         controller->powerAEDOff();
         if (controlThread->isRunning()) {
             controlThread->quit();
             controlThread->wait();
+            qDebug()<<"waiting in togglepower...";
         }
-
-
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
-
         controller->setCurrentStep(POWER_OFF);
-        setPowerLight(false);
-        setAllLights(false);
 
 
     }else{
@@ -132,9 +137,10 @@ void AEDWindow::togglePower(){
         connect(controlThread, SIGNAL(started()), controller, SLOT(run()));
 
         controller->moveToThread(controlThread);
+        ui->batteryBar->setTextVisible(true);
         controlThread->start();
         controller->getAED()->playAudio(POWER_ON_AUDIO);
-        //controller->setCurrentStep(CHECK_OK);
+        controller->setState(POWER_ON);
         bool successfulPowerOn = controller->powerAEDOn();
         setPowerLight(true);
         if(!successfulPowerOn){
@@ -159,6 +165,9 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
     }
     else if(sig == POWER_INDICATOR){
         setPowerLight(state);
+    }
+    else if(sig == RESET){
+        resetUI();
     }
     else{
         setOneLight(sig, state);
@@ -247,8 +256,15 @@ void AEDWindow::setAllLights(bool lit){
         else{
             i->setPixmap(*(imageMap[uiname+"_off"]));
         }
-        setShockLight(lit);
     }
+    QIcon shockimg;
+    if(lit){
+        shockimg = QIcon(*imageMap["shock_button_on"]);
+    }
+    else
+        shockimg = QIcon(*imageMap["shock_button_off"]);
+    ui->shock_button->setIcon(shockimg);
+    ui->shock_button->setIconSize((*imageMap["shock_button_off"]).size());
 }
 
 void AEDWindow::setOneLight(const SignalType sig, bool lit){
