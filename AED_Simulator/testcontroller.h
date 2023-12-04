@@ -15,6 +15,7 @@ public slots:
 
 signals:
     void updateHeartRateImage(vector<double>&);
+    void sliderUpdate();
 
 public:
     TestController(QObject* parent = nullptr);
@@ -26,6 +27,9 @@ public:
     void updateHeartRate(int);
 
     void placePads(const PatientType& type);
+
+    void updateSlider();
+    int getCurrentHeartRate();
     virtual ~TestController();
 
 

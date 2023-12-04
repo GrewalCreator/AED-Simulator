@@ -5,6 +5,7 @@
 #include "SignalType.h"
 #include "battery.h"
 #include "PatientType.h"
+#include "cmath"
 
 class AEDController;
 
@@ -30,5 +31,8 @@ private:
     int amperage;
     bool shockDelivered;
     bool safetyChecks();
+    int getCurrentHR();
+    int randomModifier(int diff);
+    int random(int min, int max);
     };
 #endif // AED_H

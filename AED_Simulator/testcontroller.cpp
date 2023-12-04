@@ -25,8 +25,16 @@ void TestController::placePads(const PatientType& type){
     bool placedSuccessfully = controlSystem->placePads(type);
 }
 
+int TestController::getCurrentHeartRate(){
+    return controlSystem->getPatient()->getHeartRate();
+}
 void TestController::setPatientHR(double heartRate){
     controlSystem->getPatient()->setHeartRate(heartRate);
+}
+
+void TestController::updateSlider(){
+    qDebug() << "TestController Update Slider";
+    emit sliderUpdate();
 }
 
 

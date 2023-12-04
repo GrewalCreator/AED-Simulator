@@ -22,6 +22,7 @@ public:
     AEDWindow(QWidget *parent = nullptr);
     virtual ~AEDWindow();
     AEDController* getController();
+    void setController(TestController*);
 
 
 private:
@@ -44,6 +45,7 @@ private:
     void setUpVisuals();
     void updateBattery(int);
     void updateHeartRate(int);
+    void updateSlider();
 
 signals:
     void aboutToClose();
