@@ -40,7 +40,7 @@ void TestController::updateSlider(){
 
 
 void TestController::togglePadPatient(){
-    bool setTo = controlSystem->getPads()->isOnPatient()^true;
+    bool setTo = controlSystem->getPatient()->getHasPadsOn()^true;
     controlSystem->getPatient()->setHasPadsOn(setTo);
     qDebug()<<"pad patient connection set to"<<setTo;
 

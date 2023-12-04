@@ -59,7 +59,6 @@ void GetHelpState::stepProgress(){
 
 void PadPlacementState::stepProgress(){
     controller->illuminate(LIGHTUP_PADS);
-    qDebug()<<controller->getPatient()->getHasPadsOn();
     if(!controller->getPatient()->getHasPadsOn()){
         controller->print("PLACE PADS ON THE PATIENT.");
     }
