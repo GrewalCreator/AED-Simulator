@@ -1,7 +1,6 @@
 #include "aedstate.h"
 
-#define MIN_NOMINAL_BPM 60
-#define MAX_NOMINAL_BPM 150
+
 
 AEDState::AEDState(AEDController* c){
     controller = c;

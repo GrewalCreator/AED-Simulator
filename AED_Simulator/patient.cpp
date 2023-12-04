@@ -42,3 +42,5 @@ bool Patient::getImproperPlacement()const{
 void Patient::setImproperPlacement(bool improper){
     improperPlacement = improper;
 }
+
+bool Patient::isDead(){return this->heartRate == 0;}

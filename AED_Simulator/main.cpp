@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     w.getController()->getLogger()->log("Main Function");
     TestWindow tw;
     tw.setController(w.getController());
+    // TESTING
+    w.setController(tw.getController());
     qRegisterMetaType<SignalType>("SignalType");
 
     qRegisterMetaType<std::string>("string");

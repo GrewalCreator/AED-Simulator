@@ -47,7 +47,7 @@ public:
     bool powerAEDOn();
     bool powerAEDOff();
 
-    int getTimeElapsed();
+    int getTimeElapsed() const;
     void resetTimeElapsed();
     void setState(ProcessSteps);// public so that states can set other states
 
@@ -57,15 +57,19 @@ public:
 
     void recharge();
     void standClear();
-    void shockPressed();
+    bool shockPressed();
     void decreaseBPM(int amperage);
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
+
+    void updateSlider();
+    TestController* getTestController() const;
 
     HeartRateGenerator* getHeartRateGenerator() const;
 
     bool placePads(const PatientType& type);
     Patient* getPatient() const;
+    ElectrodePads* getPads() const;
 
     void checkOk();
     void getHelp();
@@ -95,6 +99,8 @@ private:
     Patient* patientChild;
     Patient* activePatient;
     AEDState* currentState;
+
+
 
     QMap<ProcessSteps,AEDState*> states;
     void cleanup();
