@@ -20,6 +20,10 @@ void TestController::updateHeartRate(int newHeartRate){//no longer called by tes
     emit updateHeartRateImage(yValues);
 }
 
+AEDController* TestController::getControlSystem(){
+    return controlSystem;
+}
+
 void TestController::placePads(const PatientType& type){
     if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
     bool placedSuccessfully = controlSystem->placePads(type);

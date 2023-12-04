@@ -1,5 +1,6 @@
 #include "testwindow.h"
 #include "ui_testwindow.h"
+#include "defs.h"
 
 #define MAX_HEART_RATE 250
 
@@ -29,19 +30,34 @@ void TestWindow::initializeConnection(){
     connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
     connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
 
-    connect(ui->compressionButton, SIGNAL(released()), this, SLOT(handleCompresstionButtonPress()));
+    connect(ui->compressionButton, SIGNAL(released()), this, SLOT(handleCompressionButtonPress()));
 
     // Update Slider after Shock
     connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
 }
 
-void TestWindow::handleCompresstionButtonPress() {
-    int currentValue = ui->compresstionNumber->value();
+void TestWindow::handleCompressionButtonPress() {
+    int currentValue = ui->compressionNumber->value();
+    int newHeartRate, randomValue;
 
-        // Ensure the value doesn't exceed 30
-        if (currentValue < 30) {
-            ui->compresstionNumber->display(currentValue + 1);
+    if(testController->getControlSystem()->getCurrentStep() == CPR ){
+        if (currentValue < MAX_NUMBER_COMPRESSION) {
+
+            ui->compressionNumber->display(currentValue + 1);
+
+            randomValue = QRandomGenerator::global()->bounded(1, 11);
+
+            if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
+                newHeartRate = getCurrentHeartRate() - randomValue;
+                //updateSlider();
+             }else{
+                if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
+                    newHeartRate = getCurrentHeartRate() + randomValue;
+                }
+            }
+        testController->setPatientHR(newHeartRate);
         }
+    }
 }
 
 void TestWindow::updateSlider(){

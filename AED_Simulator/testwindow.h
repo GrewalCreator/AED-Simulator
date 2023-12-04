@@ -8,6 +8,7 @@
 #include "QImage"
 #include "PatientType.h"
 #include "cmath"
+#include <QRandomGenerator>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class TestWindow; }
@@ -41,7 +42,7 @@ private slots:
     void updateHR();
     void setHR();
     void updateSlider();
-    void handleCompresstionButtonPress();
+    void handleCompressionButtonPress();
 
 private:
     Ui::TestWindow *ui;

@@ -22,6 +22,8 @@ signals:
 public:
     TestController(QObject* parent = nullptr);
 
+    AEDController* getControlSystem();
+
     void setController(AEDController* controller);
 
     void setPatientHR(double heartRate);

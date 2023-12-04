@@ -7,9 +7,6 @@
 #include <ctime>
 #include "aedstate.h"
 
-#define MIN_NOMINAL_BPM 60
-#define MAX_NOMINAL_BPM 150
-
 AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
     automatedED = new AED(*this);
