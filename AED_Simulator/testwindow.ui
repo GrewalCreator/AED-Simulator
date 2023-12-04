@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1031</width>
-    <height>435</height>
+    <width>1010</width>
+    <height>409</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -107,6 +107,32 @@
     </property>
     <property name="text">
      <string>Systole</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="togglePadPatient">
+    <property name="geometry">
+     <rect>
+      <x>452</x>
+      <y>180</y>
+      <width>211</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Toggle Pad-Patient Connection</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="togglePadAED">
+    <property name="geometry">
+     <rect>
+      <x>670</x>
+      <y>180</y>
+      <width>211</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Toggle Pad-AED Connection</string>
     </property>
    </widget>
   </widget>

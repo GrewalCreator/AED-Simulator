@@ -1,7 +1,7 @@
 #include "electrodepads.h"
 
 ElectrodePads::ElectrodePads(){
-
+    connectedToAED = true;
 }
 
 

@@ -27,6 +27,9 @@ void TestWindow::initializeConnection(){
     connect(ui->Systole, SIGNAL(clicked()), this, SLOT(setHR()));
 
     connect(ui->vtach, SIGNAL(clicked()), this, SLOT(setHR()));
+
+    connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
+    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
 }
 
 void TestWindow::setHR(){
@@ -135,3 +138,5 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
 TestWindow::~TestWindow(){  
     delete ui;
 }
+
+

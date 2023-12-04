@@ -39,6 +39,7 @@ private slots:
     void updateHR();
     void setHR();
 
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;

@@ -67,11 +67,14 @@ public:
     bool placePads(const PatientType& type);
     Patient* getPatient() const;
 
+    ElectrodePads* getPads();
+
     void checkOk();
     void getHelp();
 
     void illuminate(SignalType);
 
+    bool getErrorFlag();
     virtual ~AEDController();
 
 
@@ -79,11 +82,13 @@ public:
 private:
     void initStates();
     AEDTransmitter* transmit;
+    void systemsCheck();
     void checkAll();
     void updateHR();
     int timeElapsed;
     QSemaphore* semaphore;
     bool breakflag;
+    bool errorFlag;
     AED* automatedED;
     void stepProgress();
     TestController* testControlSystem;

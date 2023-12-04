@@ -9,9 +9,18 @@ AEDState::AEDState(AEDController* c){
 }
 
 void PowerOnState::stepProgress(){
-    if(controller->getAED()->getBattery()->getBatteryLevels()<=20){
-        controller->print("CHANGE BATTERIES.");
+
+    if(controller->getErrorFlag()){
+        controller->getAED()->resetShockDelivered();//for the case where we get an error mid-shock
+        if(controller->getAED()->getBattery()->getBatteryLevels()<=20){
+            controller->print("CHANGE BATTERIES.");
+            //set the status light to red and don't move on
+        }
+        else if(!controller->getPads()->isConnectedToAED()){
+            controller->print("PLUG IN ELECTRODE CABLE.");
+        }
     }
+
     if (controller->getPatient()->getHasPadsOn()){
         if (controller->getPatient()->getImproperPlacement()){
             controller->setState(ELECTRODE_PAD_PLACEMENT);
@@ -51,8 +60,11 @@ void GetHelpState::stepProgress(){
 
 void PadPlacementState::stepProgress(){
     controller->illuminate(LIGHTUP_PADS);
-    if(controller->getTimeElapsed()<10)controller->print("PLACE PADS ON THE PATIENT.");
-    if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
+    qDebug()<<controller->getPatient()->getHasPadsOn();
+    if(!controller->getPatient()->getHasPadsOn()){
+        controller->print("PLACE PADS ON THE PATIENT.");
+    }
+    else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
         delay++;
         if(delay<10){
             controller->print("PADS SUCESSFULLY ATTACHED.");
@@ -70,6 +82,9 @@ void PadPlacementState::stepProgress(){
 
 
 void AnalysisState::stepProgress(){
+    if(!controller->getPatient()->getHasPadsOn()){
+        controller->setState(ELECTRODE_PAD_PLACEMENT);
+    }
     delay++;
     controller->illuminate(LIGHTUP_STANDCLEAR);
     if(delay <= 10){
@@ -94,6 +109,9 @@ void AnalysisState::stepProgress(){
 }
 
 void ShockState::stepProgress(){
+    if(!controller->getPatient()->getHasPadsOn()){
+        controller->setState(ELECTRODE_PAD_PLACEMENT);
+    }
     controller->illuminate(LIGHTUP_SHOCK);
     controller->print("SHOCKABLE RHYTHM DETECTED.");
     if(controller->getPatient()->getHeartRate() <= MAX_NOMINAL_BPM){
@@ -113,9 +131,7 @@ void ShockState::stepProgress(){
             }
             else if(delay >= 12){
                 controller->decreaseBPM(controller->getAED()->getAmperage());
-                controller->print("Shock Delivered. Begin Compressions.");
                 delay = 0;
-                controller->getAED()->resetShockDelivered();
                 controller->resetTimeElapsed();
                 controller->setState(CPR);
             }
@@ -124,11 +140,16 @@ void ShockState::stepProgress(){
 }
 
 void CompressionsState::stepProgress(){
+    if(!controller->getPatient()->getHasPadsOn()){
+        controller->setState(ELECTRODE_PAD_PLACEMENT);
+    }
+
     controller->illuminate(LIGHTUP_COMPRESSIONS);
     if(controller->getPatient()->getHeartRate() <= MIN_NOMINAL_BPM){
         controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
     }
-    else if(controller->getPatient()->getHeartRate() >= MAX_NOMINAL_BPM){
+    else if(/*controller->getAED()->getShockDelivered() &&*/ controller->getPatient()->getHeartRate() >= MAX_NOMINAL_BPM){
+        controller->getAED()->resetShockDelivered();
         controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
     else{//IMPORTANT: if the patient's HR enters the nominal range, do we want to stop compressions? right now, if we get them into this range, then we stop and analyse.
