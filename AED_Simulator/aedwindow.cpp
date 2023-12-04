@@ -170,21 +170,41 @@ void AEDWindow::consoleOut(const string& message){
 }
 
 void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
-    if(sig == LIGHTUP_SHOCK){
-        setShockLight(state);
+
+    switch(sig){
+        case HEART_RATE:
+            if (!controller->getPatient()->getHasPadsOn()){
+                break;
+            }
+
+            updateHeartRate(controller->getPatient()->getHeartRate());
+            break;
+
+
+        case LIGHTUP_SHOCK:
+            setShockLight(state);
+            break;
+
+
+
+        case POWER_INDICATOR:
+            setPowerLight(state);
+            break;
+
+        case RESET:
+            resetUI(state);
+            break;
+
+        case SLIDER:
+            updateSlider();
+            break;
+
+        default:
+            setOneLight(sig, state);
+            break;
+
     }
-    else if(sig == POWER_INDICATOR){
-        setPowerLight(state);
-    }
-    else if(sig == RESET){
-        resetUI(state);
-    }
-    else if(sig == SLIDER){
-        updateSlider();
-    }
-    else{
-        setOneLight(sig, state);
-    }
+
 }
 
 void AEDWindow::setController(TestController* controller){
@@ -198,14 +218,6 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
         case BATTERY:{
             int batteryvalue = stoi(data);
             updateBattery(batteryvalue);
-            break;
-        }
-        case HEART_RATE:{
-            if (!controller->getPatient()->getHasPadsOn()){
-                break;
-            }
-            int heartRate = stoi(data);
-            updateHeartRate(heartRate);
             break;
         }
         case PRINT:

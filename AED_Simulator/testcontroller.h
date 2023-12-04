@@ -14,6 +14,7 @@ class TestController: public QObject{
 public slots:
     void togglePadPatient();
     void togglePadAED();
+    void toggleWetPatient();
 signals:
     void updateHeartRateImage(vector<double>&);
     void sliderUpdate();
@@ -21,6 +22,8 @@ signals:
 
 public:
     TestController(QObject* parent = nullptr);
+
+    AEDController* getControlSystem();
 
     void setController(AEDController* controller);
 

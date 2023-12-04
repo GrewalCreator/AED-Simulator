@@ -16,6 +16,7 @@ enum SignalType{
     HEART_RATE,
     RESET,
     SLIDER,
+    DEATH
 
 };
 

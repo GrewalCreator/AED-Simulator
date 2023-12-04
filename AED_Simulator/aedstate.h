@@ -3,9 +3,6 @@
 
 #include "aedcontroller.h"
 
-#define MIN_NOMINAL_BPM 60
-#define MAX_NOMINAL_BPM 150
-
 class AEDState
 {
 public:

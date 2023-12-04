@@ -20,6 +20,20 @@ void TestController::updateHeartRate(int newHeartRate){//no longer called by tes
     emit updateHeartRateImage(yValues);
 }
 
+void TestController::toggleWetPatient(){
+    bool isWet = controlSystem->getPatient()->getIsInWater();
+    if(isWet){
+        controlSystem->getPatient()->setIsInWater(false);
+    }else{
+        controlSystem->getPatient()->setIsInWater(true);
+    }
+
+}
+
+AEDController* TestController::getControlSystem(){
+    return controlSystem;
+}
+
 void TestController::placePads(const PatientType& type){
     if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
     bool placedSuccessfully = controlSystem->placePads(type);
