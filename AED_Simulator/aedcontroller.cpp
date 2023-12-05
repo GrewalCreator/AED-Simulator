@@ -87,8 +87,8 @@ bool AEDController::powerAEDOff(){
     return true;//just true for now
 }
 
-Logger* AEDController::getLogger() const{
-    return logger;
+void AEDController::log(const QString& message){
+    logger->log(message);
 }
 
 AED* AEDController::getAED() const{
@@ -103,6 +103,8 @@ void AEDController::updateHR(int heartRate){
     activePatient->setHeartRate(heartRate);
     sendStaticSignal(SLIDER);
     sendStaticSignal(HEART_RATE);
+
+
 }
 
 void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
@@ -117,11 +119,9 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
     QThread::msleep(5000);
-    //QElapsedTimer timer;
-    //timer.start();
+
     while(!breakflag){
         QThread::msleep(200);
-        //qDebug()<<"delay in between iterations minus sleep constant 200:" << timer.restart() - 200;
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
         logger->log(currentThreadId);
 
@@ -139,7 +139,8 @@ void AEDController::run(){
 
     this->moveToThread(QCoreApplication::instance()->thread());
     sendStaticSignal(RESET,false);
-    qDebug()<<"stopped loop";
+
+    log("Run() Loop Ended");
 }
 
 
@@ -164,12 +165,12 @@ bool AEDController::placePads(const PatientType& type){
 
             case(ADULT):
                 logger->log("Placing Adult Pads");
-                qDebug() << "Placing Adult Pads";
+
                 pads->setPadType(ADULT);
                 break;
             case(CHILD):
                 logger->log("Placing Pediatric Pads");
-                qDebug() << "Placing Pediatric Pads";
+
                 pads->setPadType(CHILD);
                 break;
         }
@@ -181,7 +182,6 @@ bool AEDController::placePads(const PatientType& type){
         return true;
     }else{
 
-        //print("CHECK ELECTRODE PADS"); unecessary now due to the message being printed in padplacementstate.
         logger->log("Pad Placement Failed: Applied Incorrectly");
         pads->setPadPlacement(false);
         activePatient->setHasPadsOn(true);
@@ -219,7 +219,7 @@ void AEDController::resetTimeElapsed(){
     timeElapsed = 0;
 }
 
-void AEDController::print(string str){
+void AEDController::print(const string& str){
     sendDynamicSignal(PRINT, str);
 }
 

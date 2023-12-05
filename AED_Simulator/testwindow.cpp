@@ -21,6 +21,8 @@ void TestWindow::initializeConnection(){
     // HeartRate Image
     connect(testController, SIGNAL(updateHeartRateImage(vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&)));
 
+
+
     // Pad Placement
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
@@ -38,6 +40,9 @@ void TestWindow::initializeConnection(){
 
     // Wet Patient
     connect(ui->toggle_wet, SIGNAL(released()), testController, SLOT(toggleWetPatient()));
+
+    // Deplete battery
+    connect(ui->depleteBattery_button, SIGNAL(released()), testController, SLOT(depleteBattery()));
 }
 
 void TestWindow::handleCompressionButtonPress() {
@@ -48,7 +53,7 @@ void TestWindow::handleCompressionButtonPress() {
 
     if(testController->getControlSystem()->getCurrentStep() != CPR){return;}
     if(currentValue >= MAX_NUMBER_COMPRESSION){
-        testController->getControlSystem()->sendDynamicSignal(PRINT, "MAXIMUM NUMBER OF COMPRESSIONS REACHED");
+        testController->getControlSystem()->print("MAXIMUM NUMBER OF COMPRESSIONS REACHED");
         return;
     }
     if(ui->compressionNumber->value() >= 3){
@@ -75,10 +80,10 @@ void TestWindow::handleCompressionButtonPress() {
 
 }
 
-void TestWindow::updateSlider(){
-    qDebug() << "Updating Slider TestWindow";
-    ui->heartRate_slider->setValue(getCurrentHeartRate());
 
+
+void TestWindow::updateSlider(){
+    ui->heartRate_slider->setValue(getCurrentHeartRate());
 }
 
 int TestWindow::getCurrentHeartRate(){
@@ -90,11 +95,11 @@ void TestWindow::setHR(){
     QPushButton* button = qobject_cast<QPushButton*>(sender());
 
    if(button->objectName()=="systole_button"){
-       qDebug()<<"setting systole";
        ui->heartRate_slider->setValue(10);
+       testController->getControlSystem()->updateHR(20);
    }
    else if(button->objectName()=="vtach_button"){
-       ui->heartRate_slider->setValue(250);
+       testController->getControlSystem()->updateHR(220);
    }
 }
 
@@ -131,8 +136,7 @@ void TestWindow::padPlaced(){
 
 
 void TestWindow::updateHR(){
-    //testController->updateHeartRate(ui->heartRate_slider->value());
-    testController->setPatientHR(ui->heartRate_slider->value());
+    testController->getControlSystem()->updateHR(ui->heartRate_slider->value());
 }
 
 void TestWindow::setController(AEDController* controller){

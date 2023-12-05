@@ -8,10 +8,10 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     AEDWindow w;
-    w.getController()->getLogger()->log("Main Function");
+    w.getController()->log("Main Function");
     TestWindow tw;
     tw.setController(w.getController());
-    // TESTING
+
     w.setController(tw.getController());
     qRegisterMetaType<SignalType>("SignalType");
 
