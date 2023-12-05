@@ -22,6 +22,8 @@ double Patient::getHeartRate() const{
 
 void Patient::setHeartRate(double heartRate){
     this->heartRate = heartRate;
+    boundHeartRate();
+
 }
 
 bool Patient::getHasPadsOn() const{
@@ -46,3 +48,11 @@ void Patient::setImproperPlacement(bool improper){
 }
 
 bool Patient::isDead(){return this->heartRate == 0;}
+
+void Patient::boundHeartRate(){
+    if(heartRate < 0){
+        heartRate = 0;
+    }else if(heartRate > 250){
+        heartRate = 250;
+    }
+}
