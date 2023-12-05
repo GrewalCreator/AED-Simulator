@@ -39,13 +39,13 @@ public:
     void setController(TestController* controller);
     void updateHR(int heartRate);
     AED* getAED() const;
-    Logger* getLogger() const;
+    void log(const QString& message);
 
-    void print(string message);
+    void print(const string& message);
 
 
     void sendStaticSignal(const SignalType& signalType, bool state = true);
-    void sendDynamicSignal(const SignalType& signalType, const string& data);
+
     bool powerAEDOn();
     bool powerAEDOff();
 
@@ -111,6 +111,7 @@ private:
 
     QMap<ProcessSteps,AEDState*> states;
     void cleanup();
+    void sendDynamicSignal(const SignalType& signalType, const string& data);
 
 
 private slots:

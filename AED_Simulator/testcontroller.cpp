@@ -10,8 +10,10 @@ void TestController::setController(AEDController* controller){
     this->controlSystem = controller;
 }
 
-void TestController::updateHeartRate(int newHeartRate){//no longer called by testwindow
-    double heartRate(newHeartRate);
+void TestController::updateHeartRate(){
+    int heartRateInt = controlSystem->getPatient()->getHeartRate();
+
+    double heartRate(heartRateInt);
     HeartRateGenerator* heartRaterGenerator = controlSystem->getHeartRateGenerator();
     heartRaterGenerator->updateHeartRate(heartRate);
 
@@ -30,24 +32,26 @@ void TestController::toggleWetPatient(){
 
 }
 
+void TestController::depleteBattery(){
+    controlSystem->getAED()->getBattery()->depleteBatteryLevel();
+}
+
 AEDController* TestController::getControlSystem(){
     return controlSystem;
 }
 
 void TestController::placePads(const PatientType& type){
     if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
-    bool placedSuccessfully = controlSystem->placePads(type);
+    controlSystem->placePads(type);
 }
 
 int TestController::getCurrentHeartRate(){
     return controlSystem->getPatient()->getHeartRate();
 }
-void TestController::setPatientHR(double heartRate){
-    controlSystem->getPatient()->setHeartRate(heartRate);
-}
+
+
 
 void TestController::updateSlider(){
-    qDebug() << "TestController Update Slider";
     emit sliderUpdate();
 }
 

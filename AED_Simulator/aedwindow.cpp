@@ -17,7 +17,7 @@ void AEDWindow::setUpVisuals(){
     loadImgs();
     initImgs();
     styling();
-    //ui->batteryBar->setTextVisible(false);
+
     ui->batteryBar->setValue(0);
 }
 
@@ -100,15 +100,11 @@ void AEDWindow::initializeConnects(){
 }
 
 void AEDWindow::shockPressed(){
-    bool shockSuccess = controller->shockPressed();
-    if(shockSuccess){
-        qDebug() << "Shock Success";
-        //updateSlider();
-    }
+    controller->shockPressed();
+
 }
 
 void AEDWindow::updateSlider(){
-    qDebug() << "AEDWindow Update Slider";
    controller->getTestController()->updateSlider();
 }
 
@@ -119,9 +115,7 @@ void AEDWindow::resetUI(bool lightOnly){
 
     setPowerLight(false);
     ui->heartRate_LCD->display(0);
-    //QCoreApplication::processEvents();
     ui->instruction_console->setPlainText("");
-    //ui->batteryBar->setTextVisible(false);
 
 }
 
@@ -135,7 +129,7 @@ void AEDWindow::togglePower(){
         if (controlThread->isRunning()) {
             controlThread->quit();
             controlThread->wait();
-            qDebug()<<"waiting in togglepower...";
+            controller->log("Waiting in AEDWindow::togglepower() ...");
         }
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
         controller->setCurrentStep(POWER_OFF);
@@ -177,14 +171,14 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
                 break;
             }
 
-            updateHeartRate(controller->getPatient()->getHeartRate());
+            controller->getTestController()->updateHeartRate();
+            ui->heartRate_LCD->display(controller->getPatient()->getHeartRate());
             break;
 
 
         case LIGHTUP_SHOCK:
             setShockLight(state);
             break;
-
 
 
         case POWER_INDICATOR:
@@ -197,6 +191,10 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
 
         case SLIDER:
             updateSlider();
+            break;
+
+        case BATTERY:
+            updateBattery();
             break;
 
         default:
@@ -215,11 +213,6 @@ void AEDWindow::setController(TestController* controller){
 void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
     switch(sig){
 
-        case BATTERY:{
-            int batteryvalue = stoi(data);
-            updateBattery(batteryvalue);
-            break;
-        }
         case PRINT:
             consoleOut(data);
             break;
@@ -230,14 +223,11 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
 
 }
 
-void AEDWindow::updateBattery(int value){
-    ui->batteryBar->setValue(value);
+void AEDWindow::updateBattery(){
+    ui->batteryBar->setValue(controller->getAED()->getBattery()->getBatteryLevels());
 }
 
-void AEDWindow::updateHeartRate(int heartRate){
-    ui->heartRate_LCD->display(heartRate);
-    controller->getTestController()->updateHeartRate(heartRate);
-}
+
 void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
     ui->ok_image->setPixmap(*(imageMap["ok_image_off"]));
     ui->standclear_image->setPixmap(*(imageMap["standclear_image_off"]));
@@ -275,7 +265,7 @@ void AEDWindow::setAllLights(bool lit){
     foreach(auto i,uiMap){
         uiname = i->objectName();
         if(!imageMap.contains(uiname+"_on") || !imageMap.contains(uiname+"_off") ){
-            controller->getLogger()->log("Image For " + uiname + "' Turning " + lit  + " Was Not Found");
+            controller->log("Image For " + uiname + "' Turning " + lit  + " Was Not Found");
              continue;
         }
 
@@ -338,10 +328,10 @@ void AEDWindow::setPowerLight(bool isLightOn){
 
 
 void AEDWindow::closeEvent(QCloseEvent* event){
-    controller->getLogger()->log("AEDWindow Close Event");
+    controller->log("AEDWindow Close Event");
     emit aboutToClose();
     QString currentThreadId = "Semaphore Acquired As Thread : " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
-    controller->getLogger()->log(currentThreadId);
+    controller->log(currentThreadId);
     QWidget::closeEvent(event);
 }
 
@@ -357,7 +347,7 @@ void AEDWindow::recharge(){
 }
 
 AEDWindow::~AEDWindow(){
-    controller->getLogger()->log("AEDWindow Destructor Called");
+    controller->log("AEDWindow Destructor Called");
 
     controller->powerAEDOff();
     if (controlThread->isRunning()) {

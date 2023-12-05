@@ -17,7 +17,7 @@ public:
     bool shock();
     bool powerOn();
     bool getShockPressed();
-    int getAmperage();
+
     void setShockPressed();
     void resetShockPressed();
     Battery* getBattery() const;
@@ -29,7 +29,6 @@ private:
     MediaPlayer* audioPlayer;
     Battery* battery;
     int numShocks;
-    int amperage;
     bool shockPressed;
     bool safetyChecks();
     int getCurrentHR();

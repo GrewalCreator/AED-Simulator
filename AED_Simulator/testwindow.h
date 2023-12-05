@@ -44,6 +44,7 @@ private slots:
     void updateSlider();
     void handleCompressionButtonPress();
 
+
 private:
     Ui::TestWindow *ui;
     TestController* testController;

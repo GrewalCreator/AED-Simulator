@@ -11,7 +11,6 @@ CONFIG += c++11
 
 SOURCES += \
     aed.cpp \
-    aedQTest.cpp \
     aedcontroller.cpp \
     aedstate.cpp \
     battery.cpp \
@@ -33,7 +32,6 @@ HEADERS += \
     ProcessSteps.h \
     SignalType.h \
     aed.h \
-    aedQTest.h \
     aedcontroller.h \
     aedstate.h \
     aedwindow.h \

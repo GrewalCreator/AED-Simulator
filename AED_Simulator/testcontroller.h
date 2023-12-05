@@ -15,9 +15,12 @@ public slots:
     void togglePadPatient();
     void togglePadAED();
     void toggleWetPatient();
+    void depleteBattery();
+
 signals:
     void updateHeartRateImage(vector<double>&);
     void sliderUpdate();
+    void updateHR_LCD();
 
 
 public:
@@ -27,9 +30,8 @@ public:
 
     void setController(AEDController* controller);
 
-    void setPatientHR(double heartRate);
 
-    void updateHeartRate(int);
+    void updateHeartRate();
 
     void placePads(const PatientType& type);
 

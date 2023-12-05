@@ -43,8 +43,8 @@ private:
     void setShockLight(bool);
     void setPowerLight(bool);
     void setUpVisuals();
-    void updateBattery(int);
-    void updateHeartRate(int);
+    void updateBattery();
+
     void resetUI(bool);
     void updateSlider();
 
