@@ -218,6 +218,7 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
             break;
 
         default:
+            qDebug() << "DYNAMICLLYY CALLED SIGNAL NOT FOUND. LIKELY MOVED TO STATIC";
             break;
     }
 
