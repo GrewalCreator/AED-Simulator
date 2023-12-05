@@ -12,7 +12,7 @@ class TestController: public QObject{
 
 
 public slots:
-    void togglePadPatient();
+    void removePadsOffPatient();
     void togglePadAED();
     void toggleWetPatient();
     void depleteBattery();

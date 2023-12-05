@@ -17,22 +17,20 @@ void TestWindow::initializeConnection(){
     // Slider Connection
     connect(ui->heartRate_slider, SIGNAL(sliderReleased()), this, SLOT(updateHR()));
 
-
     // HeartRate Image
     connect(testController, SIGNAL(updateHeartRateImage(vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&)));
 
-
-
-    // Pad Placement
+    // Pad Placement testing buttons
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
+    connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
+    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(removePadsOffPatient()));
 
     //Heart rate testing buttons
     connect(ui->systole_button, SIGNAL(clicked()), this, SLOT(setHR()));
-    connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
-    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(togglePadPatient()));
     connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
 
+    // Compressions
     connect(ui->compressionButton, SIGNAL(released()), this, SLOT(handleCompressionButtonPress()));
 
     // Update Slider after Shock
@@ -153,6 +151,11 @@ void TestWindow::closeEvent(QCloseEvent* event){
 
 
 void TestWindow::generateHeartRateImage(vector<double>& yValues) {
+
+    if (!this->testController->getControlSystem()->getPatient()->getHasPadsOn()){
+        return;
+    }
+
     QLabel* l = ui->graph_label;
 
     QPixmap pixmap(l->width(), l->height());
