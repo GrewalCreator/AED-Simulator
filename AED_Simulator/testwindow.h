@@ -43,7 +43,7 @@ private slots:
     void setHR();
     void updateSlider();
     void handleCompressionButtonPress();
-
+    void on_comboBox_currentIndexChanged(int index);
 
 private:
     Ui::TestWindow *ui;

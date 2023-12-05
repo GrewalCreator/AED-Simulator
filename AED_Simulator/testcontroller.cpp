@@ -57,7 +57,7 @@ void TestController::updateSlider(){
 
 
 
-void TestController::removePadsOffPatient(){
+void TestController::removePadsFromPatient(){
 
     bool currentState = controlSystem->getPatient()->getHasPadsOn();
     if (currentState){
