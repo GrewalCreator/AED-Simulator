@@ -122,7 +122,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Toggle Pad-Patient Connection</string>
+     <string>Remove Pads from Patient</string>
     </property>
    </widget>
    <widget class="QPushButton" name="togglePadAED">
@@ -135,7 +135,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Toggle Pad-AED Connection</string>
+     <string>Disconnect Pads from AED</string>
     </property>
    </widget>
    <widget class="QLCDNumber" name="compressionNumber">
