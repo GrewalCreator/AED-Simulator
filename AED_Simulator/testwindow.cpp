@@ -41,6 +41,13 @@ void TestWindow::initializeConnection(){
 
     // Deplete battery
     connect(ui->depleteBattery_button, SIGNAL(released()), testController, SLOT(depleteBattery()));
+
+    // Disable UI on User Death [Not Patient Death]
+    connect(testController, SIGNAL(uiDisable()), this, SLOT(disableUI()));
+}
+
+void TestWindow::disableUI(){
+    ui->test_frame->setEnabled(false);
 }
 
 void TestWindow::handleCompressionButtonPress() {
@@ -54,11 +61,13 @@ void TestWindow::handleCompressionButtonPress() {
         testController->getControlSystem()->print("MAXIMUM NUMBER OF COMPRESSIONS REACHED");
         return;
     }
+    /*
     if(ui->compressionNumber->value() >= 3){
         ui->compressionNumber->display(0);
         testController->getControlSystem()->setState(ANALYZE_ECG);
         return;
     }
+    */
 
     ui->compressionNumber->display(currentValue + 1);
 

@@ -43,6 +43,7 @@ private slots:
     void setHR();
     void updateSlider();
     void handleCompressionButtonPress();
+    void disableUI();
 
 
 private:

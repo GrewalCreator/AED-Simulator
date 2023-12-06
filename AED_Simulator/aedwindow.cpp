@@ -26,7 +26,7 @@ void AEDWindow::signalToString(){
 
     uiMap[LIGHTUP_OK] = ui->ok_image;
     uiMap[LIGHTUP_COMPRESSIONS] = ui->compressions_image;
-    uiMap[SET_STATUS] = ui->statusLight_image;
+
     uiMap[LIGHTUP_911] = ui->help_image;
     uiMap[LIGHTUP_PADS] = ui->pads_image;
     uiMap[LIGHTUP_STANDCLEAR] = ui->standclear_image;
@@ -44,7 +44,7 @@ void AEDWindow::styling(){
                         background-color: #12a32a;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
-                    QFrame#frame_2{\n\
+                    QFrame#aed_frame{\n\
                         background-color: #5ff578;\n\
                         border: 2px solid #FFFFFF;\n\
                         border-radius: 10px;}\n\
@@ -195,6 +195,11 @@ void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
 
         case BATTERY:
             updateBattery();
+            break;
+
+        case DEATH:
+            ui->aed_frame->setEnabled(false);
+            controller->getTestController()->disableUI();
             break;
 
         default:

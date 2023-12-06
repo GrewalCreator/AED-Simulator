@@ -106,6 +106,7 @@ private:
     Patient* patientChild;
     Patient* activePatient;
     AEDState* currentState;
+    bool deathFlag;
 
 
 
