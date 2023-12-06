@@ -20,6 +20,15 @@ void MediaPlayer::play(const AudioTypes& audio){
         case POWER_OFF_AUDIO:
             fileName = "Power_Off.wav";
             break;
+        case BATTERY_AUDIO:
+            fileName = "batterySound.wav";
+            break;
+        case CHARGING_AUDIO:
+            fileName = "chargingSound.wav";
+        break;
+        case SHOCKING_AUDIO:
+            fileName = "shockSound.wav";
+            break;
         default:
             fileName = "error.wav";
             qInfo()  << "Audio File Not Found" << Qt::endl;
