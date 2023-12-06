@@ -163,8 +163,8 @@ void CompressionsState::stepProgress(){
         controller->setState(ANALYZE_ECG);
     }
 
-    if(delay < 120){//2 minutes for compression stage
-        //do compression stuff here
+    if(delay < 12){//12 ticks for compression stage
+
 
     }
     else{

@@ -52,6 +52,7 @@ bool AED::shock(){
     if(!checkShockSafety()){
         return false;
     }
+
     if(controller->getPatient()->getIsInWater()){
         controller->updateHR(MAX_BPM);
         controller->sendStaticSignal(HEART_RATE);
@@ -73,6 +74,10 @@ bool AED::shock(){
 
 
     battery->depleteBatteryLevel();
+
+    if(controller->getPatient()->getIsInWater()){
+        controller->sendStaticSignal(DEATH);
+    }
 
     return true;
 }

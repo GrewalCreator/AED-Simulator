@@ -10,6 +10,10 @@ void TestController::setController(AEDController* controller){
     this->controlSystem = controller;
 }
 
+void TestController::disableUI(){
+    emit uiDisable();
+}
+
 void TestController::updateHeartRate(){
     int heartRateInt = controlSystem->getPatient()->getHeartRate();
 

@@ -21,12 +21,14 @@ signals:
     void updateHeartRateImage(vector<double>&);
     void sliderUpdate();
     void updateHR_LCD();
+    void uiDisable();
 
 
 public:
     TestController(QObject* parent = nullptr);
 
     AEDController* getControlSystem();
+    void disableUI();
 
     void setController(AEDController* controller);
 
