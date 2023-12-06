@@ -36,7 +36,7 @@ void PowerOnState::stepProgress(){
 }
 
 void CheckPatientState::stepProgress(){
-    delay++;
+    ++delay;
     controller->print("PLEASE CHECK IF THE PATIENT IS OK.");
     controller->illuminate(LIGHTUP_OK);
 
@@ -48,7 +48,7 @@ void CheckPatientState::stepProgress(){
 }
 
 void GetHelpState::stepProgress(){
-    delay++;
+    ++delay;
     controller->print("PLEASE CALL FOR HELP OR CALL 911.");
     controller->illuminate(LIGHTUP_911);
 
@@ -65,7 +65,7 @@ void PadPlacementState::stepProgress(){
         controller->print("PLACE PADS ON THE PATIENT.");
     }
     else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
-        delay++;
+        ++delay;
         if(delay<10){
             controller->print("PADS SUCESSFULLY ATTACHED.");
         }
@@ -86,18 +86,19 @@ void AnalysisState::stepProgress(){
     if(!controller->getPatient()->getHasPadsOn()){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
     }
-    delay++;
+    ++delay;
     controller->illuminate(LIGHTUP_STANDCLEAR);
     if(delay <= 10){
         controller->print("ANALYZING PATIENT... DON'T TOUCH!");
     }
     else{
-        if(controller->getPatient()->getHeartRate() > MAX_NOMINAL_BPM){
+        int heartRate = controller->getPatient()->getHeartRate();
+        if(heartRate > MAX_NOMINAL_BPM){
             delay = 0;
             controller->resetTimeElapsed();
             controller->setState(SHOCK);
         }
-        else if(controller->getPatient()->getHeartRate() < MIN_NOMINAL_BPM){
+        else if(heartRate < MIN_NOMINAL_BPM){
             delay = 0;
             controller->resetTimeElapsed();
             controller->setState(CPR);
@@ -136,7 +137,7 @@ void ShockState::stepProgress(){
                 controller->resetTimeElapsed();
                 controller->setState(CPR);
             }
-        delay++;
+        ++delay;
     }
 }
 
@@ -146,13 +147,17 @@ void CompressionsState::stepProgress(){
     }
 
     controller->illuminate(LIGHTUP_COMPRESSIONS);
-    if(controller->getPatient()->getHeartRate() <= MIN_NOMINAL_BPM){
-        controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
+    if(controller->getPatient()->getHeartRate() < MIN_NOMINAL_BPM){
+        if(controller->getPatient()->isDead()){
+            controller->print("RIP. Patient Has Passed Away");
+        }else{
+            controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
+        }
     }
-    else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() >= MAX_NOMINAL_BPM){
+    else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() > MAX_NOMINAL_BPM){
         controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
-    else{//IMPORTANT: if the patient's HR enters the nominal range, do we want to stop compressions? right now, if we get them into this range, then we stop and analyse.
+    else{
         delay = 0;
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
@@ -167,7 +172,7 @@ void CompressionsState::stepProgress(){
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
     }
-    delay++;
+    ++delay;
 }
 
 void NominalState::stepProgress(){
