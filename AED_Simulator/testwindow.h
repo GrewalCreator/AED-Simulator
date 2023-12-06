@@ -45,6 +45,7 @@ private slots:
     void handleCompressionButtonPress();
     void patientSwap(int index);
     void disableUI();
+    void evaluate();
 
 
 

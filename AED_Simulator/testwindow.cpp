@@ -47,6 +47,9 @@ void TestWindow::initializeConnection(){
 
     // Patient Swap
     connect(ui->patientSwap_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(patientSwap(int)));
+
+    // Evaluate the patient's status
+    connect(ui->eval_button,SIGNAL(clicked()), this, SLOT(evaluate()));
 }
 
 void TestWindow::disableUI(){
@@ -206,3 +209,26 @@ void TestWindow::patientSwap(int index){
 
 }
 
+void TestWindow::evaluate(){
+    int currHR = testController->getCurrentHeartRate();
+    if(testController->getControlSystem()->getPatient()->isDead()){
+        ui->eval_label->setText("Status: PATIENT IS RAPIDLY DETERIORATING");
+        ui->eval_label->setStyleSheet("QLabel{background-color: black;"
+                                      "color: red;}");
+    }
+    else if(currHR <=0){
+        ui->eval_label->setText("Status: PATIENT IS DEAD. RIP");
+        ui->eval_label->setStyleSheet("QLabel{background-color: black;"
+                                      "color: red;}");
+    }
+    else if((currHR>MAX_NOMINAL_BPM) || (currHR < MIN_NOMINAL_BPM)){
+        ui->eval_label->setText("Status: PATIENT IS IN DANGER");
+        ui->eval_label->setStyleSheet("QLabel{"
+                                      "color: red;}");
+    }
+    else{
+        ui->eval_label->setText("Status: PATIENT IS RECOVERING");
+        ui->eval_label->setStyleSheet("QLabel{background-color: white;"
+                                      "color: black;}");
+    }
+}
