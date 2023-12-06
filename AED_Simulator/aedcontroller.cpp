@@ -56,6 +56,7 @@ void AEDController::toggleActivePatient(){
     }else{
         activePatient = patientAdult;
     }
+    updateHR(activePatient->getHeartRate());
 }
 
 void AEDController::setCurrentStep(const ProcessSteps& step){
