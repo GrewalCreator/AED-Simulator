@@ -187,7 +187,7 @@
      <string>Deplete Battery</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="patientSwap_comboBox">
     <property name="geometry">
      <rect>
       <x>800</x>

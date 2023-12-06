@@ -44,6 +44,9 @@ void TestWindow::initializeConnection(){
 
     // Disable UI on User Death [Not Patient Death]
     connect(testController, SIGNAL(uiDisable()), this, SLOT(disableUI()));
+
+    // Patient Swap
+    connect(ui->patientSwap_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(patientSwap(int)));
 }
 
 void TestWindow::disableUI(){
@@ -61,13 +64,7 @@ void TestWindow::handleCompressionButtonPress() {
         testController->getControlSystem()->print("MAXIMUM NUMBER OF COMPRESSIONS REACHED");
         return;
     }
-    /*
-    if(ui->compressionNumber->value() >= 3){
-        ui->compressionNumber->display(0);
-        testController->getControlSystem()->setState(ANALYZE_ECG);
-        return;
-    }
-    */
+
 
     ui->compressionNumber->display(currentValue + 1);
 
@@ -201,10 +198,11 @@ TestWindow::~TestWindow(){
 }
 
 
-void TestWindow::on_comboBox_currentIndexChanged(int index)
-{
-  testController->getControlSystem()->toggleActivePatient();
-  testController->getControlSystem()->getPatient()->setHasPadsOn(false);
+void TestWindow::patientSwap(int index){
+    AEDController* aedController = testController->getControlSystem();
+    aedController->toggleActivePatient();
+
+
 
 }
 
