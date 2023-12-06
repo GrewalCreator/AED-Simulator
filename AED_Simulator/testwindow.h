@@ -44,6 +44,9 @@ private slots:
     void updateSlider();
     void handleCompressionButtonPress();
     void on_comboBox_currentIndexChanged(int index);
+    void disableUI();
+
+
 
 private:
     Ui::TestWindow *ui;

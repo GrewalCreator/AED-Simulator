@@ -34,6 +34,7 @@ private:
     bool improperPlacement;
     string name;
     PatientType patientType;
+    void boundHeartRate();
 };
 
 #endif // PATIENT_H

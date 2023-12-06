@@ -24,6 +24,7 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     timeElapsed = 0;
     currentState = states[POWER_ON];
     errorFlag = false;
+    deathFlag = false;
 
 }
 
@@ -108,8 +109,11 @@ void AEDController::updateHR(int heartRate){
     activePatient->setHeartRate(heartRate);
     sendStaticSignal(SLIDER);
     sendStaticSignal(HEART_RATE);
-
-
+    if(activePatient->isDead()){
+        if(activePatient->getHasPadsOn()){
+            setState(CPR);
+        }
+    }
 }
 
 void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
@@ -134,10 +138,39 @@ void AEDController::run(){
         if(errorFlag) setState(POWER_ON);
 
         currentState->stepProgress();
-        sendDynamicSignal(BATTERY,std::to_string(automatedED->getBattery()->getBatteryLevels()));//update battery levels
+        sendStaticSignal(BATTERY);//update battery levels
         sendStaticSignal(HEART_RATE);
         QCoreApplication::processEvents(); //allows for signals to propogate before looping another time
-        timeElapsed++;
+
+        // Slowly Kill Patient
+
+
+        if(deathFlag){
+            updateHR(activePatient->getHeartRate() - 5);
+            if(activePatient->isDead()){
+                deathFlag = false;
+            }
+        }
+
+        if(timeElapsed % 5 == 0){
+
+            if(activePatient->getHeartRate() == 250){
+                print("Patients Heart Was Too Rapid & Blew Up");
+                deathFlag = true;
+            }
+            else if(activePatient->getHeartRate() < 60){
+                updateHR(activePatient->getHeartRate() - 2);
+            }else if(activePatient->getHeartRate() > 150){
+                updateHR(activePatient->getHeartRate() + 2);
+            }else if(activePatient->getHeartRate() < 105){
+                updateHR(activePatient->getHeartRate() + 1);
+            }else if(activePatient->getHeartRate() > 105){
+                updateHR(activePatient->getHeartRate() - 1);
+            }
+        }
+
+
+        ++timeElapsed;
     }
     QString currentThreadId = "Semaphore Released As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
