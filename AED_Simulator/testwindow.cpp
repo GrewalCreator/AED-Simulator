@@ -24,7 +24,7 @@ void TestWindow::initializeConnection(){
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
-    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(removePadsOffPatient()));
+    connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(removePadsFromPatient()));
 
     //Heart rate testing buttons
     connect(ui->systole_button, SIGNAL(clicked()), this, SLOT(setHR()));
@@ -81,9 +81,6 @@ void TestWindow::handleCompressionButtonPress() {
 
     }
     testController->getControlSystem()->updateHR(newHeartRate);
-
-
-
 
 }
 
@@ -203,4 +200,11 @@ TestWindow::~TestWindow(){
     delete testController;
 }
 
+
+void TestWindow::on_comboBox_currentIndexChanged(int index)
+{
+  testController->getControlSystem()->toggleActivePatient();
+  testController->getControlSystem()->getPatient()->setHasPadsOn(false);
+
+}
 

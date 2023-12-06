@@ -50,8 +50,13 @@ void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
 
-
-
+void AEDController::toggleActivePatient(){
+    if (activePatient == patientAdult){
+        activePatient = patientChild;
+    }else{
+        activePatient = patientAdult;
+    }
+}
 
 void AEDController::setCurrentStep(const ProcessSteps& step){
 

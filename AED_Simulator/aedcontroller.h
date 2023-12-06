@@ -38,6 +38,7 @@ public:
     AEDController(QSemaphore* sem, QObject* parent = nullptr);
     void setController(TestController* controller);
     void updateHR(int heartRate);
+    void toggleActivePatient();
     AED* getAED() const;
     void log(const QString& message);
 
