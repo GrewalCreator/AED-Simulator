@@ -207,6 +207,32 @@
      </property>
     </item>
    </widget>
+   <widget class="QPushButton" name="eval_button">
+    <property name="geometry">
+     <rect>
+      <x>590</x>
+      <y>330</y>
+      <width>151</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Patient Evaluation</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="eval_label">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>350</y>
+      <width>251</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Status:</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
