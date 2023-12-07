@@ -69,6 +69,8 @@ bool AED::shock(){
     controller->updateHR(currentHR - randomModifier(currentHR - 105));
 
     audioPlayer->play(STAND_CLEAR);
+    audioPlayer->play(CHARGING_AUDIO);
+    audioPlayer->play(SHOCKING_AUDIO);
     controller->log("Shocking!");
 
 
