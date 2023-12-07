@@ -1,17 +1,45 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+#AED Plus Simulator
 
-# Getting Started
+### Description:
+    The AED Plus Simulator is a software application designed to simulate the core functionality of an Automated External Defibrillator
+    (AED) Plus device. This simulation allows users to practice and enhance their skills in responding to life-threatening cardiac arrh-
+    ythmias, such as ventricular fibrillation and ventricular tachycardia, in a virtual environment
 
+### List of sources:
+    AED_Simulator.pro (Qt Creator project file)
+    aed.cpp, aed.h
+    aedcontroller.cpp, aedcontroller.h
+    aedstate.cpp, aedstate.h
+    aedwindow.cpp, aedwindow.h
+    AudioTypes.h
+    battery.cpp, battery.h
+    defs.h
+    electrodepads.cpp, electrodepads.h
+    heartrategenerator.cpp, heartrategenerator.h
+    logger.cpp, logger.h
+    main.cpp
+    mediaplayer.cpp, mediaplayer.h
+    patient.cpp, patient.h
+    PatientType.h
+    ProcessSteps.h
+    processtracker.cpp, processtracker.h
+    SignalType.h
+    testcontroller.cpp, testcontroller.h
+    testwindow.cpp, testwindow.h
 
-# Build and Test
-1.	Execute the setup script 'setup.sh' with "sudo ./setup.sh"
+### Build:
+    Execute the setup script 'setup.sh' with "sudo ./setup.sh"
 
-# Contribute
-Gurtej Grewal:
+### Issues/Limitations:
+    No known issues or limitations at this time.
 
-Boris:
+### Authors and Acknowledgement:
+    (full name, email)
+    
+    Gurtej Grewal,
 
-Owen:
+    Boris Zugic, boriszugic123@gmail.com
 
-Kiros:
+    Owen Lucas,
+
+    Libeamlak Kiros,
