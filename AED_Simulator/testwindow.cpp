@@ -174,9 +174,9 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
     const double amplitude = 0.75;
     const double frequency =  2 * M_PI * (ui->heartRate_slider->value()/5) / yValues.size();
 
-    for (size_t i = 0; i < yValues.size(); ++i) {
+    /*for (size_t i = 0; i < yValues.size(); ++i) {
         yValues[i] = amplitude * sin(frequency * i);
-    }
+    }*/
 
 
     for (size_t i = 0; i < yValues.size() - 1; ++i) {

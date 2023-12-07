@@ -11,6 +11,7 @@ public:
 
 protected:
     AEDController* controller;
+    QElapsedTimer timer;
     int delay;
 
 };
