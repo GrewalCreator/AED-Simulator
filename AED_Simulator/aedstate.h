@@ -2,7 +2,7 @@
 #define AEDSTATE_H
 
 #include "aedcontroller.h"
-#define VARIABILITY 3
+#define VARIABILITY 2
 class AEDState
 {
 public:

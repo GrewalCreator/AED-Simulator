@@ -175,7 +175,7 @@ void CompressionsState::stepProgress(){
         if(delay % 5 == 0){
 
             ++compressionTarget;
-            compressionsDone = compressionTarget - (VARIABILITY + 1);
+            compressionsDone += controller->getTestController()->getSessionCompressions() - compressionTarget;
             qDebug() << "Compression Target: " << compressionTarget;
         }
 
@@ -188,6 +188,7 @@ void CompressionsState::stepProgress(){
         }else{
             // Good
             controller->print("Good");
+            qDebug() << "Good";
         }
 
 
