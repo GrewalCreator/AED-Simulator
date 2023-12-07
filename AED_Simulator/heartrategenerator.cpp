@@ -45,10 +45,10 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
         double ampMod = (double(dist(gen)))/10000;
         const double A1 = ampMod * 1.2;
         const double A2 = 0.9;
-        const double A3 = 0.6;
+        const double A3 = ampMod * 0.6;
         const double B1 = ampMod * 1.8;
         const double B2 = 0.8;
-        const double B3 = 0.4;
+        const double B3 = ampMod * 0.4;
         const double frequencyQ = stretchMod * FREQ_COEFF * 1.8 * (heartRate / 60.0);
         const double frequencyR = randMod * FREQ_COEFF * 1.5 * (heartRate / 60.0);
         const double frequencyS = FREQ_COEFF * 1.2 * (heartRate / 60.0);

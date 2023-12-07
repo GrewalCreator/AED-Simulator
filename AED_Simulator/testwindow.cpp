@@ -118,7 +118,7 @@ void TestWindow::styling(){
         margin: -5px 0;} \
     QSlider::groove:horizontal{ \
         border: 1px solid #999999; \
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.2399 red, stop:0.24 #90EE90, stop:0.6 #90EE90, stop:0.6001 red); \
+        background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.2399 orange, stop:0.24 #90EE90, stop:0.6 #90EE90, stop:0.6001 red, stop: 0.8 red, stop: 0.8001 black); \
         height: 10px; \
         border-radius: 4px;}"
     );
