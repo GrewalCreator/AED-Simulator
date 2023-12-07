@@ -36,10 +36,10 @@
 ### Authors and Acknowledgement:
     (full name, email)
     
-    Gurtej Grewal,
+    Gurtej Grewal, gurtejgrewal455@gmail.com
 
     Boris Zugic, boriszugic123@gmail.com
 
-    Owen Lucas,
+    Owen Lucas, OWENLUCAS3@cmail.carleton.ca
 
-    Libeamlak Kiros,
+    Libeamlak Kiros, LIBEAMLAKKIROS@cmail.carleton.ca
