@@ -66,7 +66,8 @@ void TestWindow::handleCompressionButtonPress() {
     }
 
 
-    ui->compressionNumber->display(currentValue + 1);
+    testController->incrementSessionCompressions();
+    ui->compressionNumber->display(testController->getSessionCompressions());
 
     randomValue = QRandomGenerator::global()->bounded(0, 11);
 

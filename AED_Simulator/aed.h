@@ -6,18 +6,19 @@
 #include "battery.h"
 #include "PatientType.h"
 #include "cmath"
+#include "QRandomGenerator"
 
 class AEDController;
 
 class AED{
 public:
     AED(AEDController& controller);
+
     void playAudio(const AudioTypes& audio);
     bool checkShockSafety();
     bool shock();
     bool powerOn();
     bool getShockPressed();
-
     void setShockPressed();
     void resetShockPressed();
     Battery* getBattery() const;

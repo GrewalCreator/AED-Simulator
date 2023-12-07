@@ -2,7 +2,8 @@
 #include "aedcontroller.h"
 
 TestController::TestController(QObject* parent): QObject(parent){
-
+    sessionCompressions = 0;
+    totalCompressions= 0;
 }
 
 
@@ -34,6 +35,24 @@ void TestController::toggleWetPatient(){
         controlSystem->getPatient()->setIsInWater(true);
     }
 
+}
+
+void TestController::resetSessionCompressions(){
+    sessionCompressions = 0;
+}
+
+int TestController::getSessionCompressions(){
+    return sessionCompressions;
+}
+
+void TestController::incrementSessionCompressions(){
+    ++sessionCompressions;
+    ++totalCompressions;
+}
+
+void TestController::decrementSessionCompressions(){
+    --sessionCompressions;
+    --totalCompressions;
 }
 
 void TestController::depleteBattery(){

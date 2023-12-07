@@ -10,7 +10,7 @@
 #define MAX_BPM 250
 #define MIN_BPM 0
 
-#define MAX_NUMBER_COMPRESSION 30
+#define MAX_NUMBER_COMPRESSION 120
 
 #define IMAGE_PATH "../AED_Simulator/Resources/images/"
 #define LOG_PATH "../AED_Simulator/Resources/logs/"

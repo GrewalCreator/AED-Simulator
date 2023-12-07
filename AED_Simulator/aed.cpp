@@ -2,7 +2,7 @@
 #include "aedcontroller.h"
 #include "mediaplayer.h"
 
-
+// AED Constructor
 AED::AED(AEDController& controller): controller(&controller){
     audioPlayer = new MediaPlayer();
     battery = new Battery();
@@ -10,27 +10,19 @@ AED::AED(AEDController& controller): controller(&controller){
     shockPressed= false;
 }
 
+// Access AED MediaPlayer to play an Audio File
 void AED::playAudio(const AudioTypes& audio){
     audioPlayer->play(audio);
 }
 
-bool AED::powerOn(){
-    // Run General Safety Checks
-    if(!safetyChecks()){return false;}
 
+bool AED::powerOn(){
     controller->log("AED Powering On");
     audioPlayer->play(INTRO_AUDIO);
     return true;
-
-
 }
 
-
-bool AED::safetyChecks(){
-
-    return true;
-}
-
+// Check if AED is in the SHOCK State. Shocking should not be possible outside this state
 bool AED::checkShockSafety(){
     return controller->getCurrentStep() == SHOCK ? true : false;
 }
@@ -41,49 +33,58 @@ bool AED::getShockPressed(){
     return shockPressed;
 }
 
-
-
 void AED::resetShockPressed(){
     shockPressed = false;
 }
 
-bool AED::shock(){
+void AED::setShockPressed(){
+    shockPressed = true;
+}
 
+/*
+ * Shock Patient When Shock Button is Pressed
+ * If Not in SHOCK state, return false
+ * Determines the affect the shock will have on the patient based on the Pads placed
+*/
+
+bool AED::shock(){
     if(!checkShockSafety()){
         return false;
     }
 
-    if(controller->getPatient()->getIsInWater()){
-        controller->updateHR(MAX_BPM);
-        controller->sendStaticSignal(HEART_RATE);
-
-    }
-
+    // If Batter is below 30%, unable to shock
     if(battery->getBatteryLevels() < 30){
         controller->print("BATTERY LEVELS TOO LOW, PLEASE REPLACE");
         return false;
     }
 
-    int currentHR = getCurrentHR();
-
-    controller->updateHR(currentHR - randomModifier(currentHR - 105));
 
     audioPlayer->play(STAND_CLEAR);
     audioPlayer->play(CHARGING_AUDIO);
     audioPlayer->play(SHOCKING_AUDIO);
     controller->log("Shocking!");
 
+    int currentHR = getCurrentHR();
+    int userDeath = false;
 
+    // If the patient is shocked in water, HeartRate Spikes to MAX_BPM & user dies
+    if(controller->getPatient()->getIsInWater()){
+        controller->updateHR(MAX_BPM);
+        userDeath = true;
+    }else{
+        controller->updateHR(currentHR - randomModifier(currentHR - 105));
+    }
 
     battery->depleteBatteryLevel();
 
-    if(controller->getPatient()->getIsInWater()){
+    if(userDeath){
         controller->sendStaticSignal(DEATH);
     }
 
     return true;
 }
 
+// Determine Shock based on pad placement
 int AED::randomModifier(int diff) {
     srand(time(0));
 
@@ -110,12 +111,9 @@ int AED::randomModifier(int diff) {
     return shockedAmps;
 }
 
-void AED::setShockPressed(){
-    shockPressed = true;
-}
-
+// Generate random number between min & max
 int AED::random(int min, int max) {
-    return (rand() % (max - min + 1)) + min;
+    return QRandomGenerator::global()->bounded(min, max+1);
 }
 
 int AED::getCurrentHR(){

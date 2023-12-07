@@ -7,7 +7,12 @@
 AEDState::AEDState(AEDController* c){
     controller = c;
     delay = 0;
+
+    compressionTarget = 0;
+    compressionsDone = 0;
 }
+
+
 
 void PowerOnState::stepProgress(){
 
@@ -68,7 +73,7 @@ void PadPlacementState::stepProgress(){
     else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
         ++delay;
         if(delay<10){
-            controller->print("PADS SUCESSFULLY ATTACHED.");
+            controller->print("PADS SUCCESSFULLY ATTACHED.");
         }
         else{
             delay = 0;
@@ -105,7 +110,7 @@ void AnalysisState::stepProgress(){
             controller->setState(CPR);
         }
         else{
-            controller->print("Patient is nominal.");
+            controller->print("Patient has nominal BPM.");
         }
     }
 
@@ -152,7 +157,7 @@ void CompressionsState::stepProgress(){
         if(controller->getPatient()->isDead()){
             controller->print("RIP. Patient Has Passed Away");
         }else{
-            controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
+            controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED. BEGIN COMPRESSIONS");
         }
     }
     else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() > MAX_NOMINAL_BPM){
@@ -164,11 +169,31 @@ void CompressionsState::stepProgress(){
         controller->setState(ANALYZE_ECG);
     }
 
-    if(delay < 12){//12 ticks for compression stage
+    if(delay < 60){//60 ticks for compression stage
+        compressionsDone = controller->getTestController()->getSessionCompressions() - compressionTarget;
+        qDebug() << "Index: " << compressionsDone;
+        if(delay % 5 == 0){
+
+            ++compressionTarget;
+            compressionsDone = compressionTarget - (VARIABILITY + 1);
+            qDebug() << "Compression Target: " << compressionTarget;
+        }
+
+        if(compressionsDone <= compressionTarget - VARIABILITY){
+            // Too Slow
+            controller->print("Too Slow");
+        }else if(compressionsDone >= compressionTarget + VARIABILITY){
+            // TOO Fast
+            controller->print("Too Fast");
+        }else{
+            // Good
+            controller->print("Good");
+        }
 
 
     }
     else{
+        controller->getTestController()->resetSessionCompressions();
         delay = 0;
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
@@ -176,7 +201,4 @@ void CompressionsState::stepProgress(){
     ++delay;
 }
 
-void NominalState::stepProgress(){
-    controller->print("PLACEHOLDER MESSAGE FOR AFTERCARE/NOMINAL");
 
-}
