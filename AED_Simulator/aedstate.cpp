@@ -42,15 +42,18 @@ void PowerOnState::stepProgress(){
 }
 
 void CheckPatientState::stepProgress(){
-    ++delay;
     controller->print("PLEASE CHECK IF THE PATIENT IS OK.");
     controller->illuminate(LIGHTUP_OK);
+
 
     if(controller->getTimeElapsed()>10){
         controller->setState(GET_HELP);
         delay = 0;
         controller->resetTimeElapsed();
     }
+
+   delay++;
+
 }
 
 void GetHelpState::stepProgress(){
@@ -130,19 +133,18 @@ void ShockState::stepProgress(){
     }
 
     if(controller->getAED()->getShockPressed()){
-            if(delay<4){
+            if(delay==0){
+                controller->getAED()->playAudio(STAND_CLEAR);
                 controller->print("3...");
             }
-            else if(delay<8){
+            else if(delay==6){
+                controller->getAED()->playAudio(CHARGING_AUDIO);
                 controller->print("2...");
             }
-            else if(delay<12){
+            else if(delay==18){
                 controller->print("1...");
             }
-            else if(delay<15){
-                controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
-            }
-            else if(delay >= 15){
+            else if(delay >= 20){
                 controller->getAED()->shock();
                 delay = 0;
                 controller->resetTimeElapsed();
@@ -178,10 +180,6 @@ void CompressionsState::stepProgress(){
     if(delay < 60){
         compressionsDone = controller->getTestController()->getSessionCompressions() - (delay / 5);
 
-
-
-
-
         if(compressionsDone <= compressionTarget - VARIABILITY){
 
             controller->print("Compressions Too Slow. Please Speed Up");
@@ -194,8 +192,6 @@ void CompressionsState::stepProgress(){
             controller->getTestController()->updateCompressionHeartRate();
 
         }
-
-
     }
     else{
         controller->getTestController()->resetSessionCompressions();

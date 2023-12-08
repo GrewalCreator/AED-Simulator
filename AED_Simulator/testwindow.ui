@@ -211,9 +211,9 @@
     <property name="geometry">
      <rect>
       <x>590</x>
-      <y>330</y>
+      <y>320</y>
       <width>151</width>
-      <height>61</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -223,9 +223,9 @@
    <widget class="QLabel" name="eval_label">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>350</y>
-      <width>251</width>
+      <x>490</x>
+      <y>360</y>
+      <width>391</width>
       <height>17</height>
      </rect>
     </property>

@@ -18,11 +18,22 @@ const vector<double>& HeartRateGenerator::getYValues() const {
     return yValues;
 }
 
+/*
+Sequential Estimation of the Sum of Sinusoidal Model Parameters
+https://home.iitk.ac.in/~kundu/paper125.pdf
 
+The parameters of the sinusoidal functions were derived from this paper.
+
+The type of generation changes based on what heart rate region the patient is in.
+above 200: VF, signal's frequency and amplitude vary greatly
+between 150 and 200: signal is rapid but consistent
+between 60 and 150: signal is steady and consistent
+below 60: signal is weak and smooth.
+*/
 void HeartRateGenerator::generateHeartRateValues(double heartRate) {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> dist(1, 10000);
+    std::uniform_real_distribution<float> dist(1, 10000);
 
     yValues.clear();
 
@@ -40,9 +51,9 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
         }
     }
     else if(heartRate > 200){
-        double randMod = 1+ (double(dist(gen)))/10000;
-        double stretchMod = (double(dist(gen)) - 5000)/10000;
-        double ampMod = (double(dist(gen)))/10000;
+        double randMod = 1+ ((dist(gen)))/10000;
+        double stretchMod = ((dist(gen)) - 5000)/10000;
+        double ampMod = ((dist(gen)))/10000;
         const double A1 = ampMod * 1.2;
         const double A2 = 0.9;
         const double A3 = ampMod * 0.6;
@@ -87,7 +98,7 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
 
 
     for (auto& i : yValues) {
-        double randval = (double(dist(gen))-5000)/30000;
+        double randval = ((dist(gen))-5000)/50000;
 
         i += randval;
     }

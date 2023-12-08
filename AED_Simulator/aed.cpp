@@ -14,8 +14,6 @@ AED::AED(AEDController& controller): controller(&controller){
 void AED::playAudio(const AudioTypes& audio){
     audioPlayer->play(audio);
 }
-
-
 bool AED::powerOn(){
     controller->log("AED Powering On");
     audioPlayer->play(INTRO_AUDIO);
@@ -58,9 +56,6 @@ bool AED::shock(){
         return false;
     }
 
-
-    audioPlayer->play(STAND_CLEAR);
-    audioPlayer->play(CHARGING_AUDIO);
     audioPlayer->play(SHOCKING_AUDIO);
     controller->log("Shocking!");
 
