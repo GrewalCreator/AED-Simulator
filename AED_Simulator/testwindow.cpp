@@ -58,8 +58,7 @@ void TestWindow::disableUI(){
 
 void TestWindow::handleCompressionButtonPress() {
     int currentValue = ui->compressionNumber->value();
-    int newHeartRate = getCurrentHeartRate();
-    int randomValue = 0;
+
 
 
     if(testController->getControlSystem()->getCurrentStep() != CPR){return;}
@@ -69,20 +68,14 @@ void TestWindow::handleCompressionButtonPress() {
     }
 
 
-    ui->compressionNumber->display(currentValue + 1);
+    testController->incrementSessionCompressions();
+    ui->compressionNumber->display(testController->getSessionCompressions());
 
-    randomValue = QRandomGenerator::global()->bounded(0, 11);
 
-    if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
-        newHeartRate = getCurrentHeartRate() - randomValue;
-
-     }else if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
-        newHeartRate = getCurrentHeartRate() + randomValue;
-
-    }
-    testController->getControlSystem()->updateHR(newHeartRate);
 
 }
+
+
 
 
 
@@ -229,6 +222,6 @@ void TestWindow::evaluate(){
     else{
         ui->eval_label->setText("Status: PATIENT IS RECOVERING");
         ui->eval_label->setStyleSheet("QLabel{background-color: white;"
-                                      "color: black;}");
+                                      "color: green;}");
     }
 }

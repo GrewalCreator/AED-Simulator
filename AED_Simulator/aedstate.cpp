@@ -7,7 +7,12 @@
 AEDState::AEDState(AEDController* c){
     controller = c;
     delay = 0;
+
+    compressionTarget = 9;
+    compressionsDone = 0;
 }
+
+
 
 void PowerOnState::stepProgress(){
 
@@ -65,10 +70,10 @@ void PadPlacementState::stepProgress(){
     if(!controller->getPatient()->getHasPadsOn()){
         controller->print("PLACE PADS ON THE PATIENT.");
     }
-    else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
+    else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){
         ++delay;
         if(delay<10){
-            controller->print("PADS SUCESSFULLY ATTACHED.");
+            controller->print("PADS SUCCESSFULLY ATTACHED.");
         }
         else{
             delay = 0;
@@ -76,7 +81,7 @@ void PadPlacementState::stepProgress(){
             controller->setState(ANALYZE_ECG);
         }
     }
-    else if(controller->getPatient()->getHasPadsOn() && controller->getPatient()->getImproperPlacement()){//if patient has pads on but not properly placed. again, replace this with a simple function. this is ugly and not reusable.
+    else if(controller->getPatient()->getHasPadsOn() && controller->getPatient()->getImproperPlacement()){
         controller->print("CHECK ELECTRODE PADS");
     }
 }
@@ -105,7 +110,7 @@ void AnalysisState::stepProgress(){
             controller->setState(CPR);
         }
         else{
-            controller->print("Patient is nominal.");
+            controller->print("Patient has nominal BPM.");
         }
     }
 
@@ -152,23 +157,43 @@ void CompressionsState::stepProgress(){
         if(controller->getPatient()->isDead()){
             controller->print("RIP. Patient Has Passed Away");
         }else{
-            controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED.");
+            controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED. BEGIN COMPRESSIONS");
         }
     }
     else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() > MAX_NOMINAL_BPM){
         controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
     else{
+        controller->getTestController()->resetSessionCompressions();
         delay = 0;
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
     }
 
-    if(delay < 12){//12 ticks for compression stage
+    if(delay < 60){
+        compressionsDone = controller->getTestController()->getSessionCompressions() - (delay / 5);
+
+
+
+
+
+        if(compressionsDone <= compressionTarget - VARIABILITY){
+
+            controller->print("Compressions Too Slow. Please Speed Up");
+        }else if(compressionsDone >= compressionTarget + VARIABILITY){
+
+            controller->print("Compressions Too Fast. Please Slow Down");
+        }else{
+
+            controller->print("Steady Compression Rhythm");
+            controller->getTestController()->updateCompressionHeartRate();
+
+        }
 
 
     }
     else{
+        controller->getTestController()->resetSessionCompressions();
         delay = 0;
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
@@ -176,7 +201,4 @@ void CompressionsState::stepProgress(){
     ++delay;
 }
 
-void NominalState::stepProgress(){
-    controller->print("PLACEHOLDER MESSAGE FOR AFTERCARE/NOMINAL");
 
-}

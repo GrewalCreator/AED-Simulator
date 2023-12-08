@@ -32,6 +32,12 @@ public:
 
     void setController(AEDController* controller);
 
+    int getSessionCompressions();
+    void incrementSessionCompressions();
+
+    void resetSessionCompressions();
+
+    void updateCompressionHeartRate();
 
     void updateHeartRate();
 
@@ -47,6 +53,8 @@ public:
 
 private:
     AEDController* controlSystem;
+    int sessionCompressions;
+    int totalCompressions;
 };
 
 #endif // TESTCONTROLLER_H

@@ -29,6 +29,7 @@ public:
     int getCurrentHeartRate();
 
 
+
 signals:
     void aboutToClose();
 

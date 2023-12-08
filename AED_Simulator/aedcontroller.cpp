@@ -20,11 +20,12 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     activePatient = patientAdult;
     breakflag=false;
     semaphore = sem;
-    logger->log("Calling AEDController Constructor");
     timeElapsed = 0;
     currentState = states[POWER_ON];
     errorFlag = false;
     deathFlag = false;
+
+    logger->log("Calling AEDController Constructor");
 
 }
 
@@ -40,7 +41,7 @@ void AEDController::initStates(){
     states.insert(ANALYZE_ECG, new AnalysisState(this));
     states.insert(SHOCK, new ShockState(this));
     states.insert(CPR, new CompressionsState(this));
-    states.insert(AFTER_CARE, new NominalState(this));
+
 }
 void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
     emit dynamicSignal(sig,data);
@@ -91,7 +92,7 @@ bool AEDController::powerAEDOff(){
 
     logger->log("Calling AEDController PowerOff");
     this->cleanup();
-    return true;//just true for now
+    return true;
 }
 
 void AEDController::log(const QString& message){
@@ -110,10 +111,8 @@ void AEDController::updateHR(int heartRate){
     activePatient->setHeartRate(heartRate);
     sendStaticSignal(SLIDER);
     sendStaticSignal(HEART_RATE);
-    if(activePatient->isDead()){
-        if(activePatient->getHasPadsOn()){
-            setState(CPR);
-        }
+    if(activePatient->isDead() && activePatient->getHasPadsOn() && !activePatient->getImproperPlacement()){
+        setState(CPR);
     }
 }
 

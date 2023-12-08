@@ -2,7 +2,8 @@
 #include "aedcontroller.h"
 
 TestController::TestController(QObject* parent): QObject(parent){
-
+    sessionCompressions = 0;
+    totalCompressions= 0;
 }
 
 
@@ -36,8 +37,37 @@ void TestController::toggleWetPatient(){
 
 }
 
+void TestController::resetSessionCompressions(){
+    sessionCompressions = 0;
+}
+
+int TestController::getSessionCompressions(){
+    return sessionCompressions;
+}
+
+void TestController::incrementSessionCompressions(){
+    ++sessionCompressions;
+    ++totalCompressions;
+}
+
 void TestController::depleteBattery(){
     controlSystem->getAED()->getBattery()->depleteBatteryLevel();
+}
+
+void TestController::updateCompressionHeartRate(){
+    int newHeartRate = getCurrentHeartRate();
+    int randomValue = 0;
+
+    randomValue = QRandomGenerator::global()->bounded(0, 11);
+
+    if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() - randomValue;
+
+     }else if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() + randomValue;
+
+    }
+    controlSystem->updateHR(newHeartRate);
 }
 
 AEDController* TestController::getControlSystem(){

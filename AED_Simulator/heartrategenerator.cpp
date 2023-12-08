@@ -88,7 +88,7 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
 
     for (auto& i : yValues) {
         double randval = (double(dist(gen))-5000)/30000;
-        qDebug()<<randval;
+
         i += randval;
     }
 }
