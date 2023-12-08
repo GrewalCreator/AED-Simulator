@@ -127,7 +127,6 @@ void AEDController::sendDynamicSignal(const SignalType& signalType, const string
 
 void AEDController::run(){
     breakflag = false; //allows for controller to start looping after being killed
-    QThread::msleep(5000);
 
     while(!breakflag){
         QThread::msleep(200);

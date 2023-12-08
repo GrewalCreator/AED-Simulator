@@ -21,6 +21,7 @@ public:
     bool getShockPressed();
     void setShockPressed();
     void resetShockPressed();
+    MediaPlayer& getMediaPlayer();
     Battery* getBattery() const;
 
     virtual ~AED();
