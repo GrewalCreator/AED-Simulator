@@ -15,7 +15,7 @@ AEDState::AEDState(AEDController* c){
 
 
 void PowerOnState::stepProgress(){
-
+    controller->getTestController()->resetSessionCompressions();
     if(controller->getErrorFlag()){
         controller->getAED()->resetShockPressed();//for the case where we get an error mid-shock
         controller->illuminate(RESET);
@@ -121,7 +121,9 @@ void ShockState::stepProgress(){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
     }
     controller->illuminate(LIGHTUP_SHOCK);
-    controller->print("SHOCKABLE RHYTHM DETECTED.");
+    if(!controller->getAED()->getShockPressed()){
+        controller->print("SHOCKABLE RHYTHM DETECTED.");
+    }
     if(controller->getPatient()->getHeartRate() <= MAX_NOMINAL_BPM){
         delay = 0;
         controller->setState(ANALYZE_ECG);
@@ -137,7 +139,10 @@ void ShockState::stepProgress(){
             else if(delay<12){
                 controller->print("1...");
             }
-            else if(delay >= 12){
+            else if(delay<15){
+                controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
+            }
+            else if(delay >= 15){
                 controller->getAED()->shock();
                 delay = 0;
                 controller->resetTimeElapsed();

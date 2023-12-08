@@ -64,7 +64,7 @@ public:
     void decreaseBPM(int amperage);
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
-
+    bool getDeathFlag();
     void updateSlider();
     TestController* getTestController() const;
 
