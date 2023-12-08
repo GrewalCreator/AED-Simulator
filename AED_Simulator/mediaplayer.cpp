@@ -50,12 +50,7 @@ void MediaPlayer::play(const AudioTypes& audio){
             QStringList args;
             args << soundFilePath;
 
-
             QProcess::startDetached(command, args);
-
-
-
-
 
         #elif defined(Q_OS_MAC) // Check for macOS platform
             QProcess::startDetached("afplay", QStringList() << soundFilePath);

@@ -14,6 +14,7 @@ AED::AED(AEDController& controller): controller(&controller){
 void AED::playAudio(const AudioTypes& audio){
     audioPlayer->play(audio);
 }
+
 bool AED::powerOn(){
     controller->log("AED Powering On");
     return true;

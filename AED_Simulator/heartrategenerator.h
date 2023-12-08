@@ -4,7 +4,10 @@
 #include "defs.h"
 #include <QObject>
 #include <QThread>
+
 #include <vector>
+#include <cmath>
+#include <random>
 
 class HeartRateGenerator {
 

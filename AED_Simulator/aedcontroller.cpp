@@ -7,6 +7,27 @@
 #include <ctime>
 #include "aedstate.h"
 
+
+// Transmitter to centralize the signals sent from the backend
+AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
+
+}
+
+void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
+    emit dynamicSignal(sig,data);
+}
+
+void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
+    emit staticSignal(sig, state);
+}
+
+AEDTransmitter* AEDController::getTransmitter(){
+    return transmit;
+}
+
+
+
+
 AEDController::AEDController(QSemaphore *sem , QObject* parent){
     transmit = new AEDTransmitter(parent);
     automatedED = new AED(*this);
@@ -16,20 +37,19 @@ AEDController::AEDController(QSemaphore *sem , QObject* parent){
     pads = new ElectrodePads();
     patientAdult = new Patient(ADULT);
     patientChild = new Patient(CHILD);
+
     initStates();
-    activePatient = patientAdult;
-    breakflag=false;
     semaphore = sem;
+    activePatient = patientAdult;
+
     timeElapsed = 0;
-    currentState = states[POWER_ON];
+    breakflag=false;
     errorFlag = false;
     deathFlag = false;
 
+    currentState = states[POWER_ON];
+
     logger->log("Calling AEDController Constructor");
-
-}
-
-AEDTransmitter::AEDTransmitter(QObject* parent):QObject(parent){
 
 }
 
@@ -41,15 +61,8 @@ void AEDController::initStates(){
     states.insert(ANALYZE_ECG, new AnalysisState(this));
     states.insert(SHOCK, new ShockState(this));
     states.insert(CPR, new CompressionsState(this));
-
-}
-void AEDTransmitter::sendDynamic(const SignalType& sig, const string& data){
-    emit dynamicSignal(sig,data);
 }
 
-void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
-    emit staticSignal(sig, state);
-}
 
 void AEDController::toggleActivePatient(){
     if (activePatient == patientAdult){
@@ -65,9 +78,7 @@ void AEDController::setCurrentStep(const ProcessSteps& step){
     this->processTracker->setCurrentStep(step);
 }
 
-AEDTransmitter* AEDController::getTransmitter(){
-    return transmit;
-}
+
 
 const ProcessSteps& AEDController::getCurrentStep() const{
     return this->processTracker->getCurrentStep();
@@ -298,4 +309,6 @@ AEDController::~AEDController(){
     delete logger;
     delete processTracker;
     delete heartRateGenerator;
+    delete patientAdult;
+    delete patientChild;
 }

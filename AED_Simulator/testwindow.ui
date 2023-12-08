@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1010</width>
-    <height>409</height>
+    <width>1022</width>
+    <height>421</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -63,8 +63,8 @@
    <widget class="QPushButton" name="childPad_button">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>10</y>
+      <x>890</x>
+      <y>100</y>
       <width>83</width>
       <height>25</height>
      </rect>
@@ -76,8 +76,8 @@
    <widget class="QPushButton" name="adultPad_button">
     <property name="geometry">
      <rect>
-      <x>900</x>
-      <y>50</y>
+      <x>890</x>
+      <y>130</y>
       <width>83</width>
       <height>25</height>
      </rect>
@@ -115,10 +115,10 @@
    <widget class="QPushButton" name="togglePadPatient">
     <property name="geometry">
      <rect>
-      <x>452</x>
-      <y>180</y>
-      <width>211</width>
-      <height>25</height>
+      <x>370</x>
+      <y>320</y>
+      <width>181</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -128,10 +128,10 @@
    <widget class="QPushButton" name="togglePadAED">
     <property name="geometry">
      <rect>
-      <x>670</x>
-      <y>180</y>
-      <width>211</width>
-      <height>25</height>
+      <x>600</x>
+      <y>320</y>
+      <width>181</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -164,8 +164,8 @@
    <widget class="QPushButton" name="toggle_wet">
     <property name="geometry">
      <rect>
-      <x>450</x>
-      <y>210</y>
+      <x>360</x>
+      <y>370</y>
       <width>431</width>
       <height>25</height>
      </rect>
@@ -177,8 +177,8 @@
    <widget class="QPushButton" name="depleteBattery_button">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>250</y>
+      <x>850</x>
+      <y>240</y>
       <width>151</width>
       <height>61</height>
      </rect>
@@ -190,7 +190,7 @@
    <widget class="QComboBox" name="patientSwap_comboBox">
     <property name="geometry">
      <rect>
-      <x>800</x>
+      <x>890</x>
       <y>30</y>
       <width>86</width>
       <height>25</height>
@@ -210,10 +210,10 @@
    <widget class="QPushButton" name="eval_button">
     <property name="geometry">
      <rect>
-      <x>590</x>
-      <y>320</y>
+      <x>10</x>
+      <y>350</y>
       <width>151</width>
-      <height>31</height>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
@@ -223,14 +223,62 @@
    <widget class="QLabel" name="eval_label">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>170</x>
       <y>360</y>
       <width>391</width>
-      <height>17</height>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
      <string>Status:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="swapPatient_label">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>10</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Swap Test Patients</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="placePads_label">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>80</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Place Pads</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="userDeath_label">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>150</y>
+      <width>521</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>

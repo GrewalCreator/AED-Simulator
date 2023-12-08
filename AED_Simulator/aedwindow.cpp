@@ -32,50 +32,12 @@ void AEDWindow::signalToString(){
     uiMap[LIGHTUP_STANDCLEAR] = ui->standclear_image;
 }
 void AEDWindow::styling(){
-    this->setStyleSheet("QPushButton {\n\
-                        border-radius: 50%;\n\
-                        padding: 8px 16px;\n\
-                        color: #FF0000;\n\
-                        font-size: 14px;}\n\
-                    QPushButton:hover {\n\
-                        background-color: #FF0000;\n\
-                        color: #FFFFFF;}\n\
-                    QFrame#mainFrame{\n\
-                        background-color: #12a32a;\n\
-                        border: 2px solid #FFFFFF;\n\
-                        border-radius: 10px;}\n\
-                    QFrame#aed_frame{\n\
-                        background-color: #5ff578;\n\
-                        border: 2px solid #FFFFFF;\n\
-                        border-radius: 10px;}\n\
-                    QLabel {\n\
-                        border-radius: 9px;\n\
-                        padding: 5px;\n\
-                        }\n\
-                    QPushButton:pressed {\n\
-                        background-color: #FFFF00;}\n\
-                        QProgressBar {\n\
-                            border: 2px solid grey;\n\
-                            border-radius: 5px;\n\
-                            background-color: #5ff578;\n\
-                            height: 20px;\n\
-                            text-align: center;\n\
-                        }\n\
-                        QProgressBar::chunk {\n\
-                            background-color: #ffcc00;\n\
-                            width: 10px;\n\
-                        }\n\
-QProgressBar {\n\
-border: 2px solid grey;\n\
-border-radius: 5px;\n\
-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 red, stop:0.5 yellow, stop:0.7 #5ff578);\n\
-}\n\
-QProgressBar::chunk {\n\
-background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 white, stop:1 white);\n\
-width: 5px;\n\
-margin: 0.5px;\n\
-}\n"
-);
+
+    QFile styleFile(QString(STYLESHEET_PATH) + "aedWindowStyles.qss");
+    styleFile.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(styleFile.readAll());
+    this->setStyleSheet(styleSheet);
+
 }
 
 
