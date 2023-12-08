@@ -14,7 +14,7 @@ public:
     virtual ~MediaPlayer();
 
 private:
-    QProcess * process;
+
 };
 
 #endif // MEDIAPLAYER_H

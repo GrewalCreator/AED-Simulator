@@ -1,0 +1,53 @@
+QPushButton {
+    border-radius: 50%;
+    padding: 8px 16px;
+    color: #FF0000;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #FF0000;
+    color: #FFFFFF;
+}
+
+QFrame#mainFrame {
+    background-color: #12a32a;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
+
+QFrame#aed_frame {
+    background-color: #5ff578;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
+
+QLabel {
+    border-radius: 9px;
+    padding: 5px;
+}
+
+QPushButton:pressed {
+    background-color: #FFFF00;
+}
+
+QProgressBar {
+    border: 2px solid grey;
+    border-radius: 5px;
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 red, stop:0.5 yellow, stop:0.7 #5ff578);
+    height: 20px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 white, stop:1 white);
+    width: 5px;
+    margin: 0.5px;
+}
+
+
+
+
+
+
+

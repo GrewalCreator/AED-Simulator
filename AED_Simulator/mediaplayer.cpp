@@ -1,12 +1,13 @@
 #include "mediaplayer.h"
 
 MediaPlayer::MediaPlayer(){
-    process = new QProcess();
+
+
 }
 
 
 void MediaPlayer::play(const AudioTypes& audio){
-    delete process;
+
     QString soundFilePath;
     QString fileName;
 
@@ -49,11 +50,8 @@ void MediaPlayer::play(const AudioTypes& audio){
             QStringList args;
             args << soundFilePath;
 
-            process = new QProcess();
-            process->start(command, args);
-            if (!process->waitForStarted()) {
-                qInfo() << "Failed to play audio. Please install 'alsa-utils' package.";
-            }
+            QProcess::startDetached(command, args);
+
         #elif defined(Q_OS_MAC) // Check for macOS platform
             QProcess::startDetached("afplay", QStringList() << soundFilePath);
         #else

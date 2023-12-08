@@ -15,6 +15,7 @@
 #define IMAGE_PATH "../AED_Simulator/Resources/images/"
 #define LOG_PATH "../AED_Simulator/Resources/logs/"
 #define AUDIO_PATH "../AED_Simulator/Resources/audio/"
+#define STYLESHEET_PATH "../AED_Simulator/Resources/stylesheets/"
 
 #define CHILD_AMPS 50
 #define ADULT_AMPS 100

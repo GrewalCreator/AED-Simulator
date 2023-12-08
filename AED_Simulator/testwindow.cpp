@@ -10,6 +10,7 @@ TestWindow::TestWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::TestWin
     initializeConnection();
 
     styling();
+    ui->userDeath_label->hide();
 }
 
 void TestWindow::initializeConnection(){
@@ -54,12 +55,17 @@ void TestWindow::initializeConnection(){
 
 void TestWindow::disableUI(){
     ui->test_frame->setEnabled(false);
+
+    ui->userDeath_label->setText("Shocked In Conductive Environment, You Died!");
+    ui->userDeath_label->setStyleSheet("font-size: 24px; color: red; font-weight: bold;"); // Style the message label
+    ui->userDeath_label->setWordWrap(true); // Enable word wrapping
+    ui->userDeath_label->setAlignment(Qt::AlignCenter); // Align text to center (optional)
+    ui->userDeath_label->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred); // Allow expanding horizontally
+    ui->userDeath_label->show();
 }
 
 void TestWindow::handleCompressionButtonPress() {
     int currentValue = ui->compressionNumber->value();
-
-
 
     if(testController->getControlSystem()->getCurrentStep() != CPR){return;}
     if(currentValue >= MAX_NUMBER_COMPRESSION){
@@ -67,17 +73,10 @@ void TestWindow::handleCompressionButtonPress() {
         return;
     }
 
-
     testController->incrementSessionCompressions();
     ui->compressionNumber->display(testController->getSessionCompressions());
 
-
-
 }
-
-
-
-
 
 void TestWindow::updateSlider(){
     ui->heartRate_slider->setValue(getCurrentHeartRate());
@@ -102,19 +101,11 @@ void TestWindow::setHR(){
 
 void TestWindow::styling(){
 
-    this->setStyleSheet(
-    "QSlider::handle::horizontal{"
-    "   background: #4A708B; \
-        width: 14px; \
-        height: 14px; \
-        border-radius: 7px; \
-        margin: -5px 0;} \
-    QSlider::groove:horizontal{ \
-        border: 1px solid #999999; \
-        background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.2399 orange, stop:0.24 #90EE90, stop:0.6 #90EE90, stop:0.6001 red, stop: 0.8 red, stop: 0.8001 black); \
-        height: 10px; \
-        border-radius: 4px;}"
-    );
+    QFile styleFile(QString(STYLESHEET_PATH) + "testWindowStyle.qss");
+    styleFile.open(QFile::ReadOnly);
+    QString styleSheet = QLatin1String(styleFile.readAll());
+    this->setStyleSheet(styleSheet);
+
 
 }
 
@@ -164,14 +155,6 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
     painter.setPen(Red);
 
 
-    const double amplitude = 0.75;
-    const double frequency =  2 * M_PI * (ui->heartRate_slider->value()/5) / yValues.size();
-
-    /*for (size_t i = 0; i < yValues.size(); ++i) {
-        yValues[i] = amplitude * sin(frequency * i);
-    }*/
-
-
     for (size_t i = 0; i < yValues.size() - 1; ++i) {
 
         int startY = floor(yValues[i] * 50 + 50);
@@ -187,14 +170,8 @@ void TestWindow::generateHeartRateImage(vector<double>& yValues) {
 
 
 
-
-TestWindow::~TestWindow(){  
-    delete ui;
-    delete testController;
-}
-
-
 void TestWindow::patientSwap(int index){
+    Q_UNUSED(index); // Mark the index parameter as unused
     AEDController* aedController = testController->getControlSystem();
     aedController->toggleActivePatient();
 
@@ -224,4 +201,9 @@ void TestWindow::evaluate(){
         ui->eval_label->setStyleSheet("QLabel{background-color: white;"
                                       "color: green;}");
     }
+}
+
+TestWindow::~TestWindow(){
+    delete ui;
+    delete testController;
 }

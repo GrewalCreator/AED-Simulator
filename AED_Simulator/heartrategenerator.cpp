@@ -1,20 +1,21 @@
 #include "heartrategenerator.h"
-#include <cmath>
-#include <time.h>
-#include <random>
+
+// Constants for frequency coefficient and heart rate boundaries
 #define FREQ_COEFF 7
 
-HeartRateGenerator::HeartRateGenerator(){
 
-}
+struct HeartRateParameters {
+    double A1, A2, A3, B1, B2, B3;
+    double frequencyQ, frequencyR, frequencyS;
+};
+
+HeartRateGenerator::HeartRateGenerator() {}
 
 void HeartRateGenerator::updateHeartRate(double newHeartRate) {
     generateHeartRateValues(newHeartRate);
 }
 
-
-
-const vector<double>& HeartRateGenerator::getYValues() const {
+const std::vector<double>& HeartRateGenerator::getYValues() const {
     return yValues;
 }
 
@@ -36,70 +37,45 @@ void HeartRateGenerator::generateHeartRateValues(double heartRate) {
     std::uniform_real_distribution<float> dist(1, 10000);
 
     yValues.clear();
+    HeartRateParameters params;
 
-    if((heartRate > MAX_NOMINAL_BPM) && (heartRate <200)){
-        const double A1 = 1.2;
-        const double A3 = 1.2;
-        const double B1 = 1.8;
-        const double B3 = 1.8;
-        const double frequencyQ = FREQ_COEFF * 0.9 * (heartRate / 60.0);
-        const double frequencyS = FREQ_COEFF * 2.7 * (heartRate / 60.0);
-        const double timeInterval = 1.0 / 100.0;
-        for (double t = 0; t <= 2 * M_PI; t += timeInterval) {
-            double y = 0.3*((A1 * cos(frequencyQ * t) + (B1 * sin(frequencyQ * t)) + (A3 * cos(frequencyS * t)+ B3 * sin(frequencyS * t)) ) );
-            yValues.push_back(y);
-        }
-    }
-    else if(heartRate > 200){
-        double randMod = 1+ ((dist(gen)))/10000;
-        double stretchMod = ((dist(gen)) - 5000)/10000;
-        double ampMod = ((dist(gen)))/10000;
-        const double A1 = ampMod * 1.2;
-        const double A2 = 0.9;
-        const double A3 = ampMod * 0.6;
-        const double B1 = ampMod * 1.8;
-        const double B2 = 0.8;
-        const double B3 = ampMod * 0.4;
-        const double frequencyQ = stretchMod * FREQ_COEFF * 1.8 * (heartRate / 60.0);
-        const double frequencyR = randMod * FREQ_COEFF * 1.5 * (heartRate / 60.0);
-        const double frequencyS = FREQ_COEFF * 1.2 * (heartRate / 60.0);
-        const double timeInterval = 1.0 / 100.0;
-        for (double t = 0; t <= 2 * M_PI; t += timeInterval) {
-            double y = 0.3*((A1 * cos(frequencyQ * t) + (B1 * sin(frequencyQ * t)) + (A2 * cos(frequencyR * t) + B2 * sin(frequencyR * t)) + (A3 * cos(frequencyS * t)+ B3 * sin(frequencyS * t)) ) );
-            yValues.push_back(y);
-        }
-    }
-    else if((heartRate < MAX_NOMINAL_BPM)&&(heartRate > MIN_NOMINAL_BPM)){
-        const double A1 = 1.2;
-        const double A2 = 0.9;
-        const double A3 = 1.2;
-        const double B1 = 1.8;
-        const double B2 = 0.8;
-        const double B3 = 1.8;
-        const double frequencyQ = FREQ_COEFF * 1.8 * (heartRate / 60.0);
-        const double frequencyR = FREQ_COEFF * 1.5 * (heartRate / 60.0);
-        const double frequencyS = FREQ_COEFF * 1.2 * (heartRate / 60.0);
-        const double timeInterval = 1.0 / 100.0;
-        for (double t = 0; t <= 2 * M_PI; t += timeInterval) {
-            double y = 0.2*((A1 * cos(frequencyQ * t) + (B1 * sin(frequencyQ * t)) + (A2 * cos(frequencyR * t) + B2 * sin(frequencyR * t)) + (A3 * cos(frequencyS * t)+ B3 * sin(frequencyS * t)) ) );
-            yValues.push_back(y);
-        }
-    }
-    else{
-        const double A1 = 1.2;
-        const double B3 = 0.4;
-        const double frequencyQ = FREQ_COEFF * 1.8 * (heartRate / 60.0);
-        const double timeInterval = 1.0 / 100.0;
-        for (double t = 0; t <= 2 * M_PI; t += timeInterval) {
-            double y = 0.3*(A1 * cos(frequencyQ * t) + + B3 * sin(frequencyQ * t));
-            yValues.push_back(y);
-        }
+    if (heartRate > MAX_NOMINAL_BPM && heartRate < 200) {
+        params = {1.2, 0.0, 1.2, 1.8, 0.0, 1.8,
+                  FREQ_COEFF * 0.9 * (heartRate / 60.0),
+                  FREQ_COEFF * 2.7 * (heartRate / 60.0),
+                  FREQ_COEFF * 2.7 * (heartRate / 60.0)};
+    } else if (heartRate > 200) {
+        double randMod = 1 + ((dist(gen))) / 10000;
+        double stretchMod = ((dist(gen)) - 5000) / 10000;
+        double ampMod = (dist(gen)) / 10000;
+
+        params = {ampMod * 1.2, 0.9, ampMod * 0.6,
+                  ampMod * 1.8, 0.8, ampMod * 0.4,
+                  stretchMod * FREQ_COEFF * 1.8 * (heartRate / 60.0),
+                  randMod * FREQ_COEFF * 1.5 * (heartRate / 60.0),
+                  FREQ_COEFF * 1.2 * (heartRate / 60.0)};
+    } else if (heartRate < MAX_NOMINAL_BPM && heartRate > MIN_NOMINAL_BPM) {
+        params = {1.2, 0.9, 1.2, 1.8, 0.8, 1.8,
+                  FREQ_COEFF * 1.8 * (heartRate / 60.0),
+                  FREQ_COEFF * 1.5 * (heartRate / 60.0),
+                  FREQ_COEFF * 1.2 * (heartRate / 60.0)};
+    } else {
+        params = {1.2, 0.0, 0.0, 0.0, 0.0, 0.4,
+                  FREQ_COEFF * 1.8 * (heartRate / 60.0),
+                  0.0, 0.0};
     }
 
+    const double timeInterval = 1.0 / 100.0;
+    for (double t = 0; t <= 2 * M_PI; t += timeInterval) {
+        double y = 0.0;
+        y += params.A1 * cos(params.frequencyQ * t) + params.B1 * sin(params.frequencyQ * t);
+        y += params.A2 * cos(params.frequencyR * t) + params.B2 * sin(params.frequencyR * t);
+        y += params.A3 * cos(params.frequencyS * t) + params.B3 * sin(params.frequencyS * t);
+        yValues.push_back(0.3 * y);
+    }
 
     for (auto& i : yValues) {
-        double randval = ((dist(gen))-5000)/50000;
-
+        double randval = ((dist(gen)) - 5000) / 50000;
         i += randval;
     }
 }

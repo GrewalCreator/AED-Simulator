@@ -5,7 +5,6 @@ Logger::Logger(){
     setup();
 }
 
-//TO-DO: Make setup test button and log test button
 void Logger::setup(){
     QString currentDate = dateHandler->currentDateTime().toString("yyyy:MM:dd") + "-AED";
     QString dirPath = QString(LOG_PATH) + "/" + currentDate;
@@ -23,7 +22,7 @@ void Logger::setup(){
             qInfo() << "Could Not Open Log File" << Qt::endl;
         }
 
-        // Set this file as this runtime's file to write to [activeFile]
+
 }
 
 void Logger::log(const QString& message){
@@ -42,7 +41,7 @@ void Logger::cleanup(){
     if (activeFile != nullptr && activeFile->isOpen()) {
         activeFile->close();
         delete activeFile;
-        activeFile = nullptr; // Set to nullptr to avoid accessing a deleted pointer
+        activeFile = nullptr;
     }
 }
 
