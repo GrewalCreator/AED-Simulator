@@ -204,7 +204,7 @@ void TestWindow::patientSwap(int index){
 
 void TestWindow::evaluate(){
     int currHR = testController->getCurrentHeartRate();
-    if(testController->getControlSystem()->getPatient()->isDead()){
+    if(testController->getControlSystem()->getDeathFlag()){
         ui->eval_label->setText("Status: PATIENT IS RAPIDLY DETERIORATING");
         ui->eval_label->setStyleSheet("QLabel{background-color: black;"
                                       "color: red;}");

@@ -286,6 +286,10 @@ ElectrodePads* AEDController::getPads(){
 bool AEDController::getErrorFlag(){
     return errorFlag;
 }
+
+bool AEDController::getDeathFlag(){
+    return deathFlag;
+}
 AEDController::~AEDController(){
     QString currentThreadId = "AEDController Destructor Called As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);
