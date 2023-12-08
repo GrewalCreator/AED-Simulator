@@ -30,8 +30,7 @@ void MediaPlayer::play(const AudioTypes& audio){
             fileName = "shockSound.wav";
             break;
         default:
-            fileName = "error.wav";
-            qInfo()  << "Audio File Not Found" << Qt::endl;
+            fileName = "IntroSound.wav";
             break;
     }
 

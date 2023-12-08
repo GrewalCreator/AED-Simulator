@@ -8,7 +8,7 @@ AEDState::AEDState(AEDController* c){
     controller = c;
     delay = 0;
 
-    compressionTarget = 0;
+    compressionTarget = 9;
     compressionsDone = 0;
 }
 
@@ -70,7 +70,7 @@ void PadPlacementState::stepProgress(){
     if(!controller->getPatient()->getHasPadsOn()){
         controller->print("PLACE PADS ON THE PATIENT.");
     }
-    else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){//IMPORTANT: if pads are on and they are properly placed. replace this with a proper check function later.
+    else if(controller->getPatient()->getHasPadsOn() && !controller->getPatient()->getImproperPlacement()){
         ++delay;
         if(delay<10){
             controller->print("PADS SUCCESSFULLY ATTACHED.");
@@ -81,7 +81,7 @@ void PadPlacementState::stepProgress(){
             controller->setState(ANALYZE_ECG);
         }
     }
-    else if(controller->getPatient()->getHasPadsOn() && controller->getPatient()->getImproperPlacement()){//if patient has pads on but not properly placed. again, replace this with a simple function. this is ugly and not reusable.
+    else if(controller->getPatient()->getHasPadsOn() && controller->getPatient()->getImproperPlacement()){
         controller->print("CHECK ELECTRODE PADS");
     }
 }
@@ -164,31 +164,30 @@ void CompressionsState::stepProgress(){
         controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
     else{
+        controller->getTestController()->resetSessionCompressions();
         delay = 0;
         controller->resetTimeElapsed();
         controller->setState(ANALYZE_ECG);
     }
 
-    if(delay < 60){//60 ticks for compression stage
-        compressionsDone = controller->getTestController()->getSessionCompressions() - compressionTarget;
-        qDebug() << "Index: " << compressionsDone;
-        if(delay % 5 == 0){
+    if(delay < 60){
+        compressionsDone = controller->getTestController()->getSessionCompressions() - (delay / 5);
 
-            ++compressionTarget;
-            compressionsDone += controller->getTestController()->getSessionCompressions() - compressionTarget;
-            qDebug() << "Compression Target: " << compressionTarget;
-        }
+
+
+
 
         if(compressionsDone <= compressionTarget - VARIABILITY){
-            // Too Slow
-            controller->print("Too Slow");
+
+            controller->print("Compressions Too Slow. Please Speed Up");
         }else if(compressionsDone >= compressionTarget + VARIABILITY){
-            // TOO Fast
-            controller->print("Too Fast");
+
+            controller->print("Compressions Too Fast. Please Slow Down");
         }else{
-            // Good
-            controller->print("Good");
-            qDebug() << "Good";
+
+            controller->print("Steady Compression Rhythm");
+            controller->getTestController()->updateCompressionHeartRate();
+
         }
 
 

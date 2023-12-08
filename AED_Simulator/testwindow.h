@@ -29,6 +29,7 @@ public:
     int getCurrentHeartRate();
 
 
+
 signals:
     void aboutToClose();
 
@@ -45,6 +46,7 @@ private slots:
     void handleCompressionButtonPress();
     void patientSwap(int index);
     void disableUI();
+    void evaluate();
 
 
 

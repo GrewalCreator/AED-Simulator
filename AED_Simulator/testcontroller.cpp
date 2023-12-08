@@ -50,13 +50,24 @@ void TestController::incrementSessionCompressions(){
     ++totalCompressions;
 }
 
-void TestController::decrementSessionCompressions(){
-    --sessionCompressions;
-    --totalCompressions;
-}
-
 void TestController::depleteBattery(){
     controlSystem->getAED()->getBattery()->depleteBatteryLevel();
+}
+
+void TestController::updateCompressionHeartRate(){
+    int newHeartRate = getCurrentHeartRate();
+    int randomValue = 0;
+
+    randomValue = QRandomGenerator::global()->bounded(0, 11);
+
+    if(getCurrentHeartRate() > MAX_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() - randomValue;
+
+     }else if(getCurrentHeartRate() < MIN_NOMINAL_BPM){
+        newHeartRate = getCurrentHeartRate() + randomValue;
+
+    }
+    controlSystem->updateHR(newHeartRate);
 }
 
 AEDController* TestController::getControlSystem(){

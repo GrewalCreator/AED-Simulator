@@ -34,9 +34,10 @@ public:
 
     int getSessionCompressions();
     void incrementSessionCompressions();
-    void decrementSessionCompressions();
+
     void resetSessionCompressions();
-    bool compressionsChanged();
+
+    void updateCompressionHeartRate();
 
     void updateHeartRate();
 

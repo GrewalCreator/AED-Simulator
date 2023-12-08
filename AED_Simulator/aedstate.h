@@ -2,7 +2,7 @@
 #define AEDSTATE_H
 
 #include "aedcontroller.h"
-#define VARIABILITY 2
+#define VARIABILITY 4
 class AEDState
 {
 public:
@@ -12,6 +12,7 @@ public:
 
 protected:
     AEDController* controller;
+    QElapsedTimer timer;
     int delay;
     int compressionTarget;
     int compressionsDone;

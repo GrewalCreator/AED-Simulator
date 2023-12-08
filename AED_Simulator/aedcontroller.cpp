@@ -111,7 +111,7 @@ void AEDController::updateHR(int heartRate){
     activePatient->setHeartRate(heartRate);
     sendStaticSignal(SLIDER);
     sendStaticSignal(HEART_RATE);
-    if(activePatient->isDead() && activePatient->getHasPadsOn()){
+    if(activePatient->isDead() && activePatient->getHasPadsOn() && !activePatient->getImproperPlacement()){
         setState(CPR);
     }
 }
