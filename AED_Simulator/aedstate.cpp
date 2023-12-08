@@ -16,12 +16,13 @@ AEDState::AEDState(AEDController* c){
 
 void PowerOnState::stepProgress(){
     controller->getTestController()->resetSessionCompressions();
+
     if(controller->getErrorFlag()){
         controller->getAED()->resetShockPressed();//for the case where we get an error mid-shock
         controller->illuminate(RESET);
         if(controller->getAED()->getBattery()->getBatteryLevels()<30){
             controller->print("CHANGE BATTERIES.");
-            //set the status light to red and don't move on
+
         }
         else if(!controller->getPads()->isConnectedToAED()){
             controller->print("PLUG IN ELECTRODE CABLE.");
@@ -46,6 +47,7 @@ void CheckPatientState::stepProgress(){
     controller->illuminate(LIGHTUP_OK);
 
 
+
     if(controller->getTimeElapsed()>10){
         controller->setState(GET_HELP);
         delay = 0;
@@ -60,6 +62,7 @@ void GetHelpState::stepProgress(){
     ++delay;
     controller->print("PLEASE CALL FOR HELP OR CALL 911.");
     controller->illuminate(LIGHTUP_911);
+    if(delay == 1) controller->getAED()->playAudio(INTRO_AUDIO);
 
     if(controller->getTimeElapsed()>10){
         delay = 0;
