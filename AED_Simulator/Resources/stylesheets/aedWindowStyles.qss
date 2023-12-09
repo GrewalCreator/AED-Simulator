@@ -1,52 +1,52 @@
 
 
 QPushButton {
-    border-radius: 25px;
-    padding: 10px 20px;
-    color: #FF0000;
-    font-size: 16px;
-    background-color: #FFFFFF;
-    border: 2px solid #FF0000;
+	border-radius: 25px;
+	padding: 10px 20px;
+	color: #FF0000;
+	font-size: 16px;
+	background-color: rgba(0,0,0,0);
+	
 }
 
 QPushButton:hover {
-    background-color: #FF0000;
-    color: #FFFFFF;
+	background-color: rgba(0,0,0,0.1);
+	color: #FFFFFF;
 }
 
 QPushButton:pressed {
-    background-color: #FFCC00;
+	background-color: rgba(0,0,0,0.2);
 }
 
 QFrame#mainFrame {
-    background-color: #12a32a;
-    border: 3px solid #FFFFFF;
-    border-radius: 15px;
+	background-color: #12a32a;
+	border: 3px solid #FFFFFF;
+	border-radius: 15px;
 }
 
 QFrame#aed_frame {
-    background-color: #58d68d;
-    border: 3px solid #FFFFFF;
-    border-radius: 15px;
+	background-color: #58d68d;
+	border: 3px solid #FFFFFF;
+	border-radius: 15px;
 }
 
 QLabel {
-    border-radius: 10px;
-    padding: 8px;
+	border-radius: 10px;
+	padding: 8px;
 }
 
 QProgressBar {
-    border: 2px solid grey;
-    border-radius: 5px;
-    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 red, stop:0.5 yellow, stop:0.7 #5ff578);
-    height: 25px;
-    text-align: center;
+	border: 2px solid grey;
+	border-radius: 5px;
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0.3 red, stop:0.5 yellow, stop:0.7 #5ff578);
+	height: 25px;
+	text-align: center;
 }
 
 QProgressBar::chunk {
-    background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 white, stop:1 white);
-    width: 5px;
-    margin: 1px;
+	background-color: qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 white, stop:1 white);
+	width: 5px;
+	margin: 1px;
 }
 
 
