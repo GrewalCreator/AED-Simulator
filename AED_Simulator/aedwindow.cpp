@@ -15,7 +15,7 @@ AEDWindow::AEDWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::AEDWindow
 void AEDWindow::setUpVisuals(){
     // Sequence of Function Calls Must Remain In Order! initImgs() relys on loadImgs()
     loadImgs();
-    initImgs();
+    //initImgs();
     styling();
 
     ui->batteryBar->setValue(0);
@@ -48,6 +48,7 @@ void AEDWindow::initializeConnects() const{
     // Power Button
     connect(ui->power_button, SIGNAL(released()), this, SLOT(togglePower()));
 
+    //Recharge Button
     connect(ui->battery, SIGNAL(clicked()), this, SLOT(recharge()));
 
     // Shock Button
@@ -91,7 +92,8 @@ void AEDWindow::togglePower() const{
             controller->log("Waiting in AEDWindow::togglepower() ...");
         }
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
-        controller->setCurrentStep(POWER_OFF);
+        // controller->setCurrentStep(POWER_OFF);
+        controller->setState(POWER_OFF);
 
 
     }else{
@@ -111,6 +113,7 @@ void AEDWindow::togglePower() const{
             consoleOut("AED Did Not Pass Tests. Powering Off . . .");
             togglePower();
         }
+
 
 
     }
@@ -222,6 +225,7 @@ void AEDWindow::loadImgs(){
         }
         imageMap[filename] = p;
     }
+    initImgs();
 
 }
 

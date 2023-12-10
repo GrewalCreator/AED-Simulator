@@ -75,8 +75,9 @@ AEDController* TestController::getControlSystem() const{
 }
 
 void TestController::placePads(const PatientType& type) const{
-    if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
-    controlSystem->placePads(type);
+    if(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT){
+        controlSystem->placePads(type);
+    }
 }
 
 int TestController::getCurrentHeartRate() const{

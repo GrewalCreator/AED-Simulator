@@ -4,8 +4,13 @@ ProcessTracker::ProcessTracker(){
 }
 
 
-const ProcessSteps& ProcessTracker::getCurrentStep() const{return this->currentStep;}
-const ProcessSteps& ProcessTracker::getPreviousStep() const{return this->previousStep;}
+const ProcessSteps& ProcessTracker::getCurrentStep() const{
+    return this->currentStep;
+}
+
+const ProcessSteps& ProcessTracker::getPreviousStep() const{
+    return this->previousStep;
+}
 
 void ProcessTracker::setCurrentStep(const ProcessSteps& step){
     setPreviousStep(currentStep);
