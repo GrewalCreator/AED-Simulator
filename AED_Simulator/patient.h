@@ -10,8 +10,9 @@ public:
     Patient(const PatientType& type);
 
     // Getters and Setters for member variables
-    bool getIsInWater() const;
-    void setIsInWater(bool isInWater);
+    bool isInConductiveEnvironment() const;
+    void moveToConductiveEnvironment();
+    void moveToInsulativeEnvironment();
 
     double getHeartRate() const;
     void setHeartRate(double heartRate);
@@ -28,7 +29,7 @@ public:
 
 
 private:
-    bool isInWater;
+    bool environmentIsConductive;
     double heartRate;
     bool hasPadsOn;
     bool improperPlacement;

@@ -38,7 +38,7 @@ void TestWindow::initializeConnection(){
     connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
 
     // Wet Patient
-    connect(ui->toggle_wet, SIGNAL(released()), testController, SLOT(toggleWetPatient()));
+    connect(ui->currentEnvironment_comboBox, SIGNAL(currentIndexChanged(int)), testController, SLOT(toggleWetPatient(int)));
 
     // Deplete battery
     connect(ui->depleteBattery_button, SIGNAL(released()), testController, SLOT(depleteBattery()));

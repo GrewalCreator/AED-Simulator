@@ -27,13 +27,13 @@ void TestController::updateHeartRate(){
     emit updateHeartRateImage(yValues);
 }
 
-void TestController::toggleWetPatient() const{
-    bool isWet = controlSystem->getPatient()->getIsInWater();
-    if(isWet){
-        controlSystem->getPatient()->setIsInWater(false);
+void TestController::toggleWetPatient(int index) const{
+    if(index == 0){
+        controlSystem->getPatient()->moveToInsulativeEnvironment();
     }else{
-        controlSystem->getPatient()->setIsInWater(true);
+        controlSystem->getPatient()->moveToConductiveEnvironment();
     }
+
 
 }
 
@@ -75,8 +75,9 @@ AEDController* TestController::getControlSystem() const{
 }
 
 void TestController::placePads(const PatientType& type) const{
-    if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
-    controlSystem->placePads(type);
+    if(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT){
+        controlSystem->placePads(type);
+    }
 }
 
 int TestController::getCurrentHeartRate() const{

@@ -2,18 +2,22 @@
 
 Patient::Patient(const PatientType& type): patientType(type){
     hasPadsOn = false;
-    isInWater = false;
+    environmentIsConductive = false;
     improperPlacement = true;
     heartRate = 105;
 }
 
-bool Patient::getIsInWater() const{
-    return this->isInWater;
+bool Patient::isInConductiveEnvironment() const{
+    return this->environmentIsConductive;
 }
 
 
-void Patient::setIsInWater(bool isInWater){
-    this->isInWater = isInWater;
+void Patient::moveToConductiveEnvironment(){
+    this->environmentIsConductive = true;
+}
+
+void Patient::moveToInsulativeEnvironment(){
+    this->environmentIsConductive = false;
 }
 
 double Patient::getHeartRate() const{
