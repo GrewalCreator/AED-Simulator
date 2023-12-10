@@ -6,7 +6,6 @@
 AED::AED(AEDController& controller): controller(&controller){
     audioPlayer = new MediaPlayer();
     battery = new Battery();
-    numShocks = 0;
     shockPressed= false;
 }
 
@@ -21,13 +20,13 @@ bool AED::powerOn(){
 }
 
 // Check if AED is in the SHOCK State. Shocking should not be possible outside this state
-bool AED::checkShockSafety(){
+bool AED::checkShockSafety() const{
     return controller->getCurrentStep() == SHOCK ? true : false;
 }
 
 Battery* AED::getBattery() const{return this->battery;}
 
-bool AED::getShockPressed(){
+bool AED::getShockPressed() const{
     return shockPressed;
 }
 
@@ -45,7 +44,7 @@ void AED::setShockPressed(){
  * Determines the affect the shock will have on the patient based on the Pads placed
 */
 
-bool AED::shock(){
+bool AED::shock() const{
     if(!checkShockSafety()){
         return false;
     }
@@ -80,7 +79,7 @@ bool AED::shock(){
 }
 
 // Determine Shock based on pad placement
-int AED::randomModifier(int diff) {
+int AED::randomModifier(int diff) const{
     srand(time(0));
 
     if (!controller->getPatient()->getHasPadsOn()) {return 0;}
@@ -92,7 +91,7 @@ int AED::randomModifier(int diff) {
     if ((patientType == CHILD && padType == CHILD) || (patientType == ADULT && padType == ADULT)) {
         shockedAmps = random(0, ceil(diff/2));
 
-        controller->log("SHOCKING SAME WITH SAME PADS FROM POSSIBLE RANGE 0 -" + QString::number(diff/2));
+        controller->log("SHOCKING PATIENT WITH COORECT PADS FROM POSSIBLE RANGE 0 -" + QString::number(diff/2));
     } else if (padType == CHILD && patientType == ADULT) {
         shockedAmps = random(0, ceil(diff/3));
         controller->log("SHOCKING ADULT WITH CHILD PADS FROM POSSIBLE RANGE 0 -" + QString::number(diff/3));
@@ -101,17 +100,17 @@ int AED::randomModifier(int diff) {
         controller->log("SHOCKING CHILD WITH ADULT PADS FROM POSSIBLE RANGE 0 -" + QString::number(getCurrentHR()));
     }
 
-    controller->log("Shocking At Amps: " + QString::number(shockedAmps));
+    controller->log("Shocking At: " + QString::number(shockedAmps));
 
     return shockedAmps;
 }
 
 // Generate random number between min & max
-int AED::random(int min, int max) {
+int AED::random(int min, int max) const{
     return QRandomGenerator::global()->bounded(min, max+1);
 }
 
-int AED::getCurrentHR(){
+int AED::getCurrentHR() const{
     return controller->getPatient()->getHeartRate();
 }
 

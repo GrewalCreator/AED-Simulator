@@ -19,9 +19,9 @@ class AEDWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    AEDWindow(QWidget *parent = nullptr);
+    explicit AEDWindow(QWidget *parent = nullptr);
     virtual ~AEDWindow();
-    AEDController* getController();
+    AEDController* getController() const;
     void setController(TestController*);
 
 
@@ -32,21 +32,21 @@ private:
     AEDController* controller;
     QSemaphore* semaphore;
     QThread* controlThread;
-    //TODO: make 2 signal handlers: static and dynamic
-    void loadImgs();
-    void initImgs();
-    void signalToString();
-    void initializeConnects();
-    void setOneLight(const SignalType sig, bool lit);
-    void setAllLights(bool);
-    void styling();
-    void setShockLight(bool);
-    void setPowerLight(bool);
-    void setUpVisuals();
-    void updateBattery();
 
-    void resetUI(bool);
-    void updateSlider();
+    void loadImgs();
+    void initImgs() const;
+    void signalToString();
+    void initializeConnects() const;
+    void setOneLight(const SignalType sig, bool lit) const;
+    void setAllLights(bool) const;
+    void styling();
+    void setShockLight(bool) const;
+    void setPowerLight(bool) const;
+    void setUpVisuals();
+    void updateBattery() const;
+
+    void resetUI(bool) const;
+    void updateSlider() const;
 
 signals:
     void aboutToClose();
@@ -55,13 +55,13 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void receiveStaticSignal(const SignalType& sig, bool);
-    void receiveDynamicSignal(const SignalType& sig, const string& data);
-    void togglePower();
-    void consoleOut(const string& message);
+    void receiveStaticSignal(const SignalType& sig, bool) const;
+    void receiveDynamicSignal(const SignalType& sig, const string& data) const;
+    void togglePower() const;
+    void consoleOut(const string& message) const;
 
-    void recharge();
-    void shockPressed();
+    void recharge() const;
+    void shockPressed() const;
 
 
 };

@@ -12,10 +12,10 @@ class TestController: public QObject{
 
 
 public slots:
-    void removePadsFromPatient();
-    void togglePadAED();
-    void toggleWetPatient();
-    void depleteBattery();
+    void removePadsFromPatient() const;
+    void togglePadAED() const;
+    void toggleWetPatient() const;
+    void depleteBattery() const;
 
 signals:
     void updateHeartRateImage(vector<double>&);
@@ -25,26 +25,26 @@ signals:
 
 
 public:
-    TestController(QObject* parent = nullptr);
+    explicit TestController(QObject* parent = nullptr);
 
-    AEDController* getControlSystem();
+    AEDController* getControlSystem() const;
     void disableUI();
 
     void setController(AEDController* controller);
 
-    int getSessionCompressions();
+    int getSessionCompressions() const;
     void incrementSessionCompressions();
 
     void resetSessionCompressions();
 
-    void updateCompressionHeartRate();
+    void updateCompressionHeartRate() const;
 
     void updateHeartRate();
 
-    void placePads(const PatientType& type);
+    void placePads(const PatientType& type) const;
 
     void updateSlider();
-    int getCurrentHeartRate();
+    int getCurrentHeartRate() const;
     virtual ~TestController();
 
 

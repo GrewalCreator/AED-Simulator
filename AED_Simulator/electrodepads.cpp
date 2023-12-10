@@ -5,12 +5,12 @@ ElectrodePads::ElectrodePads(){
 }
 
 
-bool ElectrodePads::isOnPatient(){
+bool ElectrodePads::isOnPatient() const{
     return onPatient;
 }
 
 
-bool ElectrodePads::isConnectedToAED(){
+bool ElectrodePads::isConnectedToAED() const{
     return connectedToAED;
 }
 
@@ -22,7 +22,7 @@ void ElectrodePads::setIsConnectedToAED(bool connectedToAED){
     this->connectedToAED = connectedToAED;
 }
 
-const PatientType& ElectrodePads::getPadType(){
+const PatientType& ElectrodePads::getPadType() const{
     return this->padType;
 }
 

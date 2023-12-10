@@ -27,7 +27,7 @@ void TestController::updateHeartRate(){
     emit updateHeartRateImage(yValues);
 }
 
-void TestController::toggleWetPatient(){
+void TestController::toggleWetPatient() const{
     bool isWet = controlSystem->getPatient()->getIsInWater();
     if(isWet){
         controlSystem->getPatient()->setIsInWater(false);
@@ -41,7 +41,7 @@ void TestController::resetSessionCompressions(){
     sessionCompressions = 0;
 }
 
-int TestController::getSessionCompressions(){
+int TestController::getSessionCompressions() const{
     return sessionCompressions;
 }
 
@@ -50,11 +50,11 @@ void TestController::incrementSessionCompressions(){
     ++totalCompressions;
 }
 
-void TestController::depleteBattery(){
+void TestController::depleteBattery() const{
     controlSystem->getAED()->getBattery()->depleteBatteryLevel();
 }
 
-void TestController::updateCompressionHeartRate(){
+void TestController::updateCompressionHeartRate() const{
     int newHeartRate = getCurrentHeartRate();
     int randomValue = 0;
 
@@ -70,16 +70,16 @@ void TestController::updateCompressionHeartRate(){
     controlSystem->updateHR(newHeartRate);
 }
 
-AEDController* TestController::getControlSystem(){
+AEDController* TestController::getControlSystem() const{
     return controlSystem;
 }
 
-void TestController::placePads(const PatientType& type){
+void TestController::placePads(const PatientType& type) const{
     if(!(controlSystem->getCurrentStep() == ELECTRODE_PAD_PLACEMENT)){return;}
     controlSystem->placePads(type);
 }
 
-int TestController::getCurrentHeartRate(){
+int TestController::getCurrentHeartRate() const{
     return controlSystem->getPatient()->getHeartRate();
 }
 
@@ -91,7 +91,7 @@ void TestController::updateSlider(){
 
 
 
-void TestController::removePadsFromPatient(){
+void TestController::removePadsFromPatient() const{
 
     bool currentState = controlSystem->getPatient()->getHasPadsOn();
     if (currentState){
@@ -100,7 +100,7 @@ void TestController::removePadsFromPatient(){
 
 }
 
-void TestController::togglePadAED(){
+void TestController::togglePadAED() const{
     bool setTo = controlSystem->getPads()->isConnectedToAED()^true;
     controlSystem->getPads()->setIsConnectedToAED(setTo);
 

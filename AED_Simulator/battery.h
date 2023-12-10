@@ -4,10 +4,10 @@
 
 class Battery{
 public:
-    Battery();
+    explicit Battery();
     void depleteBatteryLevel();
     void chargeBattery();
-    int getBatteryLevels();
+    int getBatteryLevels() const;
     virtual ~Battery();
 
 private:

@@ -11,7 +11,7 @@ struct HeartRateParameters {
 
 HeartRateGenerator::HeartRateGenerator() {}
 
-void HeartRateGenerator::updateHeartRate(double newHeartRate) {
+void HeartRateGenerator::updateHeartRate(double newHeartRate){
     generateHeartRateValues(newHeartRate);
 }
 
@@ -31,7 +31,7 @@ between 150 and 200: signal is rapid but consistent
 between 60 and 150: signal is steady and consistent
 below 60: signal is weak and smooth.
 */
-void HeartRateGenerator::generateHeartRateValues(double heartRate) {
+void HeartRateGenerator::generateHeartRateValues(double heartRate){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<float> dist(1, 10000);

@@ -21,7 +21,7 @@ void AEDTransmitter::sendStatic(const SignalType& sig, bool state){
     emit staticSignal(sig, state);
 }
 
-AEDTransmitter* AEDController::getTransmitter(){
+AEDTransmitter* AEDController::getTransmitter() const{
     return transmit;
 }
 
@@ -61,10 +61,12 @@ void AEDController::initStates(){
     states.insert(ANALYZE_ECG, new AnalysisState(this));
     states.insert(SHOCK, new ShockState(this));
     states.insert(CPR, new CompressionsState(this));
+    log("Initiallzing State Machine");
 }
 
 
 void AEDController::toggleActivePatient(){
+    log("Switching Patients");
     if (activePatient == patientAdult){
         activePatient = patientChild;
     }else{
@@ -95,7 +97,7 @@ void AEDController::setController(TestController* controller){
     this->testControlSystem = controller;
 }
 
-bool AEDController::powerAEDOn(){
+bool AEDController::powerAEDOn() const{
     return automatedED->powerOn();
 }
 
@@ -106,7 +108,7 @@ bool AEDController::powerAEDOff(){
     return true;
 }
 
-void AEDController::log(const QString& message){
+void AEDController::log(const QString& message) const{
     logger->log(message);
 }
 
@@ -127,12 +129,12 @@ void AEDController::updateHR(int heartRate){
     }
 }
 
-void AEDController::sendStaticSignal(const SignalType& signalType, bool state){
+void AEDController::sendStaticSignal(const SignalType& signalType, bool state) const{
     transmit->sendStatic(signalType,state);
 }
 
 
-void AEDController::sendDynamicSignal(const SignalType& signalType, const string& data){
+void AEDController::sendDynamicSignal(const SignalType& signalType, const string& data) const{
     transmit->sendDynamic(signalType, data);
 }
 
@@ -142,7 +144,7 @@ void AEDController::run(){
     while(!breakflag){
         QThread::msleep(200);
         QString currentThreadId = "AEDController Looping As " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
-        logger->log(currentThreadId);
+        //logger->log(currentThreadId);
 
         systemsCheck();
         if(errorFlag) setState(POWER_ON);
@@ -198,7 +200,7 @@ void AEDController::cleanup(){
     breakflag = true;
 }
 
-void AEDController::setState(ProcessSteps s){
+void AEDController::setState(const ProcessSteps& s){
     currentState = states[s];
     setCurrentStep(s);
 }
@@ -241,7 +243,8 @@ bool AEDController::placePads(const PatientType& type){
 
 }
 
-void AEDController::systemsCheck(){//return if there is an error IF: BATTERY<=20 OR PAD DISCONNECTED FROM AED
+//return if there is an error IF: BATTERY<=20 OR PAD DISCONNECTED FROM AED
+void AEDController::systemsCheck(){
      errorFlag = (automatedED->getBattery()->getBatteryLevels() < 30) || !(pads->isConnectedToAED());
 }
 
@@ -255,7 +258,7 @@ void AEDController::checkOk() {
     print("Ask the patient, \"ARE YOU OK?\"");
 }
 
-void AEDController::getHelp() {
+void AEDController::getHelp() const{
     print("Call for help.");
 }
 
@@ -267,17 +270,18 @@ void AEDController::resetTimeElapsed(){
     timeElapsed = 0;
 }
 
-void AEDController::print(const string& str){
+void AEDController::print(const string& str) const{
     sendDynamicSignal(PRINT, str);
+    log(QString::fromStdString(str));
 }
 
-void AEDController::illuminate(SignalType p){
+void AEDController::illuminate(const SignalType& p){
     sendStaticSignal(p, true);
-
 }
 
 void AEDController::recharge(){
     automatedED->getBattery()->chargeBattery();
+    log("Recharging Battery");
 }
 
 bool AEDController::shockPressed(){
@@ -289,17 +293,15 @@ ElectrodePads* AEDController::getPads() const{
     return pads;
 }
 
-ElectrodePads* AEDController::getPads(){
-    return pads;
-}
-
-bool AEDController::getErrorFlag(){
+bool AEDController::getErrorFlag() const{
     return errorFlag;
 }
 
-bool AEDController::getDeathFlag(){
+bool AEDController::getDeathFlag() const{
     return deathFlag;
 }
+
+
 AEDController::~AEDController(){
     QString currentThreadId = "AEDController Destructor Called As Thread: " + QString::number(reinterpret_cast<qulonglong>(QThread::currentThreadId()));
     logger->log(currentThreadId);

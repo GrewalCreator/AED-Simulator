@@ -7,7 +7,7 @@ class AEDState
 {
 public:
     virtual void stepProgress() = 0;
-    AEDState(AEDController*);
+    explicit AEDState(AEDController*);
 
 
 protected:
@@ -18,7 +18,7 @@ protected:
     int compressionsDone;
 };
 
-class PowerOnState : public AEDState {//we probably don't need this.
+class PowerOnState : public AEDState {
 public:
     using AEDState::AEDState;
     virtual void stepProgress() override;

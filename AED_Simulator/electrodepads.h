@@ -7,14 +7,14 @@
 class ElectrodePads
 {
 public:
-    ElectrodePads();
-    bool isOnPatient();
-    bool isConnectedToAED();
+    explicit ElectrodePads();
+    bool isOnPatient() const;
+    bool isConnectedToAED() const;
 
     void setPadPlacement(bool onPatient);
     void setIsConnectedToAED(bool connectedToAED);
 
-    const PatientType& getPadType();
+    const PatientType& getPadType() const;
     void setPadType(const PatientType& type);
 
 private:

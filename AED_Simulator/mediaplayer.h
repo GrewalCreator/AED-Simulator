@@ -9,8 +9,8 @@
 class MediaPlayer
 {
 public:
-    MediaPlayer();
-    void play(const AudioTypes& audio);
+    explicit MediaPlayer();
+    void play(const AudioTypes& audio) const;
     virtual ~MediaPlayer();
 
 private:
