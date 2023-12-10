@@ -38,6 +38,8 @@ void AEDWindow::styling(){
     QString styleSheet = QLatin1String(styleFile.readAll());
     this->setStyleSheet(styleSheet);
 
+
+
 }
 
 
