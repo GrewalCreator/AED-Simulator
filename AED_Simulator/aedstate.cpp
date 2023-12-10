@@ -15,6 +15,7 @@ AEDState::AEDState(AEDController* c){
 
 
 void PowerOnState::stepProgress(){
+    //controller->log("In Power On State");
     controller->getTestController()->resetSessionCompressions();
 
     if(controller->getErrorFlag()){
@@ -43,6 +44,7 @@ void PowerOnState::stepProgress(){
 }
 
 void CheckPatientState::stepProgress(){
+    //controller->log("In Check Patient State");
     controller->print("PLEASE CHECK IF THE PATIENT IS OK.");
     controller->illuminate(LIGHTUP_OK);
 
@@ -59,6 +61,7 @@ void CheckPatientState::stepProgress(){
 }
 
 void GetHelpState::stepProgress(){
+    //controller->log("In Get Help State");
     ++delay;
     controller->print("PLEASE CALL FOR HELP OR CALL 911.");
     controller->illuminate(LIGHTUP_911);
@@ -72,6 +75,7 @@ void GetHelpState::stepProgress(){
 }
 
 void PadPlacementState::stepProgress(){
+    //controller->log("In Pad Placement Step");
     controller->illuminate(LIGHTUP_PADS);
     if(!controller->getPatient()->getHasPadsOn()){
         controller->print("PLACE PADS ON THE PATIENT.");
@@ -94,6 +98,7 @@ void PadPlacementState::stepProgress(){
 
 
 void AnalysisState::stepProgress(){
+    //controller->log("In Analysis State");
     controller->getAED()->resetShockPressed();
     if(!controller->getPatient()->getHasPadsOn()){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
@@ -123,6 +128,7 @@ void AnalysisState::stepProgress(){
 }
 
 void ShockState::stepProgress(){
+    //controller->log("In Shock State");
     if(!controller->getPatient()->getHasPadsOn()){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
     }
@@ -158,6 +164,7 @@ void ShockState::stepProgress(){
 }
 
 void CompressionsState::stepProgress(){
+    //controller->log("In Compression State");
     if(!controller->getPatient()->getHasPadsOn()){
         controller->setState(ELECTRODE_PAD_PLACEMENT);
     }
@@ -193,6 +200,7 @@ void CompressionsState::stepProgress(){
 
             controller->print("Steady Compression Rhythm");
             controller->getTestController()->updateCompressionHeartRate();
+
 
         }
     }

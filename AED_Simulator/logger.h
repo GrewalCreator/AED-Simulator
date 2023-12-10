@@ -10,7 +10,7 @@
 class Logger
 {
 public:
-    Logger();
+    explicit Logger();
     void log(const QString& message);
     virtual ~Logger();
 private:

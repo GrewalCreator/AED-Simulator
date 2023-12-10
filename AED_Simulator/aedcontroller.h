@@ -21,7 +21,7 @@ class TestController;
 class AEDTransmitter: public QObject{
     Q_OBJECT
 public:
-    AEDTransmitter(QObject* parent = nullptr);
+    explicit AEDTransmitter(QObject* parent = nullptr);
     void sendDynamic(const SignalType& sig, const string& data);
     void sendStatic(const SignalType& sig, bool state);
 signals:
@@ -34,25 +34,25 @@ signals:
 class AEDController: public QObject{
     Q_OBJECT
 public:
-    AEDTransmitter* getTransmitter();
-    AEDController(QSemaphore* sem, QObject* parent = nullptr);
+    explicit AEDController(QSemaphore* sem, QObject* parent = nullptr);
+    AEDTransmitter* getTransmitter() const;
     void setController(TestController* controller);
     void updateHR(int heartRate);
     void toggleActivePatient();
     AED* getAED() const;
-    void log(const QString& message);
+    void log(const QString& message) const;
 
-    void print(const string& message);
+    void print(const string& message) const;
 
 
-    void sendStaticSignal(const SignalType& signalType, bool state = true);
+    void sendStaticSignal(const SignalType& signalType, bool state = true) const;
 
-    bool powerAEDOn();
+    bool powerAEDOn() const;
     bool powerAEDOff();
 
     int getTimeElapsed() const;
     void resetTimeElapsed();
-    void setState(ProcessSteps);// public so that states can set other states
+    void setState(const ProcessSteps&);
 
 
     void setCurrentStep(const ProcessSteps& step);
@@ -64,7 +64,7 @@ public:
     void decreaseBPM(int amperage);
     void setProcessTracker(const ProcessSteps& step);
     const ProcessSteps& getProcessTracker() const;
-    bool getDeathFlag();
+    bool getDeathFlag() const;
     void updateSlider();
     TestController* getTestController() const;
 
@@ -74,14 +74,13 @@ public:
     Patient* getPatient() const;
     ElectrodePads* getPads() const;
 
-    ElectrodePads* getPads();
 
     void checkOk();
-    void getHelp();
+    void getHelp() const;
 
-    void illuminate(SignalType);
+    void illuminate(const SignalType&);
 
-    bool getErrorFlag();
+    bool getErrorFlag() const;
     virtual ~AEDController();
 
 
@@ -90,8 +89,8 @@ private:
     void initStates();
     AEDTransmitter* transmit;
     void systemsCheck();
-    void checkAll();
-    void updateHR();
+
+
     int timeElapsed;
     QSemaphore* semaphore;
     bool breakflag;
@@ -111,9 +110,9 @@ private:
 
 
 
-    QMap<ProcessSteps,AEDState*> states;
+    QMap<ProcessSteps, AEDState*> states;
     void cleanup();
-    void sendDynamicSignal(const SignalType& signalType, const string& data);
+    void sendDynamicSignal(const SignalType& signalType, const string& data) const;
 
 
 private slots:

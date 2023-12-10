@@ -26,24 +26,19 @@ void AEDWindow::signalToString(){
 
     uiMap[LIGHTUP_OK] = ui->ok_image;
     uiMap[LIGHTUP_COMPRESSIONS] = ui->compressions_image;
-
     uiMap[LIGHTUP_911] = ui->help_image;
     uiMap[LIGHTUP_PADS] = ui->pads_image;
     uiMap[LIGHTUP_STANDCLEAR] = ui->standclear_image;
 }
 void AEDWindow::styling(){
-
     QFile styleFile(QString(STYLESHEET_PATH) + "aedWindowStyles.qss");
     styleFile.open(QFile::ReadOnly);
     QString styleSheet = QLatin1String(styleFile.readAll());
     this->setStyleSheet(styleSheet);
-
-
-
 }
 
 
-void AEDWindow::initializeConnects(){
+void AEDWindow::initializeConnects() const{
     // Static Signal Connections
     connect(controller->getTransmitter(), SIGNAL(staticSignal(const SignalType&, bool)), this, SLOT(receiveStaticSignal(const SignalType&, bool)));
 
@@ -63,16 +58,16 @@ void AEDWindow::initializeConnects(){
 
 }
 
-void AEDWindow::shockPressed(){
+void AEDWindow::shockPressed() const{
     controller->shockPressed();
 
 }
 
-void AEDWindow::updateSlider(){
+void AEDWindow::updateSlider() const{
    controller->getTestController()->updateSlider();
 }
 
-void AEDWindow::resetUI(bool lightOnly){
+void AEDWindow::resetUI(bool lightOnly) const{
     QCoreApplication::processEvents();
     setAllLights(false);
     if(lightOnly)return;
@@ -83,7 +78,7 @@ void AEDWindow::resetUI(bool lightOnly){
 
 }
 
-void AEDWindow::togglePower(){
+void AEDWindow::togglePower() const{
 
     if(controller->getCurrentStep() != POWER_OFF){
 
@@ -122,12 +117,12 @@ void AEDWindow::togglePower(){
 
 }
 
-void AEDWindow::consoleOut(const string& message){
+void AEDWindow::consoleOut(const string& message) const{
     QString qMessage = QString::fromStdString(message);
     QMetaObject::invokeMethod(ui->instruction_console, "setPlainText", Qt::QueuedConnection, Q_ARG(QString, qMessage));
 }
 
-void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state){
+void AEDWindow::receiveStaticSignal(const SignalType& sig, bool state) const{
 
     switch(sig){
         case HEART_RATE:
@@ -179,7 +174,7 @@ void AEDWindow::setController(TestController* controller){
 }
 
 
-void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
+void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data) const{
     switch(sig){
 
         case PRINT:
@@ -193,12 +188,12 @@ void AEDWindow::receiveDynamicSignal(const SignalType& sig, const string& data){
 
 }
 
-void AEDWindow::updateBattery(){
+void AEDWindow::updateBattery() const{
     ui->batteryBar->setValue(controller->getAED()->getBattery()->getBatteryLevels());
 }
 
 
-void AEDWindow::initImgs(){//TODO: make image name == ui element name, so a simple file replace will make a quick change in ui
+void AEDWindow::initImgs() const{
     ui->ok_image->setPixmap(*(imageMap["ok_image_off"]));
     ui->standclear_image->setPixmap(*(imageMap["standclear_image_off"]));
     ui->compressions_image->setPixmap(*(imageMap["compressions_image_off"]));
@@ -230,7 +225,7 @@ void AEDWindow::loadImgs(){
 
 }
 
-void AEDWindow::setAllLights(bool lit){
+void AEDWindow::setAllLights(bool lit) const{
     QString uiname;
     foreach(auto i,uiMap){
         uiname = i->objectName();
@@ -256,7 +251,7 @@ void AEDWindow::setAllLights(bool lit){
     ui->shock_button->setIconSize((*imageMap["shock_button_off"]).size());
 }
 
-void AEDWindow::setOneLight(const SignalType sig, bool lit){
+void AEDWindow::setOneLight(const SignalType sig, bool lit) const{
     setAllLights(false);
     QLabel* label = uiMap[sig];
 
@@ -269,7 +264,7 @@ void AEDWindow::setOneLight(const SignalType sig, bool lit){
     }
 }
 
-void AEDWindow::setShockLight(bool isLightOn){
+void AEDWindow::setShockLight(bool isLightOn) const{
     QIcon shockimg;
 
     if(isLightOn){
@@ -283,7 +278,7 @@ void AEDWindow::setShockLight(bool isLightOn){
     ui->shock_button->setIconSize((*imageMap["shock_button_off"]).size());
 }
 
-void AEDWindow::setPowerLight(bool isLightOn){
+void AEDWindow::setPowerLight(bool isLightOn) const{
     QIcon powerimg;
 
     if(isLightOn){
@@ -306,13 +301,13 @@ void AEDWindow::closeEvent(QCloseEvent* event){
 }
 
 
-AEDController* AEDWindow::getController(){
+AEDController* AEDWindow::getController() const{
     return controller;
 }
 
 
 
-void AEDWindow::recharge(){
+void AEDWindow::recharge() const{
     controller->recharge();
 }
 

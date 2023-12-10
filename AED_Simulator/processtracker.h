@@ -7,8 +7,8 @@ class ProcessTracker
 {
 public:
     ProcessTracker();
-    const ProcessSteps& getCurrentStep();
-    const ProcessSteps& getPreviousStep();
+    const ProcessSteps& getCurrentStep() const;
+    const ProcessSteps& getPreviousStep() const;
 
     void setCurrentStep(const ProcessSteps&);
 private:

@@ -21,7 +21,7 @@ void Battery::chargeBattery(){
     }
 }
 
-int Battery::getBatteryLevels(){
+int Battery::getBatteryLevels() const{
     return batteryLevels;
 }
 

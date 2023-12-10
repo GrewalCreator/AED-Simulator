@@ -6,7 +6,7 @@ MediaPlayer::MediaPlayer(){
 }
 
 
-void MediaPlayer::play(const AudioTypes& audio){
+void MediaPlayer::play(const AudioTypes& audio) const{
 
     QString soundFilePath;
     QString fileName;
