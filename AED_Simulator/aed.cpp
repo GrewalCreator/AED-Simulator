@@ -62,7 +62,7 @@ bool AED::shock() const{
     int userDeath = false;
 
     // If the patient is shocked in water, HeartRate Spikes to MAX_BPM & user dies
-    if(controller->getPatient()->getIsInWater()){
+    if(controller->getPatient()->isInConductiveEnvironment()){
         controller->updateHR(MAX_BPM);
         userDeath = true;
     }else{

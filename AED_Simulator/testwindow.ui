@@ -115,8 +115,8 @@
    <widget class="QPushButton" name="togglePadPatient">
     <property name="geometry">
      <rect>
-      <x>370</x>
-      <y>320</y>
+      <x>590</x>
+      <y>310</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -128,8 +128,8 @@
    <widget class="QPushButton" name="togglePadAED">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>320</y>
+      <x>590</x>
+      <y>360</y>
       <width>181</width>
       <height>41</height>
      </rect>
@@ -159,19 +159,6 @@
     </property>
     <property name="text">
      <string>Compression</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="toggle_wet">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>370</y>
-      <width>431</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Toggle Soggy Patient (Make Patient Wet)</string>
     </property>
    </widget>
    <widget class="QPushButton" name="depleteBattery_button">
@@ -279,6 +266,39 @@
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="currentEnvironment_comboBox">
+    <property name="geometry">
+     <rect>
+      <x>885</x>
+      <y>340</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Insulative</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Conductive</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="currentEnvironment_label">
+    <property name="geometry">
+     <rect>
+      <x>850</x>
+      <y>320</y>
+      <width>151</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Current Environment:</string>
     </property>
    </widget>
   </widget>

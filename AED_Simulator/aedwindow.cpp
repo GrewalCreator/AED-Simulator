@@ -92,7 +92,6 @@ void AEDWindow::togglePower() const{
             controller->log("Waiting in AEDWindow::togglepower() ...");
         }
         controller->getAED()->playAudio(POWER_OFF_AUDIO);
-        // controller->setCurrentStep(POWER_OFF);
         controller->setState(POWER_OFF);
 
 
