@@ -172,13 +172,13 @@ void CompressionsState::stepProgress(){
     controller->illuminate(LIGHTUP_COMPRESSIONS);
     if(controller->getPatient()->getHeartRate() < MIN_NOMINAL_BPM){
         if(controller->getPatient()->isDead()){
-            controller->print("RIP. Patient Has Passed Away");
-        }else{
+            controller->print("Patient is asystolic.");
+        }else if(delay<=10){
             controller->print("UNSHOCKABLE RHYTHM DETECTED. SHOCK NOT ADVISED. BEGIN COMPRESSIONS");
         }
     }
     else if(controller->getAED()->getShockPressed() && controller->getPatient()->getHeartRate() > MAX_NOMINAL_BPM){
-        controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
+        if(delay<=10)controller->print("SHOCK DELIVERED. STARTING COMPRESSIONS...");
     }
     else{
         controller->getTestController()->resetSessionCompressions();
@@ -187,7 +187,8 @@ void CompressionsState::stepProgress(){
         controller->setState(ANALYZE_ECG);
     }
 
-    if(delay < 60){
+
+    if(10 < delay && delay < 60){
         compressionsDone = controller->getTestController()->getSessionCompressions() - (delay / 5);
 
         if(compressionsDone <= compressionTarget - VARIABILITY){
@@ -204,7 +205,7 @@ void CompressionsState::stepProgress(){
 
         }
     }
-    else{
+    else if (delay > 60){
         controller->getTestController()->resetSessionCompressions();
         delay = 0;
         controller->resetTimeElapsed();
