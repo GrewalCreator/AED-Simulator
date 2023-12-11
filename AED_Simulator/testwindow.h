@@ -43,7 +43,7 @@ private slots:
     void updateHR();
     void setHR();
     void updateSlider();
-    void handleCompressionButtonPress();
+    void executeCompression();
     void patientSwap(int index);
     void disableUI();
     void evaluate();

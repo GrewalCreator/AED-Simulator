@@ -60,8 +60,9 @@ void AEDWindow::initializeConnects() const{
 }
 
 void AEDWindow::shockPressed() const{
-    controller->shockPressed();
-
+    if(controller->getCurrentStep() == SHOCK){
+        controller->shockPressed();
+    }
 }
 
 void AEDWindow::updateSlider() const{

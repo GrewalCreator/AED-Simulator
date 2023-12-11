@@ -156,30 +156,7 @@ void AEDController::run(){
 
         // Slowly Kill Patient
 
-
-        if(deathFlag){
-            updateHR(activePatient->getHeartRate() - 5);
-            if(activePatient->isDead()){
-                deathFlag = false;
-            }
-        }
-
-        if(timeElapsed % 5 == 0){
-
-            if(activePatient->getHeartRate() == 250){
-                print("Patients Heart Was Too Rapid & Blew Up");
-                deathFlag = true;
-            }
-            else if(activePatient->getHeartRate() < 60){
-                updateHR(activePatient->getHeartRate() - 2);
-            }else if(activePatient->getHeartRate() > 150){
-                updateHR(activePatient->getHeartRate() + 2);
-            }else if(activePatient->getHeartRate() < 105){
-                updateHR(activePatient->getHeartRate() + 1);
-            }else if(activePatient->getHeartRate() > 105){
-                updateHR(activePatient->getHeartRate() - 1);
-            }
-        }
+        slowDeath();
 
 
         ++timeElapsed;
@@ -191,6 +168,32 @@ void AEDController::run(){
     sendStaticSignal(RESET,false);
 
     log("Run() Loop Ended");
+}
+
+void AEDController::slowDeath(){
+    if(deathFlag){
+        updateHR(activePatient->getHeartRate() - 5);
+        if(activePatient->isDead()){
+            deathFlag = false;
+        }
+    }
+
+    if(timeElapsed % 5 == 0){
+
+        if(activePatient->getHeartRate() == 250){
+            print("Patients Heart Was Too Rapid & Blew Up");
+            deathFlag = true;
+        }
+        else if(activePatient->getHeartRate() < 60){
+            updateHR(activePatient->getHeartRate() - 2);
+        }else if(activePatient->getHeartRate() > 150){
+            updateHR(activePatient->getHeartRate() + 2);
+        }else if(activePatient->getHeartRate() < 105){
+            updateHR(activePatient->getHeartRate() + 1);
+        }else if(activePatient->getHeartRate() > 105){
+            updateHR(activePatient->getHeartRate() - 1);
+        }
+    }
 }
 
 
@@ -243,7 +246,7 @@ bool AEDController::placePads(const PatientType& type){
 
 }
 
-//return if there is an error IF: BATTERY<=20 OR PAD DISCONNECTED FROM AED
+//return true if there is an error IF: BATTERY<30 OR PAD DISCONNECTED FROM AED
 void AEDController::systemsCheck(){
      errorFlag = (automatedED->getBattery()->getBatteryLevels() < 30) || !(pads->isConnectedToAED());
 }

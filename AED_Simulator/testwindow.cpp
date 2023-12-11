@@ -21,10 +21,12 @@ void TestWindow::initializeConnection(){
     // HeartRate Image
     connect(testController, SIGNAL(updateHeartRateImage(vector<double>&)), this, SLOT(generateHeartRateImage(vector<double>&)));
 
-    // Pad Placement testing buttons
+    // Pad Placement
     connect(ui->childPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
     connect(ui->adultPad_button, SIGNAL(released()), this, SLOT(padPlaced()));
-    connect(ui->togglePadAED, SIGNAL(clicked()), testController, SLOT(togglePadAED()));
+
+
+    connect(ui->togglePadConnection, SIGNAL(clicked()), testController, SLOT(togglePadConnection()));
     connect(ui->togglePadPatient, SIGNAL(clicked()), testController, SLOT(removePadsFromPatient()));
 
     //Heart rate testing buttons
@@ -32,7 +34,7 @@ void TestWindow::initializeConnection(){
     connect(ui->vtach_button, SIGNAL(clicked()), this, SLOT(setHR()));
 
     // Compressions
-    connect(ui->compressionButton, SIGNAL(released()), this, SLOT(handleCompressionButtonPress()));
+    connect(ui->compressionButton, SIGNAL(released()), this, SLOT(executeCompression()));
 
     // Update Slider after Shock
     connect(testController, SIGNAL(sliderUpdate()), this, SLOT(updateSlider()));
@@ -64,11 +66,11 @@ void TestWindow::disableUI(){
     ui->userDeath_label->show();
 }
 
-void TestWindow::handleCompressionButtonPress() {
-    int currentValue = ui->compressionNumber->value();
+void TestWindow::executeCompression() {
+    int compressionsDone = ui->compressionNumber->value();
 
     if(testController->getControlSystem()->getCurrentStep() != CPR){return;}
-    if(currentValue >= MAX_NUMBER_COMPRESSION){
+    if(compressionsDone >= MAX_NUMBER_COMPRESSION){
         testController->getControlSystem()->print("MAXIMUM NUMBER OF COMPRESSIONS REACHED");
         return;
     }
@@ -110,15 +112,16 @@ void TestWindow::styling(){
 }
 
 void TestWindow::padPlaced(){
-    QPushButton* button = qobject_cast<QPushButton*>(sender());
+    if(testController->getControlSystem()->getCurrentStep() > POWER_OFF){
+        QPushButton* button = qobject_cast<QPushButton*>(sender());
 
-    if(button){
-        if(button->objectName() == "childPad_button"){
-            testController->placePads(CHILD);
-        }else if(button->objectName() == "adultPad_button"){
-            testController->placePads(ADULT);
+        if(button != nullptr){
+            if(button->objectName() == "childPad_button"){
+                testController->placePads(CHILD);
+            }else if(button->objectName() == "adultPad_button"){
+                testController->placePads(ADULT);
+            }
         }
-
     }
 }
 
