@@ -36,7 +36,6 @@ void AED::resetShockPressed(){
 
 void AED::setShockPressed(){
     shockPressed = true;
-    qDebug()  << "Shock Pressed";
 }
 
 /*
