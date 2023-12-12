@@ -109,15 +109,15 @@
      </rect>
     </property>
     <property name="text">
-     <string>Systole</string>
+     <string>PEA</string>
     </property>
    </widget>
    <widget class="QPushButton" name="togglePadPatient">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>540</x>
       <y>310</y>
-      <width>181</width>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
@@ -128,14 +128,14 @@
    <widget class="QPushButton" name="togglePadConnection">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>540</x>
       <y>360</y>
-      <width>181</width>
+      <width>231</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>Disconnect Pads from AED</string>
+     <string>Toggle Pad Connection To AED</string>
     </property>
    </widget>
    <widget class="QLCDNumber" name="compressionNumber">

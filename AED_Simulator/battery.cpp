@@ -8,8 +8,8 @@ Battery::Battery(){
 
 void Battery::depleteBatteryLevel(){
     batteryLevels -= 10;
-    if(batteryLevels < 0){
-        batteryLevels = 0;
+    if(batteryLevels < 20){
+        batteryLevels = 20;
     }
 }
 
