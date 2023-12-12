@@ -108,6 +108,8 @@ private:
     AEDState* currentState;
     bool deathFlag;
 
+    void slowDeath();
+
 
 
     QMap<ProcessSteps, AEDState*> states;

@@ -13,7 +13,7 @@ class TestController: public QObject{
 
 public slots:
     void removePadsFromPatient() const;
-    void togglePadAED() const;
+    void togglePadConnection() const;
     void toggleWetPatient(int) const;
     void depleteBattery() const;
 

@@ -125,7 +125,7 @@
      <string>Remove Pads from Patient</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="togglePadAED">
+   <widget class="QPushButton" name="togglePadConnection">
     <property name="geometry">
      <rect>
       <x>590</x>

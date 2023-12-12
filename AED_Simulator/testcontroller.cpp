@@ -101,10 +101,9 @@ void TestController::removePadsFromPatient() const{
 
 }
 
-void TestController::togglePadAED() const{
-    bool setTo = controlSystem->getPads()->isConnectedToAED()^true;
-    controlSystem->getPads()->setIsConnectedToAED(setTo);
-
+void TestController::togglePadConnection() const{
+    bool previousConnectionValue = controlSystem->getPads()->isConnectedToAED();
+    controlSystem->getPads()->setIsConnectedToAED(!previousConnectionValue);
 }
 
 
