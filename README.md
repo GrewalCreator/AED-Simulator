@@ -1,9 +1,8 @@
 # AED Pulse Simulator
 
 
-### Build:
-    Execute the setup script 'setup.sh' with "sudo ./setup.sh"
-    
+# Build and Test
+1.	Execute the setup script 'setup.sh' with "sudo ./setup.sh" BEFORE running the program. Please ensure this step is done or you will recieve error messages and error audio throught the simulation. For information on the package we request be installed, please refer to the links provided below.
     
 ### Introduction 
 
@@ -14,9 +13,13 @@ AED Simulator leverages the QT Creator Development Platform to design an easy-to
 
 ## Important Note Regarding Sequence Diagrams
 1. Multiple sequence diagrams may be in the same PNG image, within a sequence diagram frame followed by their title. This title is used in reference frames to avoid duplicate diagrams and prevent crowding.
+
 2. Our safety for the preliminary checks is done in the thread loop. So in the run() function of the Tmain sequence diagram, you will see a function 'safetyChecks()' being run. This contains the checks and is not the responsibility of the states to return any error flags.
+
 3. Please read any notes found in the diagrams as they will explain details omitted or provide clarification where needed.
+
 4. Alt frames have been used to show cricual details in different possible paths which could not be ommited
+
 5. The Threadloop sequence diagram outlines the main flow of the states which controls the programs progression. Other functionalities such as button clicks are mainly used to set variables, which will aid the states decision making. This concurrency was outlined in the diagram sequencally to be as accurate as possible.
 
 ## Design decisions
@@ -39,7 +42,7 @@ It is greatly supported by the AEDState class.
 
 	Moreover, I implemented the MediaPlayer. Although we understood that a text version of the speaker met the project requirements, I believed there was room for improvement. As a result, I found the Alsa Project, a package enabling the playback of audio files from the shell. This acted as a replacement for QT's built-in mediaplayer. The MediaPlayer object was used in Power On, Power Off, Stand Clear, Charging & Shock audios, enhancing the program's realistic feel for the AED.
 
-	Amongst the classes, I was responsible for the implementation of AED, Patient, Battery, Electrode Pads, HeartRate Generator [which was later improved by Owen to add noise], Process Tracker, TestController & TestWindow. Additionally, I made minor refinements to Owen's UI, improving the usability and presentation of the buttons, incorporating the dark theme into the test window, and refining the AEDWindow styling to ensure a smooth look and feel with the UI elements and color shading. Thank you to Owen & Boris for their contributions to the UI styling, which I later migrated to a separate .qss file located in the Resources > Stylesheets folder.
+	Amongst the classes, I was responsible for the implementation of AED, Patient, Battery, Electrode Pads, HeartRate Generator [which was later improved by Owen to add noise], Process Tracker, TestController & TestWindow. For the AED Shock Functionality, with the help of Owen we figured out the best way to apply a different shock strength to patients with the incorrect pad, adding to the realism of our design. Additionally, I made minor refinements to Owen's UI, improving the usability and presentation of the buttons, incorporating the dark theme into the test window, and refining the AEDWindow styling to ensure a smooth look and feel with the UI elements and color shading. Thank you to Owen & Boris for their contributions to the UI styling, which I later migrated to a separate .qss file located in the Resources > Stylesheets folder.
 	
 	Finally, from a documentation standpoint, I was responsible for creating the sequence diagrams to detail all use-cases as well as recording the demo video. Please note the important message regarding the sequence diagrams above this documentation.
 	
@@ -166,8 +169,6 @@ It is greatly supported by the AEDState class.
     testcontroller.cpp, testcontroller.h
     testwindow.cpp, testwindow.h
 
-# Build and Test
-1.	Execute the setup script 'setup.sh' with "sudo ./setup.sh" BEFORE running the program. Please ensure this step is done or you will recieve error messages and error audio throught the simulation. For information on the package we request be installed, please refer to the links provided below.
 
 # Contributors
 	- Gurtej Grewal [101221758], gurtejgrewal@cmail.carleton.ca
