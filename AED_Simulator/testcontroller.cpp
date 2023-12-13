@@ -51,7 +51,9 @@ void TestController::incrementSessionCompressions(){
 }
 
 void TestController::depleteBattery() const{
-    controlSystem->getAED()->getBattery()->depleteBatteryLevel();
+    if(controlSystem->getCurrentStep() > POWER_OFF){
+        controlSystem->getAED()->getBattery()->depleteBatteryLevel();
+    }
 }
 
 void TestController::updateCompressionHeartRate() const{
