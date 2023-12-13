@@ -19,6 +19,15 @@ AED Simulator leverages the QT Creator Development Platform to design an easy-to
 4. Alt frames have been used to show cricual details in different possible paths which could not be ommited
 5. The Threadloop sequence diagram outlines the main flow of the states which controls the programs progression. Other functionalities such as button clicks are mainly used to set variables, which will aid the states decision making. This concurrency was outlined in the diagram sequencally to be as accurate as possible.
 
+## Design decisions
+1. The AEDController ties every element of the program together: it progresses the simulation with each loop, processing input from the user and updating the UI with its current state constantly. It is a mediator pattern, which manages communication between classes like AED, Patient and ProcessTracker and the UI. We have a lot of classes, so a mediator pattern made such a process seamless.
+It is greatly supported by the AEDState class. 
+
+2. The AEDState class, with its 6 concrete implementations is a State pattern, which takes on a majority of AEDController's logic, deciding when to move to the next step, when to shock, when to wait and so on. This separates the logic part of AEDController from the update and communicate part, avoiding a potential god object. It also made the state logic modular and much easier to work on as a team, not to mention the modularity enabled us to write more complex behaviour. 
+
+3. If you want to take a bit of a stretch, the AEDWindow is a bit of a facade from the point of view of the controllers: All they have to do is send a signal, with an enum, and either a string or bool. This signal allows for every possible UI update on the AEDWindow, and makes it easy to use for AEDController without having to know what UI element is what. AEDController simply sends StaticSignal(LIGHTUP_CHECK_OK,true) and makes the AEDWindow go through 6 QLabel elements and 6 label assets, all to set a single light to on, ensuring no other light is on. This also goes for printing a message to the console, updating the battery, and updating the heart rate LCD.
+
+
 ## Individual Contributions
 
 ### Gurtej Grewal
@@ -36,7 +45,17 @@ AED Simulator leverages the QT Creator Development Platform to design an easy-to
 	
 	
 ### Owen Lucas
+    In the first week of the project, I made a rough draft of the use cases, state diagram, and class diagram. One of first things our team did after reading the requirements was come together to figure out the structure of the program, and I documented and expanded on it by relating the admin guide and what our team came up with into the use cases, which later found its way into the final documents I made: the state diagram, traceability matrix, and the use case summary/diagram (made using Overleaf, draw.io and Mermaid). I also edited Libeamlak's class diagram a bit to be more readable and UML-compliant.
 
+    The second week was spent creating the foundation of our program's UI: I ripped assets from the Zoll AED-Plus using GIMP, then figured out how to display the assets on QT's UI. From there, I made sure to make reusable and reliable functions to avoid future image-related debugging pains. Boris improved on my design by adding styling to the elements, while Gurtej made it so the styling was no longer hardcoded into the program.
+    
+    Between the second and third week, I added connectivity between AEDController and AEDWindow, so that AEDController had the ability to light up AEDWindow's indicator lights.
+
+    At this point, I had also handled the concurrency part of our program, turning AEDController into an object that ran in a different thread than our main window. I also modularized part of AEDController into AEDTransmitter, which was created to avoid multiple inheritance due to the threaded implementation.
+
+    Week 3 was where I took on a large part of the program's logic: I essentially made AEDController the heart of the program, ticking every .2 seconds to move to the next operation. Initially, The program had a processtracker, implemented by Gurtej to keep track of the AED's state. So naturally, I made a single function to handle every state (this would not end well). This function would be responsible for the progression and logic from powering on all the way to CPR. As Boris, Libeamlak and I added onto the function, we would constantly run into merge conflicts, so I refactored the entire function into a state pattern with 6 different states. This would ultimately be worth it, as we encountered less merge conflicts when working on different states. This also allowed for more complex behaviour of our AED; things like the real-time compression feedback, operational safety, shock safety, and message delays were some of the things I worked on with my teammates that this new state pattern allowed for.
+
+    I also worked with Gurtej to come up with a way to make the patient class stabilize and destabilize depending on the current heart rate with each tick, giving it a physics simulation-like quality. I would also later go on to improve on Gurtej's wave generator, combining harmonic sine waves, noise, and randomness to approximate the ECG signatures of vtach, vfib, PEA and a normal heart signal.
 
 
 ### Boris Zugic

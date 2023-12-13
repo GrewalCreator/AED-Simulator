@@ -1,0 +1,120 @@
+stateDiagram-v2
+direction LR
+note left of POWER_ON
+NOTE: Every state has a transition going to this state\n under the condition that the error flag is set to true.\nIt is not a state in AEDState, rather a variable in\nAEDController that can override any state.
+end note
+    POWER_OFF
+    state POWER_ON { 
+        connectedOk:Battery OK & \nPad-AED Connected
+        connectedCritical:Battery Critical &\n Pad-AED Connected
+        disconnectedOk:Battery OK & \nPad-AED Disconnected
+        disconnectedCritical:Battery Critical & \nPad-AED Disconnected
+
+        [*] --> connectedOk
+        disconnectedCritical --> connectedCritical:Toggle AED-Pad ON
+        connectedCritical --> disconnectedCritical: Toggle AED-Pad OFF
+
+        connectedCritical --> connectedOk: Battery level >= 30%
+        connectedOk --> connectedCritical: Battery level < 30%
+
+        disconnectedCritical --> disconnectedOk:Battery level >= 30%
+        disconnectedOk --> disconnectedCritical: Battery level < 30%
+
+        disconnectedOk --> connectedOk:Toggle AED-Pad ON
+        connectedOk --> disconnectedOk: Toggle AED-Pad OFF
+
+        connectedOk --> [*]: No variable is changed at this timestep.
+    }
+    CHECK_OK
+    GET_HELP
+    state ELECTRODE_PAD_PLACEMENT{
+        properOn: Proper Placement
+        improperOn: Improper Placement
+        off: Not on Patient
+        [*] --> off
+        off --> improperOn: placePads returns false
+        off --> properOn: placePads returns true
+        improperOn --> properOn: retrying placePads returns true
+        improperOn --> off: pads removed
+        properOn --> off: pads removed
+        properOn --> [*]
+
+    }
+    state ANALYZE_ECG{
+        state if <<choice>>
+        delay: Displaying\nInitial Message
+        shock: Shockable Message
+        nominal: Nominal Message
+        nonshock: Unshockable Message
+        [*] --> delay
+        delay -->if
+        if --> shock:150 < HR
+        if --> nominal: 60< HR<150
+        nominal --> delay: HR<60 OR 150< HR
+        if --> nonshock: HR < 60
+        shock --> [*]:after 10 simulation ticks
+        nonshock --> [*]: after 10 simulation ticks
+    }
+
+    state SHOCK{
+        nopress: Waiting
+        press: Delivering Shock
+        msg: Shock Confirmed\nMessage
+
+        [*] --> nopress
+        nopress --> press: Shock button\nPressed
+        press --> msg: Shock delivered
+        msg --> [*]: after 10 simulation ticks
+    }
+    state CPR{
+        message: Displaying inital message
+        steady: Steady Compressions
+        fast: Compressions\nToo Fast
+        slow: Compressions\nToo Slow
+
+        [*] --> message
+        message -->slow:after 10 simulation ticks
+        slow --> steady: User steadily clicking
+        steady -->slow: User slows down clicking
+        steady --> fast: User clicks too fast
+
+        slow --> [*]: took too long\nor patient is nominal
+        fast --> [*]: took too long\nor patient is nominal
+        steady --> [*]: took too long\nor patient is nominal
+
+
+    }
+
+    state powerIf <<choice>>
+
+    UserDeath: User Dead from Shock
+    [*] --> POWER_OFF
+    CHECK_OK --> error_found
+    GET_HELP --> error_found
+    ELECTRODE_PAD_PLACEMENT --> error_found
+    ANALYZE_ECG --> error_found
+    SHOCK --> error_found
+    CPR --> error_found
+
+    POWER_ON --> powerIf
+    error_found --> POWER_ON:Nothing about the error is done.
+    POWER_OFF --> POWER_ON:Power button is clicked
+    powerIf --> CHECK_OK: Pads are NOT on yet
+    powerIf --> ELECTRODE_PAD_PLACEMENT: Pads are placed INCORRECTLY
+    powerIf --> ANALYZE_ECG: Pads are placed CORRECTLY
+    CHECK_OK --> GET_HELP:10 simulation ticks pass
+    GET_HELP --> ELECTRODE_PAD_PLACEMENT:10 simulation ticks pass
+    ELECTRODE_PAD_PLACEMENT --> ANALYZE_ECG: pads are properly placed.
+    ANALYZE_ECG --> SHOCK: 150 < HR
+    ANALYZE_ECG --> CPR: HR < 60
+    SHOCK --> CPR: Shock is delivered OR patient is nominal
+    CPR --> ANALYZE_ECG: Time runs out OR patient is nominal
+    SHOCK --> UserDeath: User is shocked while \nin a conductive environment
+    UserDeath --> [*]
+
+        note right of error_found
+    Every transition to this state\nImplies one of three things:\nEither the battery is critically low,\nthe pads are disconnected from AED,\n or both.
+    end note
+note right of [*]
+There is a transition going from\n every state to a termination state with\nthe condition that the user presses the exit button.
+end note
