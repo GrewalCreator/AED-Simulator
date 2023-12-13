@@ -59,7 +59,62 @@ It is greatly supported by the AEDState class.
 
 
 ### Boris Zugic
+    
+    New Features:
 
+    Dynamic Patient Selection:
+    Implemented a feature allowing users to switch between adult and child patient modes seamlessly during runtime, providing greater flexibility in handling different scenarios.
+    
+    AED Power-On Logic:
+    Developed a functionality ensuring that upon powering on the AED, it follows the correct sequence based on whether the pads are attached and correctly placed. This enhances the application's usability and adherence to proper AED operation.
+    
+    Post-Shock BPM Adjustment:
+    Created a feature where the BPM displayed on the LCD decreases after the shock button is pressed, adding realism and a dynamic element to the application.
+    
+    Real-Time BPM Analysis:
+    Implemented a real-time BPM analysis feature where the state of the AED is updated in parallel with the numerical value of the slider. This enhances the accuracy and responsiveness of the application.
+    
+    Pads-Related Features:
+    Designed functionalities ensuring that the BPM is not displayed unless pads are attached to the patient, and implemented a 'place pads' feature for proper AED setup.
+    
+    Visual Styling:
+    Styled the BPM slider to indicate low, nominal, and high BPM using colors. Also, improved the styling of the cursor used to move the slider, enhancing the application's visual appeal.
+
+    LCD Display Enhancements:
+    Integrated a feature where the BPM is displayed on the LCD based on the numerical value of the slider, improving the user interface and providing accurate feedback.
+    
+    Window Interaction:
+    Ensured that both application windows close simultaneously, enhancing user experience and maintaining consistency in the application's behavior.
+
+    
+    Bug Fixes:
+    
+    Program Flow Corrections:
+    Resolved a bug where pressing buttons before powering on the AED led to incorrect program flow, ensuring a more reliable sequence of operations.
+
+    Preventing Display Issues:
+    Fixed bugs related to premature display of the graph and BPM on the LCD before powering on the AED and placing pads on patient, providing a smoother user experience.
+
+    Pad Placement and Shock Logic:
+    Addressed issues preventing pads from being placed at any point and ensuring correct shock light behavior during transitions between BPM states.
+
+    User Interface Fixes:
+    Resolved bugs related to display overwriting, incorrect background color, and fatal errors when showing the test window, enhancing the overall application stability and aesthetics.
+
+    
+    Additional Contributions:
+
+    Documentation and ReadMe:
+    Worked on the ReadMe file, providing clear instructions for users and developers. 
+
+    Collaboration and Meetings:
+    Actively participated and held meetings, collaborated with team members to resolve issues, and provided assistance with feature development.
+
+    Code Refactoring:
+    Engaged in code refactoring activities to improve code quality, readability, and adherence to best practices.
+
+    Sequence Diagrams:
+    Created a rough draft of sequence diagrams, facilitating communication and understanding of the application's flow, which was presented during personal demo.
 
 
 ### Libeamlak Kiros
@@ -100,11 +155,11 @@ It is greatly supported by the AEDState class.
 # Contributors
 	- Gurtej Grewal [101221758], gurtejgrewal@cmail.carleton.ca
 
-    	- Boris Zugic, boriszugic123@gmail.com
+    - Boris Zugic [101223924], boriszugic@cmail.carleton.ca
 
-    	- Owen Lucas [101226679], OWENLUCAS3@cmail.carleton.ca
+    - Owen Lucas [101226679], OWENLUCAS3@cmail.carleton.ca
 
-	-  Libeamlak Kiros, LIBEAMLAKKIROS@cmail.carleton.ca
+	- Libeamlak Kiros, LIBEAMLAKKIROS@cmail.carleton.ca
 
 
 ### Issues/Limitations:
