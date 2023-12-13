@@ -119,8 +119,25 @@ It is greatly supported by the AEDState class.
 
 ### Libeamlak Kiros
 
+    Incorporated CheckPatientState functionality into the system. This strategic integration improves the system's overall performance and 
+    responsiveness by introducing two essential features that contribute to monitoring and aiding the patient. The CheckPatientState function 
+    allows for real-time assessment of the patient's condition, enabling the system to dynamically respond to any changes in their health status.
 
+    Incorporated GetHelpState functionality into the system. The GetHelpState feature is like a really important tool for getting help quickly, 
+    making sure the system can handle emergencies well.
 
+    I successfully implemented the compression feature into the system. Additionally, I ensured that the slider, LCD, and graph components undergo 
+    automatic updates in synchronisation with every execution of the compression process. Integrating these two techniques ensures that the user is 
+    provided with both a seamless and responsive user experience, as well as real-time visual feedback during compression. Also, the values of each 
+    compression are randomly set to make the application more realistic.
+
+    I added sounds to the system to make the AED easier for users. These sounds help people interact with the AED better by giving them sound effects 
+    they can hear. Sounders like intro sound,  charging sound and shocking sound were added.
+
+    I have generated an initial draft of the UML class diagram for the AED system. This diagram encapsulates the structural representation of the system, 
+    showcasing the various classes, their attributes, and the relationships between them.
+
+    Actively collaborating with teammates and attending meetings as needed.
 
 ### Description:
     The AED Pulse Simulator is a software application designed to simulate the core functionality of an Automated External Defibrillator
@@ -159,7 +176,7 @@ It is greatly supported by the AEDState class.
 
     - Owen Lucas [101226679], OWENLUCAS3@cmail.carleton.ca
 
-	- Libeamlak Kiros, LIBEAMLAKKIROS@cmail.carleton.ca
+	- Libeamlak Kiros [101228966], LIBEAMLAKKIROS@cmail.carleton.ca
 
 
 ### Issues/Limitations:
