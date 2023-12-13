@@ -1,0 +1,216 @@
+<mxfile host="app.diagrams.net" modified="2023-12-13T06:01:50.209Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 OPR/104.0.0.0" etag="IWGOnHkKN91b25wwbThm" version="22.1.8" type="device">
+  <diagram name="Page-1" id="IDVpzXIi5fXiW6P4MWVd">
+    <mxGraphModel dx="2243" dy="758" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-27" value="" style="rounded=0;whiteSpace=wrap;html=1;fillStyle=hatch;" parent="1" vertex="1">
+          <mxGeometry x="600" y="220" width="745" height="550" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-56" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-10" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-57" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-56" vertex="1" connectable="0">
+          <mxGeometry x="-0.3022" y="1" relative="1" as="geometry">
+            <mxPoint x="-14" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-21" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-1" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-23" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-1" target="S-EI5ThkF1VQq75TRYTi-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-25" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-1" target="S-EI5ThkF1VQq75TRYTi-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-33" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-1" target="S-EI5ThkF1VQq75TRYTi-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-1" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="110" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-19" style="orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-2" target="S-EI5ThkF1VQq75TRYTi-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-22" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-2" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-24" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-2" target="S-EI5ThkF1VQq75TRYTi-17" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-26" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-2" target="S-EI5ThkF1VQq75TRYTi-16" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-34" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-2" target="S-EI5ThkF1VQq75TRYTi-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-2" value="AED" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="740" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-28" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-3" target="S-EI5ThkF1VQq75TRYTi-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-3" value="Patient" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="610" y="100" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-48" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-5" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-49" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-48" vertex="1" connectable="0">
+          <mxGeometry x="-0.3417" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-5" value="Use Case 0:&lt;br&gt;Operating the AED" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="40" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-52" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-6" target="S-EI5ThkF1VQq75TRYTi-17" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="510" />
+              <mxPoint x="-160" y="510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-54" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-52" vertex="1" connectable="0">
+          <mxGeometry x="0.2432" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-53" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-6" target="S-EI5ThkF1VQq75TRYTi-16" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="310" />
+              <mxPoint x="-355" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-55" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-53" vertex="1" connectable="0">
+          <mxGeometry x="0.0372" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-6" value="Use Case 1:&lt;br&gt;Power On" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="330" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-31" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-8" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-32" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-31" vertex="1" connectable="0">
+          <mxGeometry x="0.3087" y="4" relative="1" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-8" value="Use Case 2:&lt;br&gt;Electrode Placement" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="630" y="480" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-35" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-9" target="S-EI5ThkF1VQq75TRYTi-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-36" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-35" vertex="1" connectable="0">
+          <mxGeometry x="0.0959" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-9" value="Use Case 3:&lt;br&gt;Analysis" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="460" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-37" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-10" target="S-EI5ThkF1VQq75TRYTi-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-38" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-37" vertex="1" connectable="0">
+          <mxGeometry x="-0.1041" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-10" value="Use Case 4:&lt;br&gt;Shocks" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="840" y="280" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-39" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-11" target="S-EI5ThkF1VQq75TRYTi-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-40" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-39" vertex="1" connectable="0">
+          <mxGeometry x="-0.168" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-41" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-11" target="S-EI5ThkF1VQq75TRYTi-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-67" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-41" vertex="1" connectable="0">
+          <mxGeometry x="-0.6536" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-11" value="Use Case 5:&lt;br&gt;Compressions" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="840" y="590" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-45" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-13" target="S-EI5ThkF1VQq75TRYTi-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-46" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-45" vertex="1" connectable="0">
+          <mxGeometry x="-0.2114" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-13" value="Use Case 6:&lt;br&gt;Successful Resuscitation" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1160" y="680" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-43" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-14" target="S-EI5ThkF1VQq75TRYTi-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-44" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-43" vertex="1" connectable="0">
+          <mxGeometry x="-0.2649" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-14" value="Use Case 7:&lt;br&gt;Cessation of Efforts" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="1170" y="250" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-16" value="Use Case 8:&lt;br&gt;Replacing the Batteries" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-425" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-17" value="Use Case 9:&lt;br&gt;Connecting Pads to&amp;nbsp;&lt;br&gt;AED" style="ellipse;whiteSpace=wrap;html=1;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="-230" y="380" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-18" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-1" target="S-EI5ThkF1VQq75TRYTi-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-50" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.002;entryY=0.653;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="S-EI5ThkF1VQq75TRYTi-5" target="S-EI5ThkF1VQq75TRYTi-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-51" value="&amp;lt;&amp;lt;INCLUDES&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-50" vertex="1" connectable="0">
+          <mxGeometry x="0.1386" y="-3" relative="1" as="geometry">
+            <mxPoint x="58" y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-58" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-11" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="855" y="338" as="sourcePoint" />
+            <mxPoint x="475" y="412" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="780" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-59" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-58" vertex="1" connectable="0">
+          <mxGeometry x="-0.3022" y="1" relative="1" as="geometry">
+            <mxPoint x="-14" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-60" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S-EI5ThkF1VQq75TRYTi-9" target="S-EI5ThkF1VQq75TRYTi-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="865" y="348" as="sourcePoint" />
+            <mxPoint x="485" y="422" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S-EI5ThkF1VQq75TRYTi-61" value="&amp;lt;&amp;lt;EXTENDS&amp;gt;&amp;gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S-EI5ThkF1VQq75TRYTi-60" vertex="1" connectable="0">
+          <mxGeometry x="-0.3022" y="1" relative="1" as="geometry">
+            <mxPoint x="-59" y="-6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

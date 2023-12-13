@@ -1,0 +1,290 @@
+classDiagram
+direction TB
+AEDWindow "1"  *-- AEDController
+AEDWindow "1" -- "1" AEDTransmitter
+
+TestWindow "1" *-- TestController
+
+AEDController "1" *-- AEDTransmitter
+AEDController "2" *-- Patient
+AEDController "1" *-- Logger
+AEDController "1" *-- ElectrodePads
+AEDController "1" *--> "1" AED
+AEDController "1" *-- ProcessTracker
+AEDController "1" *-- HeartRateGenerator
+AEDController "6" *--> "1" AEDState
+AEDController "1" -- "1" TestController
+
+AED "1" *-- Battery
+AED "1" *-- MediaPlayer
+
+Patient --> PatientType
+ElectrodePads --> PatientType
+AEDController --> SignalType
+AEDWindow --> SignalType
+AEDController --> ProcessSteps
+ProcessTracker --> ProcessSteps
+MediaPlayer --> AudioTypes
+
+AEDState <|-- PowerOnState
+AEDState <|-- CheckPatientState
+AEDState <|-- GetHelpState
+AEDState <|-- PadPlacementState
+AEDState <|-- AnalysisState
+AEDState <|-- ShockState
+AEDState <|-- CompressionsState
+
+    class AEDController{
+
+        +print(string message)void 
+        +sendStaticSignal(SignalType, bool)void 
+        +sendDynamicSignal(SignalType, string)void 
+        +powerAEDOn()bool 
+        +powerAEDOff()bool 
+        +recharge()void
+        +standClear()void
+        +shockPressed()bool
+        +decreaseBPM(int)void
+        +updateSlider()void
+        +placePads(PatientType)bool
+        +checkOk()void
+        +illuminate(SignalType)void
+
+
+
+        -initStates()void
+        -systemsCheck()void
+        -checkAll()void
+        -updateHR()void
+        -timeElapsed int
+        -semaphore QSemaphore
+        -breakflag bool
+        -errorFlag bool
+        -automatedED AED 
+        -stepProgress()void
+        -cleanup()void 
+        -run()void 
+    }
+
+    class AED{
+
+        +playAudio(AudioTypes)void
+        +checkShockSafety()bool
+        +shock()bool
+        +powerOn()bool
+
+        -numShocks int
+        -amperage int 
+        -shockPressed bool
+        -safetyChecks()bool
+        -randomModifier(int diff)int 
+        -random(int min, int max)int 
+    }
+
+    class AEDWindow{
+
+        -imageMap QMap<QString, QPixmap> 
+        -uiMap QMap<SignalType,QLabel> 
+        -semaphore QSemaphore 
+        -controlThread QThread 
+
+        -loadImgs()void 
+        -initImgs()void 
+        -signalToString()void 
+        -initializeConnects()void 
+        -setOneLight(SignalType, bool)void 
+        -setAllLights(bool)void 
+        -styling()void 
+        -setShockLight(bool)void 
+        -setPowerLight(bool)void 
+        -setUpVisuals()void 
+        -updateBattery(int)void 
+        -updateHeartRate(int)void 
+        -resetUI(bool)void 
+        -updateSlider()void 
+
+
+        -aboutToClose()void 
+
+
+        #closeEvent(QCloseEvent event)void 
+
+
+        -receiveStaticSignal(SignalType, bool)void 
+        -receiveDynamicSignal(SignalType, string)void 
+        -togglePower()void 
+        -consoleOut(string)void 
+        -recharge()void 
+        -shockPressed()void 
+    }
+
+
+    class Battery{
+
+        +depleteBatteryLevel()void 
+        +chargeBattery()void
+
+        -batteryLevels int
+    }
+
+    class ElectrodePads{
+  
+        +isOnPatient()bool 
+        +isConnectedToAED()bool 
+        +s etIsConnectedToAED(bool connectedToAED)void
+
+        -onPatient bool 
+        -connectedToAED bool 
+    }
+
+    class HeartRateGenerator {
+        
+        +updateHeartRate(double newHeartRate)void 
+
+        -generateHeartRateValues(double heartRate)void 
+        -xValues vector<double>
+        -yValues vector<double>
+
+    }
+
+    class Logger{
+
+        log(QString)void
+
+        -activeFile QFile 
+        -dateHandler QDateTime
+        -outStream QTextStream 
+
+        -setup()void 
+        -cleanup()void
+    }
+
+    class MediaPlayer{
+
+        play(AudioTypes)void 
+
+    }
+
+    class Patient {
+
+
+        +isDead()bool 
+
+
+        -isInWater bool 
+        -heartRate double 
+        -hasPadsOn bool 
+        -improperPlacement bool 
+        -name string 
+    }
+
+    class ProcessTracker{
+
+        -previousStep ProcessSteps
+        -currentStep ProcessSteps
+    }
+   
+    class TestController{
+        +togglePadPatient()void 
+        +togglePadAED()void 
+        +toggleWetPatient()void 
+        +updateHeartRateImage(vector<double>)void 
+        +sliderUpdate()void 
+        +updateHeartRate(int)void 
+        +placePads(PatientType)void 
+        +updateSlider()void 
+
+    }
+
+    class TestWindow{
+        +styling()void 
+        +aboutToClose()void 
+
+        #closeEvent(QCloseEvent event)void 
+
+        -padPlaced()void 
+        -generateHeartRateImage(vector<double>)void 
+        -updateHR()void 
+        -updateSlider()void 
+        -handleCompressionButtonPress()void 
+        -initializeConnection()void 
+
+    }
+    class AEDState{
+        <<Abstract>>
+        +stepProgress()*void
+        #QElapsedTimer timer
+        #int delay
+        #int compressionTarget
+        #int compressionsDone
+
+
+    }
+    
+    class PowerOnState{
+        +stepProgress()void
+     }
+    class CheckPatientState{
+        +stepProgress()void
+     }
+    class GetHelpState{ 
+        +stepProgress()void
+    }
+    class PadPlacementState{
+        +stepProgress()void
+     }
+    class AnalysisState{
+        +stepProgress()void
+     }
+    class ShockState{
+        +stepProgress()void
+     }
+    class CompressionsState{
+        +stepProgress()void
+     }
+
+    class SignalType{ 
+        <<enumeration>>
+        PRINT
+        INDICATOR_LIGHT
+        POWER_INDICATOR
+        LIGHTUP_SHOCK
+        LIGHTUP_911
+        LIGHTUP_OK
+        LIGHTUP_COMPRESSIONS
+        LIGHTUP_PADS
+        LIGHTUP_STANDCLEAR
+        SET_STATUS
+        BATTERY
+        HEART_RATE
+        RESET
+        SLIDER
+        DEATH
+    }
+    class ProcessSteps{
+        <<enumeration>>
+        POWER_OFF 
+        POWER_ON 
+        CHECK_OK 
+        GET_HELP 
+        ELECTRODE_PAD_PLACEMENT 
+        ANALYZE_ECG 
+        SHOCK 
+        CPR
+        AFTER_CARE
+    }
+    class PatientType{
+        <<enumeration>>
+        CHILD
+        ADULT
+    }
+    class AudioTypes{
+        <<enumeration>>
+        STAND_CLEAR,
+        INTRO_AUDIO
+        POWER_ON_AUDIO
+        POWER_OFF_AUDIO
+        BATTERY_AUDIO
+        CHARGING_AUDIO
+        SHOCKING_AUDIO
+    }
