@@ -2,7 +2,11 @@
 
 
 # Build and Test
-1.	Execute the setup script 'setup.sh' with "sudo ./setup.sh" BEFORE running the program. Please ensure this step is done or you will recieve error messages and error audio throught the simulation. For information on the package we request be installed, please refer to the links provided below.
+
+1. Execute Program with the setup script 'setup.sh'. This should already be an executable but incase of an issue please convert the file to an executable using 'sudo chmod +x ./setup.sh'. This file will install the required packages to play audio & run the program.
+2. If you encounter any errors, you may install the package seperatly using [sudo apt update] & [sudo apt install alsa-utils], and then run the program in QT.
+3. Please note this alsa-utils package is required for the audio. More information regarding the package can be found below.
+4. If you run into any other issues, attempt to run the unixConversion Script. If this does not resolve your issue, please contact us and we will provide an immediate fix.
     
 ### Introduction 
 
