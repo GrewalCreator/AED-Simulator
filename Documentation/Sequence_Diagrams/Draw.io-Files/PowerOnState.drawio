@@ -1,0 +1,66 @@
+<mxfile host="Electron" modified="2023-12-14T01:20:04.712Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="G_CWwqZMyFOU8zG2N7DY" version="22.1.2" type="device">
+  <diagram name="Page-1" id="hljYgnFNEkTDQgMdFpnJ">
+    <mxGraphModel dx="-3813" dy="1377" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-1" value="PowerOnState" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="4865" y="-663" width="100" height="375" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="8WLmocq-ZB0kUsePEXR4-1">
+          <mxGeometry x="45" y="72" width="10" height="219" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-3" value="AEDController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="5151" y="-663" width="100" height="376" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-4" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="8WLmocq-ZB0kUsePEXR4-3">
+          <mxGeometry x="45" y="81" width="10" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="8WLmocq-ZB0kUsePEXR4-3">
+          <mxGeometry x="45" y="177" width="10" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="8WLmocq-ZB0kUsePEXR4-3">
+          <mxGeometry x="45" y="231" width="10" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-7" value="TestController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="5430" y="-663" width="100" height="376" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-8" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="8WLmocq-ZB0kUsePEXR4-7">
+          <mxGeometry x="45" y="135" width="10" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-9" value="getTestController()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" parent="1" target="8WLmocq-ZB0kUsePEXR4-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4921" y="-577" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-10" value="return TestController Object" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4923" y="-542" as="targetPoint" />
+            <mxPoint x="5190" y="-542" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-11" value="resetSessionCompressions" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4924" y="-497" as="sourcePoint" />
+            <mxPoint x="5471.75" y="-497" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-12" value="setState(CHECK_OK)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4920" y="-461" as="sourcePoint" />
+            <mxPoint x="5196" y="-461" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-13" value="resetTimeElapsed()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0.2;entryY=0.474;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="8WLmocq-ZB0kUsePEXR4-6">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4920" y="-412" as="sourcePoint" />
+            <mxPoint x="5191" y="-410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8WLmocq-ZB0kUsePEXR4-14" value="sd PowerOnState" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=151;height=25;" vertex="1" parent="1">
+          <mxGeometry x="4828" y="-782" width="820" height="494" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
