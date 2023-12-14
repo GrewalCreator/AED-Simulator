@@ -9,3 +9,8 @@ fi
 # Update package lists and install packages
 apt update
 apt install -y alsa-utils
+
+cd AED_Simulator
+qmake
+make
+./AED_Simulator
