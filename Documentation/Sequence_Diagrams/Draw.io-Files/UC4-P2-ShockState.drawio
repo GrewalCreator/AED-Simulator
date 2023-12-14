@@ -1,0 +1,124 @@
+<mxfile host="Electron" modified="2023-12-14T01:06:19.925Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="GhH3QjiM8ItAGSUM-Nyj" version="22.1.2" type="device">
+  <diagram name="Page-1" id="Wb4E1U6Qv39WmP0qfeq-">
+    <mxGraphModel dx="-2781" dy="-87" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-1" value="ShockState" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="4625" y="1289" width="100" height="898" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-1">
+          <mxGeometry x="45" y="81" width="10" height="593" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-3" value="AEDController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="4829" y="1289" width="100" height="897" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-4" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-3">
+          <mxGeometry x="44" y="94" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-5" value="AED" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="5045" y="1286" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-5">
+          <mxGeometry x="46" y="200" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-7" value="getPatient()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" parent="1" target="OfyDpj9DpDw8-1Jop3oI-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4681" y="1388" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-8" value="return Patient Object" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" parent="1" source="OfyDpj9DpDw8-1Jop3oI-4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4680" y="1458" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-9" value="getAED()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" edge="1" parent="1" target="OfyDpj9DpDw8-1Jop3oI-6">
+          <mxGeometry x="0.0025" relative="1" as="geometry">
+            <mxPoint x="4684" y="1491" as="sourcePoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-10" value="return AED Object" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" edge="1" parent="1" source="OfyDpj9DpDw8-1Jop3oI-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="4685" y="1558" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-11" value="AEDController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="4394" y="1286" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-12" value="sd ShockState" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=131;height=27;" vertex="1" parent="1">
+          <mxGeometry x="4223" y="1242" width="1101" height="945" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-13" value="MediaPlayer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" vertex="1" parent="1">
+          <mxGeometry x="5204" y="1286" width="100" height="900" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-14" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-13">
+          <mxGeometry x="45" y="311" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-13">
+          <mxGeometry x="45" y="435" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-16" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="OfyDpj9DpDw8-1Jop3oI-13">
+          <mxGeometry x="45" y="558" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-17" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="5092" y="1590" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-18" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="5091" y="1716" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-19" value="playAudio(CHARGING_AUDIO)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4683.5" y="1741" as="sourcePoint" />
+            <mxPoint x="5092.5" y="1741" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-20" value="playAudio(STAND_CLEAR)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4682" y="1609" as="sourcePoint" />
+            <mxPoint x="5091" y="1609" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-21" value="play(STAND_CLEAR)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1" source="OfyDpj9DpDw8-1Jop3oI-17">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="5134" y="1627" as="sourcePoint" />
+            <mxPoint x="5248" y="1630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-22" value="play(CHARGING_AUDIO)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="5102" y="1755.83" as="sourcePoint" />
+            <mxPoint x="5248" y="1755.83" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-23" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="5090" y="1820" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-24" value="shock()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4680" y="1854" as="sourcePoint" />
+            <mxPoint x="5090" y="1854" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-25" value="play(SHOCKING_AUDIO)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="5102" y="1873" as="sourcePoint" />
+            <mxPoint x="5248" y="1873" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-26" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="4439" y="1891" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-27" value="setState(CPR)" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="4674" y="1928" as="sourcePoint" />
+            <mxPoint x="4449" y="1927.9999999999995" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OfyDpj9DpDw8-1Jop3oI-28" value="&lt;font style=&quot;font-size: 55px;&quot;&gt;Use Case 4: Shocks Part 2&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="4412" y="1182" width="718" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

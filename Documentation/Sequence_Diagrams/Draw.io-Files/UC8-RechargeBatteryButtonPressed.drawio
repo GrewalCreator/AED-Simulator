@@ -1,0 +1,101 @@
+<mxfile host="Electron" modified="2023-12-14T01:02:50.154Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.2 Chrome/114.0.5735.289 Electron/25.9.4 Safari/537.36" etag="IDwusScPs4c_jyjuk8C4" version="22.1.2" type="device">
+  <diagram name="Page-1" id="Bo7qY7Rw5LG1MfGEcQUJ">
+    <mxGraphModel dx="2684" dy="1502" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="F45ysbJJXayAjCoSrO6q-1" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="-590" y="115" width="20" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-2" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-1" vertex="1">
+          <mxGeometry x="5" y="63" width="10" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-3" value="User" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-620" y="77" width="80" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-4" value="AEDWindow" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="-207" y="115" width="100" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-5" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-4" vertex="1">
+          <mxGeometry x="45" y="68" width="10" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-6" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-4" vertex="1">
+          <mxGeometry x="50" y="135" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-7" value="recharge()" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;" parent="F45ysbJJXayAjCoSrO6q-4" target="F45ysbJJXayAjCoSrO6q-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="55" y="115" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="85" y="145" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-8" value="&lt;div style=&quot;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;AED-UI&lt;/span&gt;&lt;/div&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlBoundary;align=center;size=59;opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="-415" y="103" width="77" height="353" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-9" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-8" vertex="1">
+          <mxGeometry x="34" y="75" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-12" value="Recharge Button Pressed" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" source="F45ysbJJXayAjCoSrO6q-2" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="-571" y="192" as="sourcePoint" />
+            <mxPoint x="-383" y="192" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-13" value="clicked()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fillColor=#a20025;strokeColor=#6F0000;strokeWidth=3;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="-369" y="205" as="sourcePoint" />
+            <mxPoint x="-163" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-14" value="AEDController" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="10" y="120" width="100" height="336" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-15" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-14" vertex="1">
+          <mxGeometry x="45" y="130" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-16" value="recharge()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="-148" y="281" as="sourcePoint" />
+            <mxPoint x="50" y="281" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-17" value="AED" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="210" y="120" width="100" height="335" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-17" vertex="1">
+          <mxGeometry x="45" y="130" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-18" value="Battery" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};opacity=30;" parent="1" vertex="1">
+          <mxGeometry x="436" y="120" width="100" height="333" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-23" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};" parent="F45ysbJJXayAjCoSrO6q-18" vertex="1">
+          <mxGeometry x="45" y="210" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-21" value="getBattery()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=5;" parent="1" target="F45ysbJJXayAjCoSrO6q-20" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="66" y="253" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-22" value="return batteryObject" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;" parent="1" source="F45ysbJJXayAjCoSrO6q-20" edge="1">
+          <mxGeometry x="0.0111" y="-4" relative="1" as="geometry">
+            <mxPoint x="67" y="323" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-24" value="chargeBattery()" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;" parent="1" edge="1">
+          <mxGeometry width="80" relative="1" as="geometry">
+            <mxPoint x="65.99999999999977" y="356" as="sourcePoint" />
+            <mxPoint x="479" y="356" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="F45ysbJJXayAjCoSrO6q-25" value="sd RechargeBatteryButtonPressed" style="shape=umlFrame;whiteSpace=wrap;html=1;pointerEvents=0;width=256;height=28;" parent="1" vertex="1">
+          <mxGeometry x="-638" y="25" width="1218" height="431" as="geometry" />
+        </mxCell>
+        <mxCell id="Ny-q6w7djB4CMcOSUhyD-1" value="&lt;font style=&quot;font-size: 55px;&quot;&gt;Use Case 8: Replacing Batteries&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-357" y="-38" width="840" height="63" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
