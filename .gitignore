@@ -4,3 +4,4 @@ build-AED_Simulator-Desktop-Profile/
 *.o
 moc*.h
 moc*.cpp
+*.bkp
