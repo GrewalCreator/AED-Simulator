@@ -25,7 +25,9 @@ private:
     void generateHeartRateValues(double heartRate);
     vector<double> xValues;
     vector<double> yValues;
-
+    vector<double> aparams;
+    vector<double> bparams;
+    double a0;
 
 
 };
