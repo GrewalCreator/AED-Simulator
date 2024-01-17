@@ -38,17 +38,31 @@ It is greatly supported by the AEDState class.
 ## Individual Contributions
 
 ### Gurtej Grewal
-	Throughout this project, I took on multiple responsibilities, starting with the management of Azure DevOps and the breakdown of the project, enabling me to assign tasks efficiently to my fellow team members. This particular structure sped up the development of our program to be a highly functional simulation, surpassing all required implementations and allowing for the incorporation of additional features.
 
-	In addition to overseeing project management, I reviewed all pull requests from my group members before merging them with the main program. This approach to source control prevented issues such as duplicate code, accidental overwrites of other members' implementations, and potential errors stemming from any miscommunication.
+Throughout this project, I took on multiple responsibilities, starting with the management of Azure DevOps 
+and the breakdown of the project, enabling me to assign tasks efficiently to my fellow team members. 
+This particular structure sped up the development of our program to be a highly functional simulation, 
+surpassing all required implementations and allowing for the incorporation of additional features.
 
-	Furthermore, I hosted regular weekly meetings with group members on Discord. These meetings served to discuss upcoming tasks, next steps in the project, and to address any questions and/or concerns. From a technical perspective, my responsibilities included creating the Logger Class. Its main function was to log statements into a generated .log file located in the Resources > Log folder. This logging system tracks our program's progression and expedited the debugging process. The .log files were excluded from git tracking by utilizing .gitignore to prevent individual program cluttering, serving exclusively for debugging purposes.
+In addition to overseeing project management, I reviewed all pull requests from my group members before 
+merging them with the main program. This approach to source control prevented issues such as duplicate code,
+accidental overwrites of other members' implementations, and potential errors stemming from any miscommunication.
 
-	Moreover, I implemented the MediaPlayer. Although we understood that a text version of the speaker met the project requirements, I believed there was room for improvement. As a result, I found the Alsa Project, a package enabling the playback of audio files from the shell. This acted as a replacement for QT's built-in mediaplayer. The MediaPlayer object was used in Power On, Power Off, Stand Clear, Charging & Shock audios, enhancing the program's realistic feel for the AED.
+Furthermore, I hosted regular weekly meetings with group members on Discord. These meetings served to discuss 
+upcoming tasks, next steps in the project, and to address any questions and/or concerns. From a technical perspective, 
+my responsibilities included creating the Logger Class. Its main function was to log statements into a generated .log 
+file located in the Resources > Log folder. This logging system tracks our program's progression and expedited the debugging process.
+The .log files were excluded from git tracking by utilizing .gitignore to prevent individual program 
+cluttering, serving exclusively for debugging purposes.
 
-	Amongst the classes, I was responsible for the implementation of AED, Patient, Battery, Electrode Pads, HeartRate Generator [which was later improved by Owen to add noise], Process Tracker, TestController & TestWindow. For the AED Shock Functionality, with the help of Owen we figured out the best way to apply a different shock strength to patients with the incorrect pad, adding to the realism of our design. Additionally, I made minor refinements to Owen's UI, improving the usability and presentation of the buttons, incorporating the dark theme into the test window, and refining the AEDWindow styling to ensure a smooth look and feel with the UI elements and color shading. Thank you to Owen & Boris for their contributions to the UI styling, which I later migrated to a separate .qss file located in the Resources > Stylesheets folder.
-	
-	Finally, from a documentation standpoint, I was responsible for creating the sequence diagrams to detail all use-cases as well as recording the demo video. Please note the important message regarding the sequence diagrams above this documentation.
+Moreover, I implemented the MediaPlayer. Although we understood that a text version of the speaker met the project requirements, I believed there was room for improvement. 
+As a result, I found the Alsa Project, a package enabling the playback of audio files from the shell. This acted as a replacement for QT's built-in mediaplayer. 
+The MediaPlayer object was used in Power On, Power Off, Stand Clear, Charging & Shock audios, enhancing the program's realistic feel for the AED.
+
+Amongst the classes, I was responsible for the implementation of AED, Patient, Battery, Electrode Pads, HeartRate Generator [which was later improved by Owen to add noise], 
+Process Tracker, TestController & TestWindow. For the AED Shock Functionality, with the help of Owen we figured out the best way to apply a different shock strength to patients with the incorrect pad, adding to the realism of our design. Additionally, I made minor refinements to Owen's UI, improving the usability and presentation of the buttons, incorporating the dark theme into the test 	window, and refining the AEDWindow styling to ensure a smooth look and feel with the UI elements and color shading. Thank you to Owen & Boris for their contributions to the UI styling, which I later migrated to a separate .qss file located in the Resources > Stylesheets folder.
+
+Finally, from a documentation standpoint, I was responsible for creating the sequence diagrams to detail all use-cases as well as recording the demo video. Please note the important message 		regarding the sequence diagrams above this documentation.
 	
 	
 ### Owen Lucas
